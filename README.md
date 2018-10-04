@@ -44,7 +44,7 @@ Team GDPR staat voor “Guys Do Programming Right”, een fictief bedrijf dat gr
 
 ## Handleidingen
 
-> - Project runnen op MacOS
+> - [Project runnen op macOS](handleidingen/macos-instructies.md)
 
 ## GitHub Repository van de Lunchers App
 De Lunchers App heeft een aparte Repository:
