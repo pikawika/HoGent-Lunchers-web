@@ -1,3 +1,12 @@
 # Backend en Website Projecten 3
-opgelet: project gebruikt .net core 2.2 en Angular CLI
+
+### Mac Installation 
+
+Het runnen van deze repository vereist Angular CLI en .NET Core 2.2
+
+Starten via commandline:
+
+```
+$ dotnet run 
+```
 
