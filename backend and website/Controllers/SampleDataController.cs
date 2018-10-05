@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApplication5.Controllers
@@ -14,7 +16,7 @@ namespace WebApplication5.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        [HttpGet("[action]")]
+        /*[HttpGet("[action]"), Authorize]
         public IEnumerable<WeatherForecast> WeatherForecasts()
         {
             var rng = new Random();
@@ -39,6 +41,31 @@ namespace WebApplication5.Controllers
                     return 32 + (int)(TemperatureC / 0.5556);
                 }
             }
+        }*/
+
+        [HttpGet("[action]"), Authorize]
+        public IEnumerable<string> WeatherForecasts()
+        {
+            
+            var currentUser = HttpContext.User;
+
+
+            if (currentUser.HasClaim(c => c.Type == ClaimTypes.Actor))
+            {
+                string rol = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Actor).Value;
+
+                if (rol == "admin")
+                {
+                    string[] test = new string[] { "warm", "koud", "lol" };
+                    return test.AsEnumerable();
+                }else{
+                    string[] test = new string[] { "Rol moet admin zijn maar is " +rol };
+                    return test.AsEnumerable();
+                }
+            }
+
+
+            return null;
         }
     }
 }
