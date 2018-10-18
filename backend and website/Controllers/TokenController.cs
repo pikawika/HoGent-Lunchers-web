@@ -10,19 +10,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using WebApplication5.Models;
+using WebApplication5.Models.Repositories;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace WebApplication5.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/auth")]
     public class TokenController : Controller
     {
         private IConfiguration _config;
+        private readonly IUserRepository _userRepository;
 
-        public TokenController(IConfiguration config)
+        public TokenController(IConfiguration config, IUserRepository userRepository)
         {
             _config = config;
+            this._userRepository = userRepository;
         }
 
         [AllowAnonymous]
@@ -63,13 +66,7 @@ namespace WebApplication5.Controllers
 
         private UserModel Authenticate(LoginModel login)
         {
-            UserModel user = null;
-
-            if (login.Username == "jodi" && login.Password == "testww")
-            {
-                user = new UserModel { Name = "jodi", Email = "jodi@jodideloof.com" , Rol = "user"};
-            }
-            return user;
+            return _userRepository.Authenticate(login.Username, login.Password);
         }
 
 

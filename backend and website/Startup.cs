@@ -5,9 +5,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using WebApplication5.Data;
+using WebApplication5.Data.Repositories;
+using WebApplication5.Models.Repositories;
 
 namespace WebApplication5
 {
@@ -24,6 +28,11 @@ namespace WebApplication5
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("mac")));
+
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -45,10 +54,13 @@ namespace WebApplication5
                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                };
            });
+
+            services.AddScoped<DummyDataInitializer>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DummyDataInitializer dummyDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -85,6 +97,8 @@ namespace WebApplication5
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            dummyDataInitializer.InitializeData().Wait();
         }
     }
 }
