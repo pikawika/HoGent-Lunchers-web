@@ -7,6 +7,7 @@ namespace WebApplication5.Models.Repositories
     {
         IEnumerable<UserModel> GetAll();
         UserModel Authenticate(string username, string password);
+        void Register(UserModel user);
     }
 }
  

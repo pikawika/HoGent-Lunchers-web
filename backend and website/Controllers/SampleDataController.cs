@@ -20,39 +20,7 @@ namespace WebApplication5.Controllers
             _users = users;
         }
 
-        /*private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
-        [HttpGet("[action]"), Authorize]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
-        }
-
-        public class WeatherForecast
-        {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
-
-            public int TemperatureF
-            {
-                get
-                {
-                    return 32 + (int)(TemperatureC / 0.5556);
-                }
-            }
-        }*/
-
-        [HttpGet("[action]"), Authorize]
+       [HttpGet("[action]"), Authorize]
         public IEnumerable<UserModel> WeatherForecasts()
         {
             
@@ -66,11 +34,13 @@ namespace WebApplication5.Controllers
                 if (rol == "admin")
                 {
                     string[] test = new string[] { "warm", "koud", "lol" };
-                    //return test.AsEnumerable();
+                    //returned momenteel steeds een lijst van alle users 
+                    //om te testen of de user wel degelijk toegevoegd is
                     return _users.GetAll();
                 }else{
                     string[] test = new string[] { "Rol moet admin zijn maar is " +rol };
-                    //return test.AsEnumerable();
+                    //returned momenteel steeds een lijst van alle users 
+                    //om te testen of de user wel degelijk toegevoegd is
                     return _users.GetAll();
                 }
             }

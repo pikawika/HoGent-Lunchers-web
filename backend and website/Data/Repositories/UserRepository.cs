@@ -27,5 +27,15 @@ namespace WebApplication5.Data.Repositories
         {
             return _users.ToList();
         }
+
+        public void Register(UserModel user)
+        {
+            _users.Add(user);
+            saveChanges();
+        }
+
+        private void saveChanges(){
+            _context.SaveChanges();
+        }
     }
 }
