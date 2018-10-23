@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Lunchers.Data.Mappers;
 using Lunchers.Models;
 using Lunchers.Models.Domain;
 
@@ -29,7 +28,6 @@ namespace Lunchers.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.ApplyConfiguration(new UserMapper());
         }
     }
 }

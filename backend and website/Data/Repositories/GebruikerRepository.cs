@@ -21,7 +21,7 @@ namespace Lunchers.Data.Repositories
 
         public Gebruiker Authenticate(string gebruikersnaam, string wachtwoord)
         {
-            return _gebruikers.Where(gebruiker => gebruiker.Gebruikersnaam == gebruikersnaam && gebruiker.Wachtwoord == wachtwoord).FirstOrDefault();
+            return _gebruikers.Where(gebruiker => gebruiker.Gebruikersnaam == gebruikersnaam && gebruiker.Wachtwoord == wachtwoord).Include(g => g.Rol).FirstOrDefault();
         }
 
         public IEnumerable<Gebruiker> GetAll()

@@ -22,7 +22,7 @@ namespace Lunchers.Controllers
         }
 
        [HttpGet("[action]"), Authorize]
-        public IEnumerable<Gebruiker> WeatherForecasts()
+        public String ShowRoll()
         {
             
             var currentUser = HttpContext.User;
@@ -32,17 +32,11 @@ namespace Lunchers.Controllers
             {
                 string rol = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Actor).Value;
 
-                if (rol == "admin")
+                if (rol == "Admin")
                 {
-                    string[] test = new string[] { "warm", "koud", "lol" };
-                    //returned momenteel steeds een lijst van alle users 
-                    //om te testen of de user wel degelijk toegevoegd is
-                    return _users.GetAll();
+                    return "Je bent een Admin";
                 }else{
-                    string[] test = new string[] { "Rol moet admin zijn maar is " +rol };
-                    //returned momenteel steeds een lijst van alle users 
-                    //om te testen of de user wel degelijk toegevoegd is
-                    return _users.GetAll();
+                    return "Je bent geen Admin maar wel " + rol;
                 }
             }
 
