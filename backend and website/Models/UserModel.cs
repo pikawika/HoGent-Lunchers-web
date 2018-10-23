@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebApplication5.Models
+namespace Lunchers.Models
 {
     public class UserModel
     {

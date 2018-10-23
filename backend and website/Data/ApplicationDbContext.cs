@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using WebApplication5.Data.Mappers;
-using WebApplication5.Models;
+using Lunchers.Data.Mappers;
+using Lunchers.Models;
 
-namespace WebApplication5.Data
+namespace Lunchers.Data
 {
     public class ApplicationDbContext : DbContext
     {
