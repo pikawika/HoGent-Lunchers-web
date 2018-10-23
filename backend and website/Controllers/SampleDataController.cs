@@ -7,21 +7,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
+using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private IUserRepository _users;
+        private IGebruikerRepository _users;
 
-        public SampleDataController(IUserRepository users)
+        public SampleDataController(IGebruikerRepository users)
         {
             _users = users;
         }
 
        [HttpGet("[action]"), Authorize]
-        public IEnumerable<UserModel> WeatherForecasts()
+        public IEnumerable<Gebruiker> WeatherForecasts()
         {
             
             var currentUser = HttpContext.User;
