@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
+using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
@@ -18,12 +19,12 @@ namespace Lunchers.Controllers
     public class TokenController : Controller
     {
         private IConfiguration _config;
-        private readonly IUserRepository _userRepository;
+        private readonly IGebruikerRepository _gebruikerRepository;
 
-        public TokenController(IConfiguration config, IUserRepository userRepository)
+        public TokenController(IConfiguration config, IGebruikerRepository gebruikerRepository)
         {
             _config = config;
-            this._userRepository = userRepository;
+            this._gebruikerRepository = gebruikerRepository;
         }
 
         [AllowAnonymous]
@@ -42,11 +43,11 @@ namespace Lunchers.Controllers
             return response;
         }
 
-        private string BuildToken(UserModel user)
+        private string BuildToken(Gebruiker gebruiker)
         {
             
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Actort, user.Rol),
+                new Claim(JwtRegisteredClaimNames.Actort, gebruiker.Rol.Naam),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -62,9 +63,9 @@ namespace Lunchers.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private UserModel Authenticate(LoginModel login)
+        private Gebruiker Authenticate(LoginModel login)
         {
-            return _userRepository.Authenticate(login.Username, login.Password);
+            return _gebruikerRepository.Authenticate(login.Gebruikersnaam, login.Wachtwoord);
         }
 
 

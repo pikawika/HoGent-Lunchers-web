@@ -7,21 +7,22 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
+using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private IUserRepository _users;
+        private IGebruikerRepository _users;
 
-        public SampleDataController(IUserRepository users)
+        public SampleDataController(IGebruikerRepository users)
         {
             _users = users;
         }
 
        [HttpGet("[action]"), Authorize]
-        public IEnumerable<UserModel> WeatherForecasts()
+        public String ShowRoll()
         {
             
             var currentUser = HttpContext.User;
@@ -31,17 +32,11 @@ namespace Lunchers.Controllers
             {
                 string rol = currentUser.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Actor).Value;
 
-                if (rol == "admin")
+                if (rol == "Admin")
                 {
-                    string[] test = new string[] { "warm", "koud", "lol" };
-                    //returned momenteel steeds een lijst van alle users 
-                    //om te testen of de user wel degelijk toegevoegd is
-                    return _users.GetAll();
+                    return "Je bent een Admin";
                 }else{
-                    string[] test = new string[] { "Rol moet admin zijn maar is " +rol };
-                    //returned momenteel steeds een lijst van alle users 
-                    //om te testen of de user wel degelijk toegevoegd is
-                    return _users.GetAll();
+                    return "Je bent geen Admin maar wel " + rol;
                 }
             }
 
