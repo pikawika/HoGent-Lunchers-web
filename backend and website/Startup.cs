@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using WebApplication5.Data;
-using WebApplication5.Data.Repositories;
-using WebApplication5.Models.Repositories;
+using Lunchers.Data;
+using Lunchers.Data.Repositories;
+using Lunchers.Models.Repositories;
 
-namespace WebApplication5
+namespace Lunchers
 {
     public class Startup
     {

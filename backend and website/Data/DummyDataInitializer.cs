@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WebApplication5.Models;
+using Lunchers.Models;
 
-namespace WebApplication5.Data
+namespace Lunchers.Data
 {
     public class DummyDataInitializer
     {

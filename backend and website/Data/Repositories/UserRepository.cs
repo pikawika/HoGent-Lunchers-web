@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using WebApplication5.Models;
-using WebApplication5.Models.Repositories;
+using Lunchers.Models;
+using Lunchers.Models.Repositories;
 
-namespace WebApplication5.Data.Repositories
+namespace Lunchers.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {

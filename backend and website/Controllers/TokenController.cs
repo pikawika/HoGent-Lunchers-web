@@ -9,12 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebApplication5.Models;
-using WebApplication5.Models.Repositories;
+using Lunchers.Models;
+using Lunchers.Models.Repositories;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace WebApplication5.Controllers
+namespace Lunchers.Controllers
 {
     [Route("api/auth")]
     public class TokenController : Controller

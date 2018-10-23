@@ -1,11 +1,11 @@
 {
-  "name": "WebApplication5",
+  "name": "Lunchers",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:ssr": "ng run WebApplication5:server:dev",
+    "build:ssr": "ng run Lunchers:server:dev",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

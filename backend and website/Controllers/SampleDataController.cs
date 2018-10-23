@@ -5,10 +5,10 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WebApplication5.Models;
-using WebApplication5.Models.Repositories;
+using Lunchers.Models;
+using Lunchers.Models.Repositories;
 
-namespace WebApplication5.Controllers
+namespace Lunchers.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller

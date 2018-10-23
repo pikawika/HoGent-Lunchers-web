@@ -1,5 +1,5 @@
 ﻿using System;
-namespace WebApplication5.Models
+namespace Lunchers.Models
 {
     public class LoginModel
     {

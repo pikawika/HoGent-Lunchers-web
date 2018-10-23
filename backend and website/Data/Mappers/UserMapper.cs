@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using WebApplication5.Models;
+using Lunchers.Models;
 
-namespace WebApplication5.Data.Mappers
+namespace Lunchers.Data.Mappers
 {
     public class UserMapper : IEntityTypeConfiguration<UserModel>
     {
