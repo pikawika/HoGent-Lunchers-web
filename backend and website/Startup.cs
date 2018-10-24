@@ -30,7 +30,7 @@ namespace Lunchers
 
             //windows of mac invullen afhankelijk van je os -> DefaultConnection voor de server!!!!!
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Deployment")));
+                options.UseSqlServer(Configuration.GetConnectionString("Windows")));
 
 
 
@@ -93,7 +93,7 @@ namespace Lunchers
                 }
             });
 
-            dummyDataInitializer.InitializeData().Wait();
+            dummyDataInitializer.InitializeData();
         }
     }
 }

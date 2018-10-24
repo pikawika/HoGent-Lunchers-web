@@ -9,6 +9,8 @@ namespace Lunchers.Data
     {
         public DbSet<Afbeelding> Afbeeldingen { get; set; }
         public DbSet<Gebruiker> Gebruikers { get; set; }
+        public DbSet<Klant> Klanten { get; set; }
+        public DbSet<Administrator> Adminstratoren { get; set; }
         public DbSet<Handelaar> Handelaars { get; set; }
         public DbSet<Ingredient> Ingredienten { get; set; }
         public DbSet<IngredientInLunch> IngredientInLunch { get; set; }
