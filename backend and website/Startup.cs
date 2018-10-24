@@ -28,9 +28,10 @@ namespace Lunchers
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //windows of mac invullen afhankelijk van je os
+            //windows of mac invullen afhankelijk van je os -> DefaultConnection voor de server!!!!!
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("windows")));
+                options.UseSqlServer(Configuration.GetConnectionString("Windows")));
+
 
 
             services.AddSpaStaticFiles(configuration =>
@@ -62,6 +63,7 @@ namespace Lunchers
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -91,7 +93,7 @@ namespace Lunchers
                 }
             });
 
-            dummyDataInitializer.InitializeData().Wait();
+            dummyDataInitializer.InitializeData();
         }
     }
 }
