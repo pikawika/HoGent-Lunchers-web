@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Lunchers.Models;
+using Lunchers.Models.Domain;
 
 namespace Lunchers.Data
 {
@@ -19,11 +20,15 @@ namespace Lunchers.Data
             _dbContext.Database.EnsureDeleted();
             if (_dbContext.Database.EnsureCreated())
             {
-                UserModel user = new UserModel{Email="jodi@jodideloof.be",Name="jodi", Password="test123",Rol="admin"};
-
-                _dbContext.Users.Add(user);
+                Rol rolAdmin = new Rol { Naam = "Admin" };
+                Rol rolStandaard = new Rol { Naam = "Standaard" };
+                _dbContext.Rollen.Add(rolAdmin);
+                _dbContext.Rollen.Add(rolStandaard);
+                Gebruiker gebruiker1 = new Gebruiker { Voornaam = "Team", Achternaam = "GDPR", Gebruikersnaam = "teamGDPR", Email = "teamgdpr@qarfa.be", Wachtwoord = "wachtwoord123", Telefoonnummer = "0491234514", Rol = rolAdmin };
+                Gebruiker gebruiker2 = new Gebruiker { Voornaam = "Een", Achternaam = "Klant", Gebruikersnaam = "klant", Email = "klant@qarfa.be", Wachtwoord = "wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard };
+                _dbContext.Gebruikers.Add(gebruiker1);
+                _dbContext.Gebruikers.Add(gebruiker2);
                 _dbContext.SaveChanges();
-
             }
         }
     }
