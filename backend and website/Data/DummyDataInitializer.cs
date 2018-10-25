@@ -61,6 +61,64 @@ namespace Lunchers.Data
                 _dbContext.Gebruikers.AddRange(gebruikers);
                 // GEBRUIKERS EIND
 
+                //INGREDIENT
+                IngredientInLunch ingredient1 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Paprika" } };
+                IngredientInLunch ingredient2 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Kip" } };
+                IngredientInLunch ingredient3 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Boontjes" } };
+                IngredientInLunch ingredient4 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Melk producten" } };
+                IngredientInLunch ingredient5 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Pasta" } };
+                IngredientInLunch ingredient6 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Tomaat" } };
+                IngredientInLunch ingredient7 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Brocoli" } };
+                IngredientInLunch ingredient8 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Noten" } };
+                IngredientInLunch ingredient9 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Rundsvlees" } };
+                IngredientInLunch ingredient10 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Varkensvlees" } };
+                IngredientInLunch ingredient11 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Vis" } };
+                IngredientInLunch ingredient12 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Ui" } };
+
+                var ingredienten1 = new List<IngredientInLunch>{
+                    ingredient1, ingredient2, ingredient5, ingredient6, ingredient10
+                };
+
+                var ingredienten2 = new List<IngredientInLunch>{
+                    ingredient1, ingredient6, ingredient3, ingredient6, ingredient9
+                };
+
+                var ingredienten3 = new List<IngredientInLunch>{
+                    ingredient7, ingredient8, ingredient5, ingredient6, ingredient10
+                };
+
+                var ingredienten4 = new List<IngredientInLunch>{
+                    ingredient1, ingredient2, ingredient5, ingredient6, ingredient10
+                };
+
+                var ingredienten5 = new List<IngredientInLunch>{
+                    ingredient1, ingredient2, ingredient5, ingredient6, ingredient10
+                };
+
+                //Tags
+                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger" } };
+                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "lekker" } };
+                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "smakelijk" } };
+                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "pasta" } };
+                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "vis" } };
+
+                var tags = new List<TagInLunch>{
+                    tag1,tag2,tag3,tag4,tag5
+                };
+
+                //LUNCHES BEGIN
+                Lunch lunchStandaard1 = new Lunch { Naam = "Hamburger", Prijs = 10, Ingredienten = ingredienten1, Beschrijving = "Deze smakelijke hamburger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 11, 4), Tags = tags, Handelaar = (Handelaar)gebruikerHandelaar1Qarfa };
+                Lunch lunchStandaard2 = new Lunch { Naam = "Pasta", Prijs = 34, Ingredienten = ingredienten2, Beschrijving = "Deze smakelijke pasta is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 11, 4), Tags = tags, Handelaar = (Handelaar)gebruikerHandelaar2BrasserieBlomme };
+                Lunch lunchStandaard3 = new Lunch { Naam = "Vis Burger", Prijs = 15, Ingredienten = ingredienten3, Beschrijving = "Deze smakelijke vis burger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 11, 4), Tags = tags, Handelaar = (Handelaar)gebruikerHandelaar3Kelderman };
+                Lunch lunchStandaard4 = new Lunch { Naam = "Brocoli", Prijs = 25, Ingredienten = ingredienten4, Beschrijving = "Deze gezonde groente is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 11, 4), Tags = tags, Handelaar = (Handelaar)gebruikerHandelaar4Zorba };
+                Lunch lunchStandaard5 = new Lunch { Naam = "Zalm", Prijs = 50, Ingredienten = ingredienten5, Beschrijving = "Deze smakelijke zalm is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 11, 4), Tags = tags, Handelaar = (Handelaar)gebruikerHandelaar5Dion };
+
+                var lunches = new List<Lunch>{
+                    lunchStandaard1,lunchStandaard2,lunchStandaard3,lunchStandaard4,lunchStandaard5
+                };
+
+                _dbContext.Lunches.AddRange(lunches);
+
                 // SAVE CHANGES
                 _dbContext.SaveChanges();
             }
