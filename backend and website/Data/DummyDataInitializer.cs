@@ -34,7 +34,7 @@ namespace Lunchers.Data
                 // ROLLEN EINDE
 
                 // GEBRUIKERS BEGIN
-                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Gebruikersnaam = "Pikawika", Email = "info@lennertbontinck.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard };
+                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Gebruikersnaam = "Pikawika", Email = "info@lennertbontinck.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard, Reservaties = new List<Reservatie>()};
                 Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Gebruikersnaam = "Kathi", Email = "bramblett@me.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
                 Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Gebruikersnaam = "Liza", Email = "liza@optonline.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
                 Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Gebruikersnaam = "Christine", Email = "christine@msn.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
@@ -116,8 +116,14 @@ namespace Lunchers.Data
                 var lunches = new List<Lunch>{
                     lunchStandaard1,lunchStandaard2,lunchStandaard3,lunchStandaard4,lunchStandaard5
                 };
-
                 _dbContext.Lunches.AddRange(lunches);
+
+                //RESERVATIES
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 5, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaard1 });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaard2 });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaard3 });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaard4 });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaard5 });
 
                 // SAVE CHANGES
                 _dbContext.SaveChanges();
