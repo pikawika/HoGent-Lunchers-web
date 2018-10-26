@@ -3,6 +3,8 @@
 
 Dit is de GitHub repository (deel website en backend) voor het project Lunchers van Team GDPR. U kan hier steeds alle broncode raadplegen en clonen. Voor elke sprint is ook een release voorzien.
 
+> [Ga naar de website (Backend only)](http://lunchers.azurewebsites.net)
+
 ## Inhoudsopgave
 
 > - [Wie is Team GDPR](#wie-is-team-gdpr)
