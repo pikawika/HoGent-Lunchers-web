@@ -15,7 +15,7 @@ using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
-    [Route("api/auth")]
+    [Route("api/authentication/{action}/{id?}")]
     public class TokenController : Controller
     {
         private IConfiguration _config;
@@ -47,7 +47,7 @@ namespace Lunchers.Controllers
         {
             
             var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Actort, gebruiker.Rol.Naam),
+                new Claim(JwtRegisteredClaimNames.Actort, gebruiker.Login.Rol.Naam),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

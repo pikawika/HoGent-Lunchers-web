@@ -11,10 +11,8 @@ namespace Lunchers.Models.Domain
         [Key]
         public int GebruikerId { get; private set; }
         public string Telefoonnummer { get; set; }
-        public string Gebruikersnaam { get; set; }
         public string Email { get; set; }
-        public string Wachtwoord { get; set; }
-        public Rol Rol { get; set; }
+        public Login Login { get; set; }
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
     }

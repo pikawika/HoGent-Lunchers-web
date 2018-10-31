@@ -11,5 +11,6 @@ namespace Lunchers.Models
         [Key]
         public int TagId { get; private set; }
         public string Naam { get; set; }
+        public string Kleur { get; set; }
     }
 }

@@ -30,25 +30,37 @@ namespace Lunchers.Data
                 {
                     rolAdmin, rolStandaard, rolHandelaar
                 };
-                _dbContext.Rollen.AddRange(rollen);
                 // ROLLEN EINDE
 
                 // GEBRUIKERS BEGIN
-                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Gebruikersnaam = "lennert", Email = "info@lennertbontinck.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Gebruikersnaam = "kathi", Email = "bramblett@me.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Gebruikersnaam = "liza", Email = "liza@optonline.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Gebruikersnaam = "christine", Email = "christine@msn.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Gebruikersnaam = "jena", Email = "jena@sbcglobal.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Gebruikersnaam = "jan", Email = "jan@mac.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
+                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Email = "info@lennertbontinck.com", Telefoonnummer = "0491234514" };
+                gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaardLennert, Rol = rolStandaard };
+                Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Email = "bramblett@me.com", Telefoonnummer = "0491234515" };
+                gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard1, Rol = rolStandaard };
+                Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Email = "liza@optonline.net", Telefoonnummer = "0491234515" };
+                gebruikerStandaard2.Login = new Login { Gebruikersnaam = "liza", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard2, Rol = rolStandaard };
+                Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Email = "christine@msn.com", Telefoonnummer = "0491234515" };
+                gebruikerStandaard3.Login = new Login { Gebruikersnaam = "christine", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard3, Rol = rolStandaard };
+                Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Email = "jena@sbcglobal.net", Telefoonnummer = "0491234515" };
+                gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard4, Rol = rolStandaard };
+                Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Email = "jan@mac.com", Telefoonnummer = "0491234515" };
+                gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard5, Rol = rolStandaard };
 
-                Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Gebruikersnaam = "teamGDPR", Email = "info@teamgdpr.be", Wachtwoord = "Wachtwoord123", Rol = rolAdmin, Telefoonnummer = "0491234514" };
-                Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Gebruikersnaam = "Renate", Email = "renate@qarfa.be", Wachtwoord = "Wachtwoord123", Rol = rolAdmin, Telefoonnummer = "0494157077" };
+                Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Email = "info@teamgdpr.be", Telefoonnummer = "0491234514" };
+                gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerAdmin1TeamGdpr, Rol = rolAdmin };
+                Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Email = "renate@qarfa.be", Telefoonnummer = "0494157077" };
+                gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerAdmin2QarfaRenate, Rol = rolAdmin };
 
-                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { Naam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Gebruikersnaam = "Qarfa", Email = "info@qarfa.be", Wachtwoord = "Wachtwoord123", Rol = rolHandelaar, Telefoonnummer = "0494157077", Locatie =  new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10, };
-                Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { Naam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Gebruikersnaam = "BrasserieBlomme", Email = "info@brasserieblomme.be", Wachtwoord = "Wachtwoord123", Rol = rolHandelaar, Telefoonnummer = "0475529592", Locatie =  new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
-                Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { Naam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Gebruikersnaam = "Kelderman", Email = "info@kelderman.be", Wachtwoord = "Wachtwoord123", Rol = rolHandelaar, Telefoonnummer = "053776125", Locatie =  new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
-                Gebruiker gebruikerHandelaar4Zorba = new Handelaar { Naam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Gebruikersnaam = "ZorbaAalst", Email = "info@zorbaaalst.be", Wachtwoord = "Wachtwoord123", Rol = rolHandelaar, Telefoonnummer = "053776506", Locatie =  new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
-                Gebruiker gebruikerHandelaar5Dion = new Handelaar { Naam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Gebruikersnaam = "Dion", Email = "info@Dion.be", Wachtwoord = "Wachtwoord123", Rol = rolHandelaar, Telefoonnummer = "053787815", Locatie =  new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
+                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { Naam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@qarfa.be", Telefoonnummer = "0494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
+                gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar1Qarfa, Rol = rolHandelaar };
+                Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { Naam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "info@brasserieblomme.be", Telefoonnummer = "0475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
+                gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar2BrasserieBlomme, Rol = rolHandelaar };
+                Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { Naam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Email = "info@kelderman.be", Telefoonnummer = "053776125", Locatie = new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
+                gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar3Kelderman, Rol = rolHandelaar };
+                Gebruiker gebruikerHandelaar4Zorba = new Handelaar { Naam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Email = "info@zorbaaalst.be", Telefoonnummer = "053776506", Locatie = new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
+                gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar4Zorba, Rol = rolHandelaar };
+                Gebruiker gebruikerHandelaar5Dion = new Handelaar { Naam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "053787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
+                gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar5Dion, Rol = rolHandelaar };
 
 
 
@@ -58,7 +70,7 @@ namespace Lunchers.Data
                     gebruikerAdmin1TeamGdpr, gebruikerAdmin2QarfaRenate,
                     gebruikerHandelaar1Qarfa, gebruikerHandelaar2BrasserieBlomme, gebruikerHandelaar3Kelderman, gebruikerHandelaar4Zorba, gebruikerHandelaar5Dion
                 };
-                _dbContext.Gebruikers.AddRange(gebruikers);
+
                 // GEBRUIKERS EINDE
 
                 //INGREDIENT
@@ -93,21 +105,35 @@ namespace Lunchers.Data
                 //INGREDIENT EINDE
 
                 //TAGS
-                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger" } };
-                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "vlees" } };
-                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "frietjes" } };
-                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "sla" } };
-                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "gezond" } };
-                TagInLunch tag6 = new TagInLunch { Tag = new Tag { Naam = "vegetarisch" } };
-                TagInLunch tag7 = new TagInLunch { Tag = new Tag { Naam = "vis" } };
-                TagInLunch tag8 = new TagInLunch { Tag = new Tag { Naam = "zalm" } };
-                TagInLunch tag9 = new TagInLunch { Tag = new Tag { Naam = "italiaans" } };
-                TagInLunch tag10 = new TagInLunch { Tag = new Tag { Naam = "dieet" } };
-                TagInLunch tag11 = new TagInLunch { Tag = new Tag { Naam = "kip" } };
+                string RodeKleur = "FF6A6A";
+                string GroeneKleur = "82CA9D ";
+                string Gelekleur = "FFF79A ";
 
 
-                var tagsVlees = new List<TagInLunch>{
-                    tag1,tag2,tag3
+                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger", Kleur = RodeKleur } };
+                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "varkensvlees", Kleur = RodeKleur } };
+                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "frietjes", Kleur = Gelekleur } };
+                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "sla", Kleur = GroeneKleur } };
+                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "gezond", Kleur = GroeneKleur } };
+                TagInLunch tag6 = new TagInLunch { Tag = new Tag { Naam = "vegetarisch", Kleur = GroeneKleur } };
+                TagInLunch tag7 = new TagInLunch { Tag = new Tag { Naam = "vis", Kleur = RodeKleur } };
+                TagInLunch tag8 = new TagInLunch { Tag = new Tag { Naam = "zalm", Kleur = RodeKleur } };
+                TagInLunch tag9 = new TagInLunch { Tag = new Tag { Naam = "italiaans", Kleur = RodeKleur } };
+                TagInLunch tag10 = new TagInLunch { Tag = new Tag { Naam = "dieet", Kleur = GroeneKleur } };
+                TagInLunch tag11 = new TagInLunch { Tag = new Tag { Naam = "kip", Kleur = RodeKleur } };
+                TagInLunch tag12 = new TagInLunch { Tag = new Tag { Naam = "kaas", Kleur = Gelekleur } };
+                TagInLunch tag13 = new TagInLunch { Tag = new Tag { Naam = "augurk", Kleur = RodeKleur } };
+                TagInLunch tag14 = new TagInLunch { Tag = new Tag { Naam = "champignonsaus", Kleur = Gelekleur } };
+                TagInLunch tag15 = new TagInLunch { Tag = new Tag { Naam = "Rosbief", Kleur = RodeKleur } };
+                TagInLunch tag16 = new TagInLunch { Tag = new Tag { Naam = "Roomsaus", Kleur = Gelekleur } };
+
+
+                var tagsHamburger = new List<TagInLunch>{
+                    tag1,tag2, tag12, tag13
+                };
+
+                var tagsVleesFriet = new List<TagInLunch>{
+                    tag2,tag3,tag14
                 };
 
                 var tagsVegan = new List<TagInLunch>{
@@ -115,27 +141,37 @@ namespace Lunchers.Data
                 };
 
                 var tagsPasta = new List<TagInLunch>{
-                    tag4, tag10, tag9, tag11
+                    tag4, tag10, tag9, tag11, tag15
                 };
 
                 var tagsVis = new List<TagInLunch>{
                     tag7, tag8, tag10
+                };
+
+                var tagsZalm = new List<TagInLunch>{
+                    tag7, tag8, tag10, tag16
                 };
                 //TAGS EINDE
 
 
                 //LUNCHES BEGIN
                 //nog Afbeeldingen
-                Lunch lunchStandaardHamburger = new Lunch { Naam = "Hamburger met frietjes", Prijs = 10, Ingredienten = ingredientenVlees, Beschrijving = "Deze smakelijke hamburger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVlees, Handelaar = (Handelaar)gebruikerHandelaar1Qarfa, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta", Prijs = 34, Ingredienten = ingredientenPasta, Beschrijving = "Deze smakelijke pasta is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsPasta, Handelaar = (Handelaar)gebruikerHandelaar2BrasserieBlomme, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke vis burger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar3Kelderman, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25, Ingredienten = ingredientenVegan, Beschrijving = "Deze gezonde groente is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVegan, Handelaar = (Handelaar)gebruikerHandelaar4Zorba, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke zalm is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar5Dion, Afbeeldingen = new List<Afbeelding>() };
+                Lunch lunchStandaardHamburger = new Lunch { Naam = "American hamburger", Prijs = 10.00, Ingredienten = ingredientenVlees, Beschrijving = "Een echte American burger met alles wat er bij hoort zoals bacon, cheddar kaas en augurkjes.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsHamburger };
+                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta rosbief", Prijs = 20, Ingredienten = ingredientenPasta, Beschrijving = "Rosbief is een klassieker, maar waarom niet eens combineren met pasta en lekkere Italiaanse producten?", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsPasta };
+                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15.50, Ingredienten = ingredientenVis, Beschrijving = "Gegratineerde visschotel met duo van puree op grootmoeders wijze.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis };
+                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25.00, Ingredienten = ingredientenVegan, Beschrijving = "Een lekker frisse en bovenal gezonde vegan salade.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVegan };
+                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Ingredienten = ingredientenVis, Beschrijving = "Zalm vergezelf met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsZalm };
+                Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Ingredienten = ingredientenVlees, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVleesFriet };
 
-                var lunches = new List<Lunch>{
-                    lunchStandaardHamburger,lunchStandaardPasta,lunchStandaardVis,lunchStandaardVegan,lunchStandaardZalm
-                };
-                _dbContext.Lunches.AddRange(lunches);
+                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Ingredienten = ingredientenVlees, Beschrijving = "Een ", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30), Tags = tagsHamburger };
+
+                ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardHamburger);
+                ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(LunchUitzonderingVervallen);
+                ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardBiefstuk);
+                ((Handelaar)gebruikerHandelaar2BrasserieBlomme).Lunches.Add(lunchStandaardPasta);
+                ((Handelaar)gebruikerHandelaar3Kelderman).Lunches.Add(lunchStandaardVis);
+                ((Handelaar)gebruikerHandelaar4Zorba).Lunches.Add(lunchStandaardVegan);
+                ((Handelaar)gebruikerHandelaar5Dion).Lunches.Add(lunchStandaardZalm);
                 //LUNCHES EINDE
 
                 //AFBEELDINGEN
@@ -157,6 +193,13 @@ namespace Lunchers.Data
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/1.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/2.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/3.jpg" });
+
+                lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/1.jpg" });
+                lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/2.jpg" });
+                lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/3.jpg" });
+
+                LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/1.jpg" });
+                LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/2.jpg" });
                 //AFBEELDINGEN EINDE
 
                 //RESERVATIES -> user lennert
@@ -169,11 +212,14 @@ namespace Lunchers.Data
 
                 //FAVORIETEN -> user lennert
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger });
+                ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 26), Lunch = LunchUitzonderingVervallen });
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis });
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 30), Lunch = lunchStandaardVegan });
                 //FAVORIETEN EINDE
 
                 // SAVE CHANGES
+                _dbContext.Rollen.AddRange(rollen);
+                _dbContext.Gebruikers.AddRange(gebruikers);
                 _dbContext.SaveChanges();
             }
         }

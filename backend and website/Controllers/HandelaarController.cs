@@ -12,13 +12,20 @@ using Lunchers.Models.Domain;
 namespace Lunchers.Controllers
 {
     [Route("api/{controller}/{action}/{id?}")]
-    public class GebruikerController : Controller
+    public class HandelaarController : Controller
     {
-        IGebruikerRepository _gebruikerRepository;
+        IHandelaarRepository _handelaarRepository;
 
-        public GebruikerController(IGebruikerRepository gebruikerRepository)
+        public HandelaarController(IHandelaarRepository handelaarRepository)
         {
-            _gebruikerRepository = gebruikerRepository;
+            _handelaarRepository = handelaarRepository;
         }
+
+        [HttpGet]
+        public Handelaar getById(int id)
+        {
+            return _handelaarRepository.getById(id);
+        }
+
     }
 }

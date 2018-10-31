@@ -12,6 +12,9 @@ using Microsoft.IdentityModel.Tokens;
 using Lunchers.Data;
 using Lunchers.Data.Repositories;
 using Lunchers.Models.Repositories;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Lunchers
 {
@@ -28,9 +31,9 @@ namespace Lunchers
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //windows of mac invullen afhankelijk van je os -> Deployment voor de server!!!!!
+            //windows of mac invullen afhankelijk van je os -> Deployment voor azure -> server voor brent
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Deployment")));
+                options.UseSqlServer(Configuration.GetConnectionString("server")));
 
 
 
@@ -54,8 +57,15 @@ namespace Lunchers
                };
            });
 
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+
             services.AddScoped<DummyDataInitializer>();
             services.AddScoped<IGebruikerRepository, GebruikerRepository>();
+            services.AddScoped<ILunchRespository, LunchRespository>();
+            services.AddScoped<IHandelaarRepository, HandelaarRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,DummyDataInitializer dummyDataInitializer)
