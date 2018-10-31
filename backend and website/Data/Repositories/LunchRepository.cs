@@ -21,7 +21,7 @@ namespace Lunchers.Data.Repositories
 
         public IEnumerable<Lunch> GetAll()
         {
-            return _lunches.Include(l => l.Afbeeldingen).Include(l => l.Tags).ThenInclude(t => t.Tag).Include(l => l.Ingredienten).ThenInclude(i => i.Ingredient).ToList();
+            return _lunches.Include(l => l.Handelaar).Include(l => l.Afbeeldingen).Include(l => l.Tags).ThenInclude(t => t.Tag).Include(l => l.Ingredienten).ThenInclude(i => i.Ingredient).ToList();
         }
     }
 }
