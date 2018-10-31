@@ -4,6 +4,7 @@
 Dit is de GitHub repository (deel website en backend) voor het project Lunchers van Team GDPR. U kan hier steeds alle broncode raadplegen en clonen. Voor elke sprint is ook een release voorzien.
 
 > [Ga naar de website](http://www.lunchers.ml)
+
 > <sub>Deze server bevind zich bij [Brent](#groepsleden) thuis en kan dus soms afliggen voor stroombesparing, aarzel niet om contact op te nemen bij problemen.</sub>
 
 ## Inhoudsopgave
