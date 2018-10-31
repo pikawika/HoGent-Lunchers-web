@@ -5,7 +5,7 @@ Dit is de GitHub repository (deel website en backend) voor het project Lunchers 
 
 > [Ga naar de website](http://www.lunchers.ml)
 
-<sub>Deze server bevind zich bij [Brent](#groepsleden) thuis en kan dus soms afliggen voor stroombesparing, aarzel niet om contact op te nemen bij problemen.</sub>
+<sub>Deze server bevind zich bij [Brent](#groepsleden) thuis en kan dus soms uitstaan voor stroombesparing, aarzel niet om contact op te nemen met [Brent](#groepsleden) bij problemen.</sub>
 
 ## Inhoudsopgave
 
