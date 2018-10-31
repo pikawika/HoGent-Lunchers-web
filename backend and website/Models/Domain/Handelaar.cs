@@ -12,7 +12,7 @@ namespace Lunchers.Models
         public string Naam { get; set; }
         public Locatie Locatie { get; set; }
         public string Website { get; set; }
-        public List<Lunch> Lunches { get; set; }
+        public List<Lunch> Lunches { get; set; } = new List<Lunch>();
         public int PromotieRange { get; set; }
     }
 }

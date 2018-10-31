@@ -30,7 +30,7 @@ namespace Lunchers
 
             //windows of mac invullen afhankelijk van je os -> Deployment voor de server!!!!!
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Deployment")));
+                options.UseSqlServer(Configuration.GetConnectionString("mac")));
 
 
 
@@ -56,6 +56,7 @@ namespace Lunchers
 
             services.AddScoped<DummyDataInitializer>();
             services.AddScoped<IGebruikerRepository, GebruikerRepository>();
+            services.AddScoped<ILunchRespository, LunchRespository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,DummyDataInitializer dummyDataInitializer)
@@ -93,7 +94,7 @@ namespace Lunchers
                 }
             });
 
-            dummyDataInitializer.InitializeData();
+            //dummyDataInitializer.InitializeData();
         }
     }
 }

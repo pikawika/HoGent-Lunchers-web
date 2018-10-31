@@ -30,16 +30,15 @@ namespace Lunchers.Data
                 {
                     rolAdmin, rolStandaard, rolHandelaar
                 };
-                _dbContext.Rollen.AddRange(rollen);
                 // ROLLEN EINDE
 
                 // GEBRUIKERS BEGIN
-                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Gebruikersnaam = "lennert", Email = "info@lennertbontinck.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Gebruikersnaam = "kathi", Email = "bramblett@me.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Gebruikersnaam = "liza", Email = "liza@optonline.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Gebruikersnaam = "christine", Email = "christine@msn.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Gebruikersnaam = "jena", Email = "jena@sbcglobal.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
-                Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Gebruikersnaam = "jan", Email = "jan@mac.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard, Reservaties = new List<Reservatie>(), Favorieten = new List<Favoriet>() };
+                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Gebruikersnaam = "lennert", Email = "info@lennertbontinck.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234514", Rol = rolStandaard };
+                Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Gebruikersnaam = "kathi", Email = "bramblett@me.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
+                Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Gebruikersnaam = "liza", Email = "liza@optonline.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
+                Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Gebruikersnaam = "christine", Email = "christine@msn.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
+                Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Gebruikersnaam = "jena", Email = "jena@sbcglobal.net", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
+                Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Gebruikersnaam = "jan", Email = "jan@mac.com", Wachtwoord = "Wachtwoord123", Telefoonnummer = "0491234515", Rol = rolStandaard };
 
                 Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Gebruikersnaam = "teamGDPR", Email = "info@teamgdpr.be", Wachtwoord = "Wachtwoord123", Rol = rolAdmin, Telefoonnummer = "0491234514" };
                 Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Gebruikersnaam = "Renate", Email = "renate@qarfa.be", Wachtwoord = "Wachtwoord123", Rol = rolAdmin, Telefoonnummer = "0494157077" };
@@ -58,7 +57,7 @@ namespace Lunchers.Data
                     gebruikerAdmin1TeamGdpr, gebruikerAdmin2QarfaRenate,
                     gebruikerHandelaar1Qarfa, gebruikerHandelaar2BrasserieBlomme, gebruikerHandelaar3Kelderman, gebruikerHandelaar4Zorba, gebruikerHandelaar5Dion
                 };
-                _dbContext.Gebruikers.AddRange(gebruikers);
+
                 // GEBRUIKERS EINDE
 
                 //INGREDIENT
@@ -126,16 +125,17 @@ namespace Lunchers.Data
 
                 //LUNCHES BEGIN
                 //nog Afbeeldingen
-                Lunch lunchStandaardHamburger = new Lunch { Naam = "Hamburger met frietjes", Prijs = 10, Ingredienten = ingredientenVlees, Beschrijving = "Deze smakelijke hamburger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVlees, Handelaar = (Handelaar)gebruikerHandelaar1Qarfa, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta", Prijs = 34, Ingredienten = ingredientenPasta, Beschrijving = "Deze smakelijke pasta is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsPasta, Handelaar = (Handelaar)gebruikerHandelaar2BrasserieBlomme, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke vis burger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar3Kelderman, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25, Ingredienten = ingredientenVegan, Beschrijving = "Deze gezonde groente is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVegan, Handelaar = (Handelaar)gebruikerHandelaar4Zorba, Afbeeldingen = new List<Afbeelding>() };
-                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke zalm is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar5Dion, Afbeeldingen = new List<Afbeelding>() };
+                Lunch lunchStandaardHamburger = new Lunch { Naam = "Hamburger met frietjes", Prijs = 10, Ingredienten = ingredientenVlees, Beschrijving = "Deze smakelijke hamburger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVlees, Handelaar = (Handelaar)gebruikerHandelaar1Qarfa };
+                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta", Prijs = 34, Ingredienten = ingredientenPasta, Beschrijving = "Deze smakelijke pasta is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsPasta, Handelaar = (Handelaar)gebruikerHandelaar2BrasserieBlomme };
+                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke vis burger is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar3Kelderman };
+                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25, Ingredienten = ingredientenVegan, Beschrijving = "Deze gezonde groente is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVegan, Handelaar = (Handelaar)gebruikerHandelaar4Zorba };
+                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50, Ingredienten = ingredientenVis, Beschrijving = "Deze smakelijke zalm is nu te verkrijgen!", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis, Handelaar = (Handelaar)gebruikerHandelaar5Dion };
 
-                var lunches = new List<Lunch>{
-                    lunchStandaardHamburger,lunchStandaardPasta,lunchStandaardVis,lunchStandaardVegan,lunchStandaardZalm
-                };
-                _dbContext.Lunches.AddRange(lunches);
+                ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardHamburger);
+                ((Handelaar)gebruikerHandelaar2BrasserieBlomme).Lunches.Add(lunchStandaardPasta);
+                ((Handelaar)gebruikerHandelaar3Kelderman).Lunches.Add(lunchStandaardVis);
+                ((Handelaar)gebruikerHandelaar4Zorba).Lunches.Add(lunchStandaardVegan);
+                ((Handelaar)gebruikerHandelaar5Dion).Lunches.Add(lunchStandaardZalm);
                 //LUNCHES EINDE
 
                 //AFBEELDINGEN
@@ -174,6 +174,8 @@ namespace Lunchers.Data
                 //FAVORIETEN EINDE
 
                 // SAVE CHANGES
+                _dbContext.Rollen.AddRange(rollen);
+                _dbContext.Gebruikers.AddRange(gebruikers);
                 _dbContext.SaveChanges();
             }
         }
