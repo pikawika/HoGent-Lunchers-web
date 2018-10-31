@@ -33,7 +33,7 @@ namespace Lunchers
 
             //windows of mac invullen afhankelijk van je os -> Deployment voor de server!!!!!
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("mac")));
+                options.UseSqlServer(Configuration.GetConnectionString("windows")));
 
 
 

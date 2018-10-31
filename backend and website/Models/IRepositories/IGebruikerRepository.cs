@@ -6,9 +6,7 @@ namespace Lunchers.Models.Repositories
 {
     public interface IGebruikerRepository
     {
-        IEnumerable<Gebruiker> GetAll();
         Gebruiker Authenticate(string username, string password);
-        void Registreer(Gebruiker user);
     }
 }
  

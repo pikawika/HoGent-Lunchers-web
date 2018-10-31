@@ -6,7 +6,7 @@ namespace Lunchers.Models.Repositories
 {
     public interface IHandelaarRepository
     {
-        IEnumerable<Handelaar> GetAll();
+        Handelaar getById(int id);
     }
 }
  

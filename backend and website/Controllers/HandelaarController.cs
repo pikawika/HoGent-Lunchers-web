@@ -11,7 +11,7 @@ using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/{controller}/{action}/{id?}")]
     public class HandelaarController : Controller
     {
         IHandelaarRepository _handelaarRepository;
@@ -22,9 +22,9 @@ namespace Lunchers.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Handelaar> getAll()
+        public Handelaar getById(int id)
         {
-            return _handelaarRepository.GetAll();
+            return _handelaarRepository.getById(id);
         }
 
     }

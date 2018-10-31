@@ -19,9 +19,19 @@ namespace Lunchers.Data.Repositories
             _handelaars = context.Handelaars;
         }
 
-        public IEnumerable<Handelaar> GetAll()
+        public Handelaar getById(int id)
         {
-            return _handelaars.Include(h => h.Lunches).ToList();
+            Handelaar handelaarMetAlleLunches =  _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
+                .Include(h => h.Locatie)
+                .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
+                .Include(h => h.Lunches).ThenInclude(l => l.Tags).ThenInclude(t => t.Tag)
+                .Include(h => h.Lunches).ThenInclude(l => l.Ingredienten).ThenInclude(i => i.Ingredient)
+                .FirstOrDefault();
+
+            Handelaar handerlaarEnkelLunchesGeldig = handelaarMetAlleLunches;
+            handerlaarEnkelLunchesGeldig.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
+
+            return handerlaarEnkelLunchesGeldig;
         }
     }
 }

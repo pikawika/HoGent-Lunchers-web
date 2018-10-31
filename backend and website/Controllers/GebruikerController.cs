@@ -11,7 +11,7 @@ using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/{controller}/{action}/{id?}")]
     public class GebruikerController : Controller
     {
         IGebruikerRepository _gebruikerRepository;
@@ -20,13 +20,5 @@ namespace Lunchers.Controllers
         {
             _gebruikerRepository = gebruikerRepository;
         }
-
-        [HttpPost]
-        public IEnumerable<string> Registreer([FromBody]Gebruiker gebruiker)
-        {
-            _gebruikerRepository.Registreer(gebruiker);
-            return new string[] { "Gebruikersnaam", gebruiker.Gebruikersnaam };
-        }
-
     }
 }

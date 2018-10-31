@@ -21,7 +21,21 @@ namespace Lunchers.Data.Repositories
 
         public IEnumerable<Lunch> GetAll()
         {
-            return _lunches.Include(l => l.Handelaar).Include(l => l.Afbeeldingen).Include(l => l.Tags).ThenInclude(t => t.Tag).Include(l => l.Ingredienten).ThenInclude(i => i.Ingredient).ToList();
+            return _lunches.Where(l => l.BeginDatum <= DateTime.Now.Date && l.EindDatum >= DateTime.Now.Date )
+                .Include(l => l.Handelaar).ThenInclude(h => h.Locatie).Include(l => l.Afbeeldingen)
+                .Include(l => l.Tags).ThenInclude(t => t.Tag)
+                .Include(l => l.Ingredienten).ThenInclude(i => i.Ingredient)
+                .ToList();
+        }
+
+        public Lunch getById(int id)
+        {
+            return _lunches.Where(l => l.LunchId == id)
+                .Include(l => l.Handelaar).ThenInclude(h => h.Locatie)
+                .Include(l => l.Afbeeldingen)
+                .Include(l => l.Tags).ThenInclude(t => t.Tag)
+                .Include(l => l.Ingredienten).ThenInclude(i => i.Ingredient)
+                .FirstOrDefault();
         }
     }
 }
