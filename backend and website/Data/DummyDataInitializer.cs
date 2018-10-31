@@ -105,22 +105,27 @@ namespace Lunchers.Data
                 //INGREDIENT EINDE
 
                 //TAGS
-                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger" } };
-                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "varkensvlees" } };
-                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "frietjes" } };
-                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "sla" } };
-                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "gezond" } };
-                TagInLunch tag6 = new TagInLunch { Tag = new Tag { Naam = "vegetarisch" } };
-                TagInLunch tag7 = new TagInLunch { Tag = new Tag { Naam = "vis" } };
-                TagInLunch tag8 = new TagInLunch { Tag = new Tag { Naam = "zalm" } };
-                TagInLunch tag9 = new TagInLunch { Tag = new Tag { Naam = "italiaans" } };
-                TagInLunch tag10 = new TagInLunch { Tag = new Tag { Naam = "dieet" } };
-                TagInLunch tag11 = new TagInLunch { Tag = new Tag { Naam = "kip" } };
-                TagInLunch tag12 = new TagInLunch { Tag = new Tag { Naam = "kaas" } };
-                TagInLunch tag13 = new TagInLunch { Tag = new Tag { Naam = "augurk" } };
-                TagInLunch tag14 = new TagInLunch { Tag = new Tag { Naam = "champignonsaus" } };
-                TagInLunch tag15 = new TagInLunch { Tag = new Tag { Naam = "Rosbief" } };
-                TagInLunch tag16 = new TagInLunch { Tag = new Tag { Naam = "Roomsaus" } };
+                string RodeKleur = "FF6A6A";
+                string GroeneKleur = "82CA9D ";
+                string Gelekleur = "FFF79A ";
+
+
+                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger", Kleur = RodeKleur } };
+                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "varkensvlees", Kleur = RodeKleur } };
+                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "frietjes", Kleur = Gelekleur } };
+                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "sla", Kleur = GroeneKleur } };
+                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "gezond", Kleur = GroeneKleur } };
+                TagInLunch tag6 = new TagInLunch { Tag = new Tag { Naam = "vegetarisch", Kleur = GroeneKleur } };
+                TagInLunch tag7 = new TagInLunch { Tag = new Tag { Naam = "vis", Kleur = RodeKleur } };
+                TagInLunch tag8 = new TagInLunch { Tag = new Tag { Naam = "zalm", Kleur = RodeKleur } };
+                TagInLunch tag9 = new TagInLunch { Tag = new Tag { Naam = "italiaans", Kleur = RodeKleur } };
+                TagInLunch tag10 = new TagInLunch { Tag = new Tag { Naam = "dieet", Kleur = GroeneKleur } };
+                TagInLunch tag11 = new TagInLunch { Tag = new Tag { Naam = "kip", Kleur = RodeKleur } };
+                TagInLunch tag12 = new TagInLunch { Tag = new Tag { Naam = "kaas", Kleur = Gelekleur } };
+                TagInLunch tag13 = new TagInLunch { Tag = new Tag { Naam = "augurk", Kleur = RodeKleur } };
+                TagInLunch tag14 = new TagInLunch { Tag = new Tag { Naam = "champignonsaus", Kleur = Gelekleur } };
+                TagInLunch tag15 = new TagInLunch { Tag = new Tag { Naam = "Rosbief", Kleur = RodeKleur } };
+                TagInLunch tag16 = new TagInLunch { Tag = new Tag { Naam = "Roomsaus", Kleur = Gelekleur } };
 
 
                 var tagsHamburger = new List<TagInLunch>{
