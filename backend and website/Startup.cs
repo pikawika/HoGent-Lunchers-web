@@ -31,9 +31,9 @@ namespace Lunchers
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //windows of mac invullen afhankelijk van je os -> Deployment voor de server!!!!!
+            //windows of mac invullen afhankelijk van je os -> Deployment voor azure -> server voor brent
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Deployment")));
+                options.UseSqlServer(Configuration.GetConnectionString("server")));
 
 
 
