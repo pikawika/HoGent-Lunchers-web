@@ -13,12 +13,12 @@ namespace Lunchers.Models
         public int LunchId { get; set; }
         public string Naam { get; set; }
         public double Prijs { get; set; }
-        public List<IngredientInLunch> Ingredienten { get; set; }
+        public List<IngredientInLunch> Ingredienten { get; set; } = new List<IngredientInLunch>();
         public string Beschrijving { get; set; }
-        public List<Afbeelding> Afbeeldingen { get; set; }
+        public List<Afbeelding> Afbeeldingen { get; set; } = new List<Afbeelding>();
         public DateTime BeginDatum { get; set; }
         public DateTime EindDatum { get; set; }
-        public List<TagInLunch> Tags { get; set; }
+        public List<TagInLunch> Tags { get; set; } = new List<TagInLunch>();
         public Handelaar Handelaar { get; set; }
     }
 }

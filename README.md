@@ -3,6 +3,10 @@
 
 Dit is de GitHub repository (deel website en backend) voor het project Lunchers van Team GDPR. U kan hier steeds alle broncode raadplegen en clonen. Voor elke sprint is ook een release voorzien.
 
+> [Ga naar de website](http://www.lunchers.ml)
+
+<sub>Deze server bevind zich bij [Brent](#groepsleden) thuis en kan dus soms uitstaan voor stroombesparing, aarzel niet om contact op te nemen met [Brent](#groepsleden) bij problemen.</sub>
+
 ## Inhoudsopgave
 
 > - [Wie is Team GDPR](#wie-is-team-gdpr)
@@ -35,12 +39,12 @@ Team GDPR staat voor “Guys Do Programming Right”, een fictief bedrijf dat gr
 > - [Informatie over sprint 6 op Trello](https://trello.com/b/iEgLKsgm/sprint-6)
 
 ## Releases
-> - [Release Sprint 1 - coming soon]()
-> - [Release Sprint 2 - coming soon]()
-> - [Release Sprint 3 - coming soon]()
-> - [Release Sprint 4 - coming soon]()
-> - [Release Sprint 5 - coming soon]()
-> - [Release Sprint 6 - coming soon]()
+> - [Release Sprint 1 - Niet van toepassing](#)
+> - [Release Sprint 2](https://github.com/HoGent-Projecten3/projecten3-1819-backend-aalst-groep-1/releases/tag/1.0)
+> - [Release Sprint 3 - coming soon](#)
+> - [Release Sprint 4 - coming soon](#)
+> - [Release Sprint 5 - coming soon](#)
+> - [Release Sprint 6 - coming soon](#)
 
 ## Handleidingen
 

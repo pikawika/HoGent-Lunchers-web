@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Lunchers.Models.Repositories
 {
-    public interface IGebruikerRepository
+    public interface IHandelaarRepository
     {
-        Gebruiker Authenticate(string username, string password);
+        Handelaar getById(int id);
     }
 }
  

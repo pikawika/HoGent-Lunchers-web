@@ -30,6 +30,10 @@ namespace Lunchers.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Gebruiker>()
+            .HasOne(g => g.Login)
+            .WithOne(l => l.gebruiker)
+            .HasForeignKey<Login>(b => b.gebruikerLoginId);
         }
     }
 }

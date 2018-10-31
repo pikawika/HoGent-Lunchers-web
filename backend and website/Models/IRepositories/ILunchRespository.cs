@@ -4,9 +4,10 @@ using System.Collections.Generic;
 
 namespace Lunchers.Models.Repositories
 {
-    public interface IGebruikerRepository
+    public interface ILunchRespository
     {
-        Gebruiker Authenticate(string username, string password);
+        IEnumerable<Lunch> GetAll();
+        Lunch getById(int id);
     }
 }
  
