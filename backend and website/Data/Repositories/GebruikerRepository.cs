@@ -25,6 +25,16 @@ namespace Lunchers.Data.Repositories
             //return _gebruikers.Where(gebruiker => gebruiker.Gebruikersnaam == gebruikersnaam && gebruiker.Wachtwoord == wachtwoord).Include(g => g.Rol).FirstOrDefault();
         }
 
+        public bool EmailExists(string email)
+        {
+            return _gebruikers.Any(g => g.Email == email);
+        }
+
+        public bool GebruikersnaamExists(string gebruikersnaam)
+        {
+            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam);
+        }
+
         public void Registreer(Gebruiker gebruiker)
         {
             _gebruikers.Add(gebruiker);

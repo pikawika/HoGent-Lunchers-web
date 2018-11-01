@@ -45,7 +45,6 @@ namespace Lunchers.Controllers
 
         private string BuildToken(Gebruiker gebruiker)
         {
-            
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Actort, gebruiker.Login.Rol.Naam),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

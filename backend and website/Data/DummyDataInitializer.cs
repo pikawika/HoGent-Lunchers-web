@@ -22,9 +22,9 @@ namespace Lunchers.Data
             if (_dbContext.Database.EnsureCreated())
             {
                 // ROLLEN BEGIN
-                Rol rolAdmin = new Rol { Naam = "Admin" };
-                Rol rolStandaard = new Rol { Naam = "Standaard" };
-                Rol rolHandelaar = new Rol { Naam = "Handelaar" };
+                Rol rolAdmin = new Rol { Naam = "admin" };
+                Rol rolStandaard = new Rol { Naam = "klant" };
+                Rol rolHandelaar = new Rol { Naam = "handelaar" };
 
                 var rollen = new List<Rol>
                 {
@@ -51,15 +51,15 @@ namespace Lunchers.Data
                 Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Email = "renate@qarfa.be", Telefoonnummer = "0494157077" };
                 gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerAdmin2QarfaRenate, Rol = rolAdmin };
 
-                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { Naam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@qarfa.be", Telefoonnummer = "0494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
+                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { HandelsNaam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@qarfa.be", Telefoonnummer = "0494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
                 gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar1Qarfa, Rol = rolHandelaar };
-                Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { Naam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "info@brasserieblomme.be", Telefoonnummer = "0475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
+                Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { HandelsNaam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "info@brasserieblomme.be", Telefoonnummer = "0475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
                 gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar2BrasserieBlomme, Rol = rolHandelaar };
-                Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { Naam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Email = "info@kelderman.be", Telefoonnummer = "053776125", Locatie = new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
+                Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { HandelsNaam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Email = "info@kelderman.be", Telefoonnummer = "053776125", Locatie = new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
                 gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar3Kelderman, Rol = rolHandelaar };
-                Gebruiker gebruikerHandelaar4Zorba = new Handelaar { Naam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Email = "info@zorbaaalst.be", Telefoonnummer = "053776506", Locatie = new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
+                Gebruiker gebruikerHandelaar4Zorba = new Handelaar { HandelsNaam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Email = "info@zorbaaalst.be", Telefoonnummer = "053776506", Locatie = new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
                 gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar4Zorba, Rol = rolHandelaar };
-                Gebruiker gebruikerHandelaar5Dion = new Handelaar { Naam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "053787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
+                Gebruiker gebruikerHandelaar5Dion = new Handelaar { HandelsNaam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "053787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
                 gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar5Dion, Rol = rolHandelaar };
 
 

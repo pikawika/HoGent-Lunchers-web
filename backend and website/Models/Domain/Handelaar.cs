@@ -9,7 +9,7 @@ namespace Lunchers.Models
 {
     public class Handelaar : Gebruiker
     {
-        public string Naam { get; set; }
+        public string HandelsNaam { get; set; }
         public Locatie Locatie { get; set; }
         public string Website { get; set; }
         public List<Lunch> Lunches { get; set; } = new List<Lunch>();
