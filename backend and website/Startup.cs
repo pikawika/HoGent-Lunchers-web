@@ -94,7 +94,7 @@ namespace Lunchers
                     template: "{controller}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "defaultApi",
-                    template: "api/{controller}/{action=Index}/{id?}");
+                    template: "api/{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>

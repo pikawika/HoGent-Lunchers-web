@@ -57,7 +57,7 @@ namespace Lunchers.Controllers
                         RegistreerHandelaarViewModel handelaarAanvraag = JObject.Parse(json).ToObject<RegistreerHandelaarViewModel>();
                         return RegistreerHandelaar(handelaarAanvraag);
                     }
-                    catch (System.Exception e)
+                    catch
                     {
                         return BadRequest(new { error = "Casting error, verkeerde datatype?" });
                     }
