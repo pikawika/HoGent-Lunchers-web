@@ -19,9 +19,7 @@ export class Lunch {
           lunch.prijs = json.prijs;
           lunch.ingredienten = json.ingredienten;
           lunch.beschrijving = json.beschrijving;
-          lunch.afbeeldingen = json.afbeeldingen;
-          console.log(json.afbeeldingen);
-          
+          lunch.afbeeldingen = json.afbeeldingen;          
           lunch._tags = json._tags;
           return lunch;
         }
