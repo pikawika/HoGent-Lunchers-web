@@ -21,7 +21,7 @@ namespace Lunchers.Data.Repositories
 
         public Handelaar getById(int id)
         {
-            Handelaar handelaarMetAlleLunches =  _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
+            Handelaar handelaarMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
                 .Include(h => h.Locatie)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(l => l.Tags).ThenInclude(t => t.Tag)
@@ -29,7 +29,9 @@ namespace Lunchers.Data.Repositories
                 .FirstOrDefault();
 
             Handelaar handerlaarEnkelLunchesGeldig = handelaarMetAlleLunches;
-            handerlaarEnkelLunchesGeldig.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
+
+            if (handerlaarEnkelLunchesGeldig != null)
+                handerlaarEnkelLunchesGeldig.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
 
             return handerlaarEnkelLunchesGeldig;
         }

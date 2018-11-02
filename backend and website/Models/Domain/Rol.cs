@@ -9,7 +9,6 @@ namespace Lunchers.Models.Domain
     public class Rol
     {
         [Key]
-        public int RolId { get; set; }
         public string Naam { get; set; }
     }
 }

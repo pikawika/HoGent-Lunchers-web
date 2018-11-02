@@ -19,20 +19,49 @@ namespace Lunchers.Data.Repositories
             _gebruikers = context.Gebruikers;
         }
 
-        public Gebruiker Authenticate(string gebruikersnaam, string wachtwoord)
+        public Gebruiker Login(string gebruikersnaam, string hash)
         {
-            throw new NotImplementedException();
-            //return _gebruikers.Where(gebruiker => gebruiker.Gebruikersnaam == gebruikersnaam && gebruiker.Wachtwoord == wachtwoord).Include(g => g.Rol).FirstOrDefault();
+            return _gebruikers.Where(gebruiker => gebruiker.Login.Gebruikersnaam == gebruikersnaam && gebruiker.Login.Hash == hash && gebruiker.Login.Geactiveerd).Include(g => g.Login.Rol).FirstOrDefault();
+        }
+
+        public bool EmailExists(string email)
+        {
+            return _gebruikers.Any(g => g.Email == email);
+        }
+
+        public bool GebruikersnaamExists(string gebruikersnaam)
+        {
+            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam);
+        }
+
+        public byte[] getSalt(string gebruikersnaam)
+        {
+            return _gebruikers.Where(g => g.Login.Gebruikersnaam == gebruikersnaam).Include(g => g.Login).FirstOrDefault().Login.Salt;
         }
 
         public void Registreer(Gebruiker gebruiker)
         {
             _gebruikers.Add(gebruiker);
-            saveChanges();
+            SaveChanges();
         }
 
-        private void saveChanges(){
+        public void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash)
+        {
+            Gebruiker gebruiker = _gebruikers.Where(g => g.GebruikerId == gebruikersId).Include(g => g.Login).FirstOrDefault();
+
+            gebruiker.Login.Salt = nieuweSalt;
+            gebruiker.Login.Hash = nieuweHash;
+
+            SaveChanges();
+        }
+
+        private void SaveChanges(){
             _context.SaveChanges();
+        }
+
+        public bool GebruikerIsGeactiveerd(string gebruikersnaam)
+        {
+            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam && g.Login.Geactiveerd) ;
         }
     }
 }
