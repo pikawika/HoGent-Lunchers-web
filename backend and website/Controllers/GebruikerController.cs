@@ -24,6 +24,7 @@ using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Lunchers.Models.GebruikerViewModels.Login;
 using Lunchers.Models.IRepositories;
+using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -139,6 +140,24 @@ namespace Lunchers.Controllers
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
         }
 
+        [HttpPost, Authorize]
+        public IActionResult WijzigWachtwoord([FromBody]WijzigWachtwoordViewModel wijzigWachtwoordAanvraag)
+        {
+            if (ModelState.IsValid)
+            {
+                //token heeft geen id => fout met token!!
+                if (User.FindFirst("gebruikersId")?.Value == null)
+                    return BadRequest(new { error = "De voorziene token voldoet niet aan de eisen." });
+
+                WijzigWachtwoord(int.Parse(User.FindFirst("gebruikersId")?.Value), wijzigWachtwoordAanvraag.Wachtwoord);
+
+                return Ok(new { bericht = "Het wachtwoord is succesvol gewijzigd."  });
+            }
+            //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
+            string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
+        }
+
         private IActionResult RegistreerHandelaar(RegistreerHandelaarViewModel handelaarAanvraag)
         {
             //modelstate controleren van de NIEUWE gemaakte model
@@ -199,7 +218,7 @@ namespace Lunchers.Controllers
 
                 _gebruikerRepository.Registreer(nieuweHandelaar);
 
-                return Ok(new { medleding = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
+                return Ok(new { bericht = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
             }
 
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
@@ -262,7 +281,7 @@ namespace Lunchers.Controllers
 
             _gebruikerRepository.Registreer(nieuweAdmin);
 
-            return Ok(new { medleding = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
+            return Ok(new { bericht = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
         }
 
         private string ResultaatCustomNestdModelCheck(IEnumerable<ValidationResult> results)

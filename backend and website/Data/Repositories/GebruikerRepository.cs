@@ -42,20 +42,20 @@ namespace Lunchers.Data.Repositories
         public void Registreer(Gebruiker gebruiker)
         {
             _gebruikers.Add(gebruiker);
-            saveChanges();
+            SaveChanges();
         }
 
         public void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash)
         {
-            Gebruiker gebruiker = _gebruikers.Where(g => g.GebruikerId == gebruikersId).FirstOrDefault();
+            Gebruiker gebruiker = _gebruikers.Where(g => g.GebruikerId == gebruikersId).Include(g => g.Login).FirstOrDefault();
 
             gebruiker.Login.Salt = nieuweSalt;
             gebruiker.Login.Hash = nieuweHash;
 
-            saveChanges();
+            SaveChanges();
         }
 
-        private void saveChanges(){
+        private void SaveChanges(){
             _context.SaveChanges();
         }
 

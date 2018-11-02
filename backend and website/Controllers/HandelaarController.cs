@@ -21,7 +21,7 @@ namespace Lunchers.Controllers
         }
 
         [HttpGet]
-        public Handelaar getById(int id)
+        public Handelaar GetById(int id)
         {
             return _handelaarRepository.getById(id);
         }
