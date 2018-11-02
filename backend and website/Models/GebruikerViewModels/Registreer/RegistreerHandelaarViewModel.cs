@@ -15,7 +15,6 @@ namespace Lunchers.Models.GebruikerViewModels
         [DataType(DataType.Text, ErrorMessage = "Geen geldig {0} ingevoerd")]
         public string HandelsNaam { get; set; }
 
-        [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Url, ErrorMessage = "Geen geldig {0} ingevoerd")]
         public string Website { get; set; }
 

@@ -11,10 +11,10 @@ namespace Lunchers.Models.Domain
         [Key]
         public int LoginId { get; set; }
         public string Gebruikersnaam { get; set; }
-        public string hash { get; set; }
-        public string salt { get; set; }
-        public string Wachtwoord { get; set; }
-        public Rol Rol { get; set; }
+        public string Hash { get; set; }
+        public byte[] Salt { get; set; }
+        public bool Geactiveerd { get; set; }
+        public Rol Rol { get; set; } = new Rol();
 
         public Gebruiker gebruiker { get; set; }
         public int gebruikerLoginId { get; set; }

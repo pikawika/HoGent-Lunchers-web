@@ -20,6 +20,10 @@ using System.IO;
 using System.ComponentModel.DataAnnotations;
 using Lunchers.Models.Extensions;
 using Microsoft.EntityFrameworkCore.Internal;
+using System.Security.Cryptography;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using Lunchers.Models.GebruikerViewModels.Login;
+using Lunchers.Models.IRepositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,11 +33,13 @@ namespace Lunchers.Controllers
     {
         private IConfiguration _config;
         IGebruikerRepository _gebruikerRepository;
+        IRolRepository _rolRepository;
 
-        public GebruikerController(IConfiguration config, IGebruikerRepository gebruikerRepository)
+        public GebruikerController(IConfiguration config, IGebruikerRepository gebruikerRepository, IRolRepository rolRepository)
         {
             _config = config;
             _gebruikerRepository = gebruikerRepository;
+            _rolRepository = rolRepository;
         }
 
         [HttpPost]
@@ -90,7 +96,7 @@ namespace Lunchers.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(new { emailBestaat = _gebruikerRepository.EmailExists(emailAanvraag.Email.ToLower()) });
+                return Ok(new { emailBestaat = CheckEmailBestaat(emailAanvraag.Email) });
             }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
@@ -103,11 +109,34 @@ namespace Lunchers.Controllers
         {
             if (ModelState.IsValid)
             {
-                return Ok(new { gebruikersnaamBestaat = _gebruikerRepository.GebruikersnaamExists(gebruikersnaamAanvraag.Gebruikersnaam.ToLower()) });
+                return Ok(new { gebruikersnaamBestaat = CheckGebruikersnaamBestaat(gebruikersnaamAanvraag.Gebruikersnaam) });
             }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = foutboodschap });
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult Login([FromBody]LoginGebruikerViewModel login)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = Login(login.Gebruikersnaam, login.Wachtwoord);
+
+                //user gevonden dus aangemeld!
+                if (user != null)
+                {
+                    var tokenString = BuildToken(user);
+                    return Ok(new { token = tokenString });
+                }
+
+                //geen user gevonden
+                return Unauthorized("Uw account is nog niet geactiveerd en/of uw wachtwoord en/of gebruikersnaam klopt niet.");
+            }
+            //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
+            string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
         }
 
         private IActionResult RegistreerHandelaar(RegistreerHandelaarViewModel handelaarAanvraag)
@@ -134,8 +163,43 @@ namespace Lunchers.Controllers
                 if (!Uri.TryCreate(handelaarAanvraag.Website, UriKind.Absolute, out website))
                     return BadRequest(new { error = "Ongeldige website" });
 
+                if (CheckEmailBestaat(handelaarAanvraag.Email))
+                    return BadRequest(new { error = "Het gekozen emailadres is reeds gekoppeld aan een account" });
 
-                return Ok("temp");
+                if (CheckGebruikersnaamBestaat(handelaarAanvraag.Login.Gebruikersnaam))
+                    return BadRequest(new { error = "De gekozen gebruikersnaam is reeds gekoppeld aan een account" });
+
+                Handelaar nieuweHandelaar = new Handelaar();
+
+                nieuweHandelaar.Telefoonnummer = handelaarAanvraag.Telefoonnummer;
+                nieuweHandelaar.Email = handelaarAanvraag.Email;
+                nieuweHandelaar.Voornaam = handelaarAanvraag.Voornaam;
+                nieuweHandelaar.Achternaam = handelaarAanvraag.Achternaam;
+
+                nieuweHandelaar.Login.Gebruikersnaam = handelaarAanvraag.Login.Gebruikersnaam;
+                nieuweHandelaar.Login.Geactiveerd = false;
+                nieuweHandelaar.Login.Salt = MaakSalt();
+                nieuweHandelaar.Login.Hash = MaakHash(handelaarAanvraag.Login.Wachtwoord, nieuweHandelaar.Login.Salt);
+
+                nieuweHandelaar.Login.Rol = _rolRepository.GetByNaam(handelaarAanvraag.Login.Rol);
+
+                nieuweHandelaar.HandelsNaam = handelaarAanvraag.HandelsNaam;
+                if (handelaarAanvraag.Website != null)
+                    nieuweHandelaar.Website = handelaarAanvraag.Website;
+                nieuweHandelaar.PromotieRange = 0;
+
+                nieuweHandelaar.Locatie.Straat = handelaarAanvraag.Locatie.Straat;
+                nieuweHandelaar.Locatie.Huisnummer = handelaarAanvraag.Locatie.Huisnummer;
+                nieuweHandelaar.Locatie.Postcode = handelaarAanvraag.Locatie.Postcode;
+                nieuweHandelaar.Locatie.Gemeente = handelaarAanvraag.Locatie.Gemeente;
+                nieuweHandelaar.Locatie.Latitude = latitude;
+                nieuweHandelaar.Locatie.Longitude = longitude;
+
+                nieuweHandelaar.Login.gebruiker = nieuweHandelaar;
+
+                _gebruikerRepository.Registreer(nieuweHandelaar);
+
+                return Ok(new { token = BuildToken(nieuweHandelaar) });
             }
 
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
@@ -143,19 +207,65 @@ namespace Lunchers.Controllers
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een handelaar. Foutboodschap: " + foutboodschap });
         }
 
-        private IActionResult RegistreerKlant(RegistreerGebruikerViewModel gebruikerAanvraag)
+        private IActionResult RegistreerKlant(RegistreerGebruikerViewModel klantAanvraag)
         {
-            return Ok("temp");
+            if (CheckEmailBestaat(klantAanvraag.Email))
+                return BadRequest(new { error = "Het gekozen emailadres is reeds gekoppeld aan een account" });
 
+            if (CheckGebruikersnaamBestaat(klantAanvraag.Login.Gebruikersnaam))
+                return BadRequest(new { error = "De gekozen gebruikersnaam is reeds gekoppeld aan een account" });
+
+            Klant nieuweKlant = new Klant();
+
+            nieuweKlant.Telefoonnummer = klantAanvraag.Telefoonnummer;
+            nieuweKlant.Email = klantAanvraag.Email;
+            nieuweKlant.Voornaam = klantAanvraag.Voornaam;
+            nieuweKlant.Achternaam = klantAanvraag.Achternaam;
+
+            nieuweKlant.Login.Gebruikersnaam = klantAanvraag.Login.Gebruikersnaam;
+            nieuweKlant.Login.Geactiveerd = false;
+            nieuweKlant.Login.Salt = MaakSalt();
+            nieuweKlant.Login.Hash = MaakHash(klantAanvraag.Login.Wachtwoord, nieuweKlant.Login.Salt);
+
+            nieuweKlant.Login.Rol = _rolRepository.GetByNaam(klantAanvraag.Login.Rol);
+
+            nieuweKlant.Login.gebruiker = nieuweKlant;
+
+            _gebruikerRepository.Registreer(nieuweKlant);
+
+            return Ok(new { token = BuildToken(nieuweKlant) });
         }
 
-        private IActionResult RegistreerAdmin(RegistreerGebruikerViewModel gebruikerAanvraag)
+        private IActionResult RegistreerAdmin(RegistreerGebruikerViewModel adminAanvraag)
         {
-            return Ok("temp");
+            if (CheckEmailBestaat(adminAanvraag.Email))
+                return BadRequest(new { error = "Het gekozen emailadres is reeds gekoppeld aan een account" });
 
+            if (CheckGebruikersnaamBestaat(adminAanvraag.Login.Gebruikersnaam))
+                return BadRequest(new { error = "De gekozen gebruikersnaam is reeds gekoppeld aan een account" });
+
+            Administrator nieuweAdmin = new Administrator();
+
+            nieuweAdmin.Telefoonnummer = adminAanvraag.Telefoonnummer;
+            nieuweAdmin.Email = adminAanvraag.Email;
+            nieuweAdmin.Voornaam = adminAanvraag.Voornaam;
+            nieuweAdmin.Achternaam = adminAanvraag.Achternaam;
+
+            nieuweAdmin.Login.Gebruikersnaam = adminAanvraag.Login.Gebruikersnaam;
+            nieuweAdmin.Login.Geactiveerd = false;
+            nieuweAdmin.Login.Salt = MaakSalt();
+            nieuweAdmin.Login.Hash = MaakHash(adminAanvraag.Login.Wachtwoord, nieuweAdmin.Login.Salt);
+
+            nieuweAdmin.Login.Rol = _rolRepository.GetByNaam(adminAanvraag.Login.Rol);
+
+            nieuweAdmin.Login.gebruiker = nieuweAdmin;
+
+            _gebruikerRepository.Registreer(nieuweAdmin);
+
+            return Ok(new { token = BuildToken(nieuweAdmin) });
         }
 
-        private static string ResultaatCustomNestdModelCheck(IEnumerable<ValidationResult> results)
+        private string ResultaatCustomNestdModelCheck(IEnumerable<ValidationResult> results)
         {
             string errors = "";
             foreach (var validationResult in results)
@@ -176,5 +286,81 @@ namespace Lunchers.Controllers
             }
             return errors;
         }
+
+        private void WijzigWachtwoord(int gebruikersId, string nieuwWachtwoord)
+        {
+            // nieuwe salt voor beveiligingsreden
+            byte[] nieuweSalt = MaakSalt();
+
+            string nieuweHash = MaakHash(nieuwWachtwoord, nieuweSalt);
+
+            _gebruikerRepository.WijzigWachtwoord(gebruikersId, nieuweSalt, nieuweHash);
+        }
+
+        private byte[] MaakSalt()
+        {
+            //maak een salt adhv een random nummer
+            byte[] salt = new byte[128 / 8];
+            using (var randomGetal = RandomNumberGenerator.Create())
+            {
+                randomGetal.GetBytes(salt);
+            }
+
+            return salt;
+        }
+
+        private bool CheckEmailBestaat(string email)
+        {
+            return _gebruikerRepository.EmailExists(email.ToLower());
+        }
+
+        private bool CheckGebruikersnaamBestaat(string gebruikersnaam)
+        {
+            return _gebruikerRepository.GebruikersnaamExists(gebruikersnaam.ToLower());
+        }
+
+        private string MaakHash(string wachtwoord, byte[] salt)
+        {
+            // build in hasher van .net (beste combo veilig en snel volgens microsoft documentatie)
+            return Convert.ToBase64String(KeyDerivation.Pbkdf2(
+                password: wachtwoord,
+                salt: salt,
+                prf: KeyDerivationPrf.HMACSHA1,
+                iterationCount: 10000,
+                numBytesRequested: 256 / 8));
+        }
+
+        private string BuildToken(Gebruiker gebruiker)
+        {
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+              _config["Jwt:Issuer"],
+              expires: DateTime.Now.AddMinutes(30),
+              signingCredentials: creds);
+
+            token.Payload["gebruikersId"] = gebruiker.GebruikerId;
+            token.Payload["gebruikersnaam"] = gebruiker.Login.Gebruikersnaam;
+            token.Payload["rol"] = gebruiker.Login.Rol.Naam;
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private Gebruiker Login(string gebruikersnaam, string wachtwoord)
+        {
+            //indien geen geldige gebruikersnaam stop hier
+            if (!CheckGebruikersnaamBestaat(gebruikersnaam))
+                return null;
+
+            byte[] salt = _gebruikerRepository.getSalt(gebruikersnaam);
+
+            string hash = MaakHash(wachtwoord, salt);
+
+            //probeer login met de hash, indien foutief wachtwoord returnt dit ook null
+            return _gebruikerRepository.Login(gebruikersnaam, hash);
+        }
+
     }
 }

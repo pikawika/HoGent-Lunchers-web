@@ -34,33 +34,33 @@ namespace Lunchers.Data
 
                 // GEBRUIKERS BEGIN
                 Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Email = "info@lennertbontinck.com", Telefoonnummer = "0491234514" };
-                gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaardLennert, Rol = rolStandaard };
+                gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", gebruiker = gebruikerStandaardLennert, Rol = rolStandaard };
                 Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Email = "bramblett@me.com", Telefoonnummer = "0491234515" };
-                gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard1, Rol = rolStandaard };
+                gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", gebruiker = gebruikerStandaard1, Rol = rolStandaard };
                 Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Email = "liza@optonline.net", Telefoonnummer = "0491234515" };
-                gebruikerStandaard2.Login = new Login { Gebruikersnaam = "liza", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard2, Rol = rolStandaard };
+                gebruikerStandaard2.Login = new Login { Gebruikersnaam = "liza", gebruiker = gebruikerStandaard2, Rol = rolStandaard };
                 Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Email = "christine@msn.com", Telefoonnummer = "0491234515" };
-                gebruikerStandaard3.Login = new Login { Gebruikersnaam = "christine", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard3, Rol = rolStandaard };
+                gebruikerStandaard3.Login = new Login { Gebruikersnaam = "christine", gebruiker = gebruikerStandaard3, Rol = rolStandaard };
                 Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Email = "jena@sbcglobal.net", Telefoonnummer = "0491234515" };
-                gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard4, Rol = rolStandaard };
+                gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", gebruiker = gebruikerStandaard4, Rol = rolStandaard };
                 Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Email = "jan@mac.com", Telefoonnummer = "0491234515" };
-                gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerStandaard5, Rol = rolStandaard };
+                gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", gebruiker = gebruikerStandaard5, Rol = rolStandaard };
 
                 Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Email = "info@teamgdpr.be", Telefoonnummer = "0491234514" };
-                gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerAdmin1TeamGdpr, Rol = rolAdmin };
+                gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", gebruiker = gebruikerAdmin1TeamGdpr, Rol = rolAdmin };
                 Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Email = "renate@qarfa.be", Telefoonnummer = "0494157077" };
-                gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerAdmin2QarfaRenate, Rol = rolAdmin };
+                gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", gebruiker = gebruikerAdmin2QarfaRenate, Rol = rolAdmin };
 
                 Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { HandelsNaam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@qarfa.be", Telefoonnummer = "0494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
-                gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar1Qarfa, Rol = rolHandelaar };
+                gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", gebruiker = gebruikerHandelaar1Qarfa, Rol = rolHandelaar };
                 Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { HandelsNaam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "info@brasserieblomme.be", Telefoonnummer = "0475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
-                gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar2BrasserieBlomme, Rol = rolHandelaar };
+                gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", gebruiker = gebruikerHandelaar2BrasserieBlomme, Rol = rolHandelaar };
                 Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { HandelsNaam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Email = "info@kelderman.be", Telefoonnummer = "053776125", Locatie = new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
-                gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar3Kelderman, Rol = rolHandelaar };
+                gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", gebruiker = gebruikerHandelaar3Kelderman, Rol = rolHandelaar };
                 Gebruiker gebruikerHandelaar4Zorba = new Handelaar { HandelsNaam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Email = "info@zorbaaalst.be", Telefoonnummer = "053776506", Locatie = new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
-                gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar4Zorba, Rol = rolHandelaar };
+                gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", gebruiker = gebruikerHandelaar4Zorba, Rol = rolHandelaar };
                 Gebruiker gebruikerHandelaar5Dion = new Handelaar { HandelsNaam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "053787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
-                gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", Wachtwoord = "Wachtwoord123", gebruiker = gebruikerHandelaar5Dion, Rol = rolHandelaar };
+                gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", gebruiker = gebruikerHandelaar5Dion, Rol = rolHandelaar };
 
 
 

@@ -15,6 +15,7 @@ using Lunchers.Models.Repositories;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Lunchers.Models.IRepositories;
 
 namespace Lunchers
 {
@@ -67,6 +68,7 @@ namespace Lunchers
             services.AddScoped<IGebruikerRepository, GebruikerRepository>();
             services.AddScoped<ILunchRespository, LunchRespository>();
             services.AddScoped<IHandelaarRepository, HandelaarRepository>();
+            services.AddScoped<IRolRepository, RolRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)
@@ -107,7 +109,7 @@ namespace Lunchers
                 }
             });
 
-            //dummyDataInitializer.InitializeData();
+            dummyDataInitializer.InitializeData();
         }
     }
 }

@@ -19,10 +19,9 @@ namespace Lunchers.Data.Repositories
             _gebruikers = context.Gebruikers;
         }
 
-        public Gebruiker Authenticate(string gebruikersnaam, string wachtwoord)
+        public Gebruiker Login(string gebruikersnaam, string hash)
         {
-            throw new NotImplementedException();
-            //return _gebruikers.Where(gebruiker => gebruiker.Gebruikersnaam == gebruikersnaam && gebruiker.Wachtwoord == wachtwoord).Include(g => g.Rol).FirstOrDefault();
+            return _gebruikers.Where(gebruiker => gebruiker.Login.Gebruikersnaam == gebruikersnaam && gebruiker.Login.Hash == hash && gebruiker.Login.Geactiveerd).Include(g => g.Login.Rol).FirstOrDefault();
         }
 
         public bool EmailExists(string email)
@@ -35,11 +34,28 @@ namespace Lunchers.Data.Repositories
             return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam);
         }
 
+        public byte[] getSalt(string gebruikersnaam)
+        {
+            return _gebruikers.FirstOrDefault(g => g.Login.Gebruikersnaam == gebruikersnaam).Login.Salt;
+        }
+
         public void Registreer(Gebruiker gebruiker)
         {
             _gebruikers.Add(gebruiker);
             saveChanges();
         }
+
+        public void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash)
+        {
+            Gebruiker gebruiker = _gebruikers.FirstOrDefault(g => g.GebruikerId == gebruikersId);
+
+            gebruiker.Login.Salt = nieuweSalt;
+            gebruiker.Login.Hash = nieuweHash;
+
+            saveChanges();
+        }
+
+
 
         private void saveChanges(){
             _context.SaveChanges();
