@@ -15,7 +15,6 @@ using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
-    [Route("api/authentication/{action}/{id?}")]
     public class TokenController : Controller
     {
         private IConfiguration _config;

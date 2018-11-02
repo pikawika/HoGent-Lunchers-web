@@ -25,7 +25,6 @@ using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Lunchers.Controllers
 {
-    [Route("api/{controller}/{action}/{id?}")]
     public class GebruikerController : Controller
     {
         private IConfiguration _config;
@@ -58,11 +57,11 @@ namespace Lunchers.Controllers
                         RegistreerHandelaarViewModel handelaarAanvraag = JObject.Parse(json).ToObject<RegistreerHandelaarViewModel>();
                         return RegistreerHandelaar(handelaarAanvraag);
                     }
-                    catch (System.Exception e) 
+                    catch (System.Exception e)
                     {
                         return BadRequest(new { error = "Casting error, verkeerde datatype?" });
                     }
-                    
+
                 }
 
                 //klant
@@ -87,16 +86,28 @@ namespace Lunchers.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public Boolean CheckEmailBestaat(string email)
+        public IActionResult CheckEmailBestaat([FromBody]CheckEmailViewModel emailAanvraag)
         {
-            return _gebruikerRepository.EmailExists(email.ToLower());
+            if (ModelState.IsValid)
+            {
+                return Ok(new { emailBestaat = _gebruikerRepository.EmailExists(emailAanvraag.Email.ToLower()) });
+            }
+            //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
+            string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            return BadRequest(new { error = foutboodschap });
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public Boolean CheckGebruikersnaamBestaat(string gebruikersnaam)
+        public IActionResult CheckGebruikersnaamBestaat([FromBody]CheckGebruikerViewModel gebruikersnaamAanvraag)
         {
-            return _gebruikerRepository.GebruikersnaamExists(gebruikersnaam.ToLower());
+            if (ModelState.IsValid)
+            {
+                return Ok(new { gebruikersnaamBestaat = _gebruikerRepository.GebruikersnaamExists(gebruikersnaamAanvraag.Gebruikersnaam.ToLower()) });
+            }
+            //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
+            string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            return BadRequest(new { error = foutboodschap });
         }
 
         private IActionResult RegistreerHandelaar(RegistreerHandelaarViewModel handelaarAanvraag)
@@ -165,9 +176,5 @@ namespace Lunchers.Controllers
             }
             return errors;
         }
-
-
-
-
     }
 }

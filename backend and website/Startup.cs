@@ -57,7 +57,8 @@ namespace Lunchers
                };
            });
 
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
@@ -68,7 +69,7 @@ namespace Lunchers
             services.AddScoped<IHandelaarRepository, HandelaarRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DummyDataInitializer dummyDataInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -92,11 +93,8 @@ namespace Lunchers
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
                 routes.MapRoute(
-                   name: "checkEmailBestaat",
-                   template: "{controller=Gebruiker}/{action=CheckEmailBestaat}/{email}");
-                routes.MapRoute(
-                   name: "checkGebruikersnaamBestaat",
-                   template: "{controller=Gebruiker}/{action=CheckGebruikersnaamBestaat}/{gebruikersnaam}");
+                    name: "defaultApi",
+                    template: "api/{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
