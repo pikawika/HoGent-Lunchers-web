@@ -24,7 +24,6 @@ namespace Lunchers.Models.GebruikerViewModels
         [DataType(DataType.Text, ErrorMessage = "Geen geldig {0} ingevoerd")]
         public string Gemeente { get; set; }
 
-        //moeten string zijn anders werkt required validation niet! (null maakt hij => 0.0)
         [Required(ErrorMessage = "{0} is verplicht.")]
         [Range(-90.00, 90.00, ErrorMessage = "Latitude moet tussen {1} en {2} liggen.")]
         public string Latitude { get; set; }

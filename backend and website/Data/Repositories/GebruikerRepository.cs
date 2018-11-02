@@ -36,7 +36,7 @@ namespace Lunchers.Data.Repositories
 
         public byte[] getSalt(string gebruikersnaam)
         {
-            return _gebruikers.FirstOrDefault(g => g.Login.Gebruikersnaam == gebruikersnaam).Login.Salt;
+            return _gebruikers.Where(g => g.Login.Gebruikersnaam == gebruikersnaam).Include(g => g.Login).FirstOrDefault().Login.Salt;
         }
 
         public void Registreer(Gebruiker gebruiker)
@@ -47,7 +47,7 @@ namespace Lunchers.Data.Repositories
 
         public void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash)
         {
-            Gebruiker gebruiker = _gebruikers.FirstOrDefault(g => g.GebruikerId == gebruikersId);
+            Gebruiker gebruiker = _gebruikers.Where(g => g.GebruikerId == gebruikersId).FirstOrDefault();
 
             gebruiker.Login.Salt = nieuweSalt;
             gebruiker.Login.Hash = nieuweHash;
@@ -55,10 +55,13 @@ namespace Lunchers.Data.Repositories
             saveChanges();
         }
 
-
-
         private void saveChanges(){
             _context.SaveChanges();
+        }
+
+        public bool GebruikerIsGeactiveerd(string gebruikersnaam)
+        {
+            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam && g.Login.Geactiveerd) ;
         }
     }
 }

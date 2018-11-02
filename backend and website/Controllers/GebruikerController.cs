@@ -122,7 +122,7 @@ namespace Lunchers.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = Login(login.Gebruikersnaam, login.Wachtwoord);
+                var user = Login(login.Gebruikersnaam.ToLower(), login.Wachtwoord);
 
                 //user gevonden dus aangemeld!
                 if (user != null)
@@ -199,7 +199,7 @@ namespace Lunchers.Controllers
 
                 _gebruikerRepository.Registreer(nieuweHandelaar);
 
-                return Ok(new { token = BuildToken(nieuweHandelaar) });
+                return Ok(new { medleding = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
             }
 
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
@@ -223,7 +223,7 @@ namespace Lunchers.Controllers
             nieuweKlant.Achternaam = klantAanvraag.Achternaam;
 
             nieuweKlant.Login.Gebruikersnaam = klantAanvraag.Login.Gebruikersnaam;
-            nieuweKlant.Login.Geactiveerd = false;
+            nieuweKlant.Login.Geactiveerd = true;
             nieuweKlant.Login.Salt = MaakSalt();
             nieuweKlant.Login.Hash = MaakHash(klantAanvraag.Login.Wachtwoord, nieuweKlant.Login.Salt);
 
@@ -262,7 +262,7 @@ namespace Lunchers.Controllers
 
             _gebruikerRepository.Registreer(nieuweAdmin);
 
-            return Ok(new { token = BuildToken(nieuweAdmin) });
+            return Ok(new { medleding = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
         }
 
         private string ResultaatCustomNestdModelCheck(IEnumerable<ValidationResult> results)
@@ -309,16 +309,6 @@ namespace Lunchers.Controllers
             return salt;
         }
 
-        private bool CheckEmailBestaat(string email)
-        {
-            return _gebruikerRepository.EmailExists(email.ToLower());
-        }
-
-        private bool CheckGebruikersnaamBestaat(string gebruikersnaam)
-        {
-            return _gebruikerRepository.GebruikersnaamExists(gebruikersnaam.ToLower());
-        }
-
         private string MaakHash(string wachtwoord, byte[] salt)
         {
             // build in hasher van .net (beste combo veilig en snel volgens microsoft documentatie)
@@ -330,9 +320,23 @@ namespace Lunchers.Controllers
                 numBytesRequested: 256 / 8));
         }
 
+        private bool CheckEmailBestaat(string email)
+        {
+            return _gebruikerRepository.EmailExists(email.ToLower());
+        }
+
+        private bool CheckGebruikersnaamBestaat(string gebruikersnaam)
+        {
+            return _gebruikerRepository.GebruikersnaamExists(gebruikersnaam.ToLower());
+        }
+
+        private bool CheckGebruikerIsGeactiveerd(string gebruikersnaam)
+        {
+            return _gebruikerRepository.GebruikerIsGeactiveerd(gebruikersnaam.ToLower());
+        }
+
         private string BuildToken(Gebruiker gebruiker)
         {
-
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
@@ -354,7 +358,16 @@ namespace Lunchers.Controllers
             if (!CheckGebruikersnaamBestaat(gebruikersnaam))
                 return null;
 
+            //indien nog niet geactiveerd stop hier
+            if (!CheckGebruikerIsGeactiveerd(gebruikersnaam))
+                return null;
+
             byte[] salt = _gebruikerRepository.getSalt(gebruikersnaam);
+
+            if (salt == null)
+            {
+                throw new NotImplementedException();
+            }
 
             string hash = MaakHash(wachtwoord, salt);
 

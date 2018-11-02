@@ -12,6 +12,8 @@ namespace Lunchers.Models.Repositories
 
         Boolean GebruikersnaamExists(string gebruikersnaam);
 
+        Boolean GebruikerIsGeactiveerd(string gebruikersnaam);
+
         void Registreer(Gebruiker gebruiker);
 
         void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash);
