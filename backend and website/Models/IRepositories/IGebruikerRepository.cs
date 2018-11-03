@@ -6,7 +6,19 @@ namespace Lunchers.Models.Repositories
 {
     public interface IGebruikerRepository
     {
-        Gebruiker Authenticate(string username, string password);
+        Gebruiker Login(string gebruikersnaam, string hash);
+
+        Boolean EmailExists(string email);
+
+        Boolean GebruikersnaamExists(string gebruikersnaam);
+
+        Boolean GebruikerIsGeactiveerd(string gebruikersnaam);
+
+        void Registreer(Gebruiker gebruiker);
+
+        void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash);
+
+        byte[] getSalt(string gebruikersnaam);
     }
 }
  

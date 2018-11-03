@@ -15,6 +15,7 @@ using Lunchers.Models.Repositories;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using Lunchers.Models.IRepositories;
 
 namespace Lunchers
 {
@@ -57,7 +58,8 @@ namespace Lunchers
                };
            });
 
-            services.AddMvc().AddJsonOptions(options => {
+            services.AddMvc().AddJsonOptions(options =>
+            {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
@@ -66,9 +68,10 @@ namespace Lunchers
             services.AddScoped<IGebruikerRepository, GebruikerRepository>();
             services.AddScoped<ILunchRespository, LunchRespository>();
             services.AddScoped<IHandelaarRepository, HandelaarRepository>();
+            services.AddScoped<IRolRepository, RolRepository>();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DummyDataInitializer dummyDataInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)
         {
             if (env.IsDevelopment())
             {
@@ -91,6 +94,9 @@ namespace Lunchers
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "defaultApi",
+                    template: "api/{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>
