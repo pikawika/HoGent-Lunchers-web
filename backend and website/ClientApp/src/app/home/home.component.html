@@ -1,15 +1,6 @@
 <div>
   <h1>Lunches</h1>
   <div class="row">
-      <div class="col-md-3" *ngFor="let lunch of _lunches">
-          <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="{{_baseUrl + lunch.afbeeldingen[1].pad}}" alt="{{_baseUrl + lunch.afbeeldingen[1].pad}}">
-            <div class="card-body">
-              <h5 class="card-title">{{lunch.naam}}</h5>
-              <!--<p class="card-text">{{lunch.beschrijving}}</p>-->
-              <a (click)="showDetails(lunch.lunchId)" class="btn btn-primary">Meer info</a>
-            </div>
-          </div>
-        </div>
+      <app-lunch *ngFor='let localLunch of lunches' [lunch]="localLunch" (details)="showDetails($event)"></app-lunch>
   </div>
 </div>

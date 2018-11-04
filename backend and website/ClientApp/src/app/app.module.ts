@@ -7,9 +7,8 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { LunchDetailComponent } from './lunch-detail/lunch-detail.component';
+import { LunchComponent } from './lunch/lunch.component';
 
 
 @NgModule({
@@ -17,9 +16,8 @@ import { LunchDetailComponent } from './lunch-detail/lunch-detail.component';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    LunchDetailComponent
+    LunchDetailComponent,
+    LunchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -27,8 +25,6 @@ import { LunchDetailComponent } from './lunch-detail/lunch-detail.component';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'details/:id', component:LunchDetailComponent}
     ]),
     
