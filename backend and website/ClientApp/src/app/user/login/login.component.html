@@ -1,0 +1,24 @@
+<div class="col-md-6 offset-md-3">
+
+  <h1>Login</h1>
+  <hr>
+
+  <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
+  <form [formGroup]="user" (ngSubmit)='onSubmit()'>
+
+    <div class="form-group">
+      <label for="username">Gebruikersnaam:</label>
+      <input type="text" id="username" formControlName='username' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="password">password:</label>
+      <input type="password" id="password" formControlName='password' class="form-control">
+    </div>
+
+    <div class="form-group text-center">
+      <button type='submit' [disabled]='!user.valid' class="form-control">Login</button>
+      <a class="nav-link text-dark" style="color: darkcyan!important;" [routerLink]='["/register"]'>Nog geen account? Registreer gratis!</a>
+    </div>
+  </form>
+</div>

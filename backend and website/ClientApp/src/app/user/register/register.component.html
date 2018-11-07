@@ -1,0 +1,49 @@
+<div class="col-md-6 offset-md-3">
+
+  <h1>Registreren</h1>
+  <hr>
+
+  <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
+  <form [formGroup]="user" (ngSubmit)='onSubmit()'>
+
+    <div class="form-group">
+      <label for="username">Gebruikersnaam:</label>
+      <input type="text" id="username" formControlName='username' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="voornaam">Voornaam:</label>
+      <input type="text" id="voornaam" formControlName='voornaam' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="achternaam">Achternaam:</label>
+      <input type="text" id="achternaam" formControlName='achternaam' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="tel">Telefoon:</label>
+      <input type="text" id="tel" formControlName='tel' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName='email' class="form-control">
+    </div>
+
+    <div formGroupName='passwordGroup'>
+      <div class="form-group">
+        <label for="password">password:</label>
+        <input type="password" id="password" formControlName='password' class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="confirmpassword">confirm password:</label>
+        <input type="password" id="confirmpassword" formControlName='confirmPassword' class="form-control">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type='submit' [disabled]='!user.valid' class="form-control">Registreer</button>
+    </div>
+  </form>
+</div>
