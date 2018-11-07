@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,5 +12,7 @@ namespace Lunchers.Models.Domain
         [Key]
         public int IngredientId { get; set; }
         public string Naam { get; set; }
+        [JsonIgnore]
+        public List<LunchIngredient> LunchIngredienten { get; set; }
     }
 }
