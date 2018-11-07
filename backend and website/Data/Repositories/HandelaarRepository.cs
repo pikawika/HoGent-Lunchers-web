@@ -24,14 +24,14 @@ namespace Lunchers.Data.Repositories
             Handelaar handelaarMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
                 .Include(h => h.Locatie)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
-                .Include(h => h.Lunches).ThenInclude(l => l.Tags).ThenInclude(t => t.Tag)
-                .Include(h => h.Lunches).ThenInclude(l => l.Ingredienten).ThenInclude(i => i.Ingredient)
+                .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
+                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .FirstOrDefault();
 
             Handelaar handerlaarEnkelLunchesGeldig = handelaarMetAlleLunches;
 
             if (handerlaarEnkelLunchesGeldig != null)
-                handerlaarEnkelLunchesGeldig.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
+                handerlaarEnkelLunchesGeldig.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
 
             return handerlaarEnkelLunchesGeldig;
         }
