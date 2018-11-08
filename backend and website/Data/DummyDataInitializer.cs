@@ -38,33 +38,33 @@ namespace Lunchers.Data
 
                 // GEBRUIKERS BEGIN
                 Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Email = "info@lennertbontinck.com", Telefoonnummer = "+32491234514" };
-                gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", gebruiker = gebruikerStandaardLennert, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Email = "bramblett@me.com", Telefoonnummer = "+32491234515" };
-                gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", gebruiker = gebruikerStandaard1, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard2 = new Klant { Voornaam = "Liza", Achternaam = "Imboden", Email = "liza@optonline.net", Telefoonnummer = "+32491234515" };
-                gebruikerStandaard2.Login = new Login { Gebruikersnaam = "liza", gebruiker = gebruikerStandaard2, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaard2.Login = new Login { Gebruikersnaam = "liza", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard3 = new Klant { Voornaam = "Christine", Achternaam = "Heisler", Email = "christine@msn.com", Telefoonnummer = "+32491234515" };
-                gebruikerStandaard3.Login = new Login { Gebruikersnaam = "christine", gebruiker = gebruikerStandaard3, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaard3.Login = new Login { Gebruikersnaam = "christine", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard4 = new Klant { Voornaam = "Jena", Achternaam = "Ocampo", Email = "jena@sbcglobal.net", Telefoonnummer = "+32491234515" };
-                gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", gebruiker = gebruikerStandaard4, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Email = "jan@mac.com", Telefoonnummer = "+32491234515" };
-                gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", gebruiker = gebruikerStandaard5, Rol = rolStandaard, Geactiveerd = true };
+                gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", Rol = rolStandaard, Geactiveerd = true };
 
                 Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Email = "info@teamgdpr.be", Telefoonnummer = "+32491234514" };
-                gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", gebruiker = gebruikerAdmin1TeamGdpr, Rol = rolAdmin, Geactiveerd = true };
+                gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", Rol = rolAdmin, Geactiveerd = true };
                 Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Email = "renate@qarfa.be", Telefoonnummer = "+32494157077" };
-                gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", gebruiker = gebruikerAdmin2QarfaRenate, Rol = rolAdmin, Geactiveerd = true };
+                gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", Rol = rolAdmin, Geactiveerd = true };
 
                 Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { HandelsNaam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@qarfa.be", Telefoonnummer = "+32494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.970252, Longitude = 3.984861 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
-                gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", gebruiker = gebruikerHandelaar1Qarfa, Rol = rolHandelaar, Geactiveerd = true };
+                gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", Rol = rolHandelaar, Geactiveerd = true };
                 Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { HandelsNaam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "info@brasserieblomme.be", Telefoonnummer = "+32475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
-                gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", gebruiker = gebruikerHandelaar2BrasserieBlomme, Rol = rolHandelaar, Geactiveerd = true };
+                gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", Rol = rolHandelaar, Geactiveerd = true };
                 Gebruiker gebruikerHandelaar3Kelderman = new Handelaar { HandelsNaam = "Kelderman", Voornaam = "Dirk", Achternaam = "Kelderman", Email = "info@kelderman.be", Telefoonnummer = "+3253776125", Locatie = new Locatie { Straat = "Parklaan", Huisnummer = "4", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.892543, Longitude = 4.074539 }, Website = "http://www.visrestaurant-kelderman.be/", PromotieRange = 5 };
-                gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", gebruiker = gebruikerHandelaar3Kelderman, Rol = rolHandelaar, Geactiveerd = true };
+                gebruikerHandelaar3Kelderman.Login = new Login { Gebruikersnaam = "kelderman", Rol = rolHandelaar, Geactiveerd = true };
                 Gebruiker gebruikerHandelaar4Zorba = new Handelaar { HandelsNaam = "Zorba Aalst", Voornaam = "Johan", Achternaam = "De Mulder", Email = "info@zorbaaalst.be", Telefoonnummer = "+3253776506", Locatie = new Locatie { Straat = "Houtmarkt", Huisnummer = "3", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.934408, Longitude = 4.043971 }, Website = "https://www.facebook.com/pages/Zorba/140775739321413", PromotieRange = 0 };
-                gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", gebruiker = gebruikerHandelaar4Zorba, Rol = rolHandelaar, Geactiveerd = true };
+                gebruikerHandelaar4Zorba.Login = new Login { Gebruikersnaam = "zorbaaalst", Rol = rolHandelaar, Geactiveerd = true };
                 Gebruiker gebruikerHandelaar5Dion = new Handelaar { HandelsNaam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "+3253787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
-                gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", gebruiker = gebruikerHandelaar5Dion, Rol = rolHandelaar, Geactiveerd = true };
+                gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", Rol = rolHandelaar, Geactiveerd = true };
 
 
 
@@ -80,35 +80,22 @@ namespace Lunchers.Data
                 // GEBRUIKERS EINDE
 
                 //INGREDIENT
-                IngredientInLunch ingredient1 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Paprika" } };
-                IngredientInLunch ingredient2 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Kip" } };
-                IngredientInLunch ingredient3 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Boontjes" } };
-                IngredientInLunch ingredient4 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Melk producten" } };
-                IngredientInLunch ingredient5 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Pasta" } };
-                IngredientInLunch ingredient6 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Tomaat" } };
-                IngredientInLunch ingredient7 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Brocoli" } };
-                IngredientInLunch ingredient8 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Noten" } };
-                IngredientInLunch ingredient9 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Rundsvlees" } };
-                IngredientInLunch ingredient10 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Varkensvlees" } };
-                IngredientInLunch ingredient11 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Vis" } };
-                IngredientInLunch ingredient12 = new IngredientInLunch { Ingredient = new Ingredient { Naam = "Ui" } };
-
-                var ingredientenVlees = new List<IngredientInLunch>{
-                    ingredient9, ingredient10, ingredient12, ingredient6, ingredient9, ingredient10, ingredient12
-                };
-
-                var ingredientenVegan = new List<IngredientInLunch>{
-                    ingredient1, ingredient3, ingredient6, ingredient4, ingredient6, ingredient7, ingredient8
-                };
-
-                var ingredientenPasta = new List<IngredientInLunch>{
-                    ingredient1, ingredient2, ingredient5, ingredient6, ingredient8
-                };
-
-                var ingredientenVis = new List<IngredientInLunch>{
-                    ingredient11, ingredient7
-                };
-                //INGREDIENT EINDE
+                Ingredient ingredientPaprika = new Ingredient { Naam = "Paprika" };
+                Ingredient ingredientKip = new Ingredient { Naam = "Kip" };
+                Ingredient ingredientBoontjes = new Ingredient { Naam = "Boontjes" };
+                Ingredient ingredientMelk = new Ingredient { Naam = "Melk producten" };
+                Ingredient ingredientPasta = new Ingredient { Naam = "Pasta" };
+                Ingredient ingredientTomaat = new Ingredient { Naam = "Tomaat" };
+                Ingredient ingredientBrocoli = new Ingredient { Naam = "Brocoli" };
+                Ingredient ingredientKaas = new Ingredient { Naam = "Kaas" };
+                Ingredient ingredientNoten = new Ingredient { Naam = "Noten" };
+                Ingredient ingredientRundsvlees = new Ingredient { Naam = "Rundsvlees" };
+                Ingredient ingredientVarkensvlees = new Ingredient { Naam = "Varkensvlees" };
+                Ingredient ingredientVis = new Ingredient { Naam = "Vis" };
+                Ingredient ingredientUi = new Ingredient { Naam = "Ui" };
+                Ingredient ingredientSla = new Ingredient { Naam = "Bergsla" };
+                Ingredient ingredientFriet = new Ingredient { Naam = "Frietjes" };
+                //INGREDIENT EINDE -> nog in lijst van lunch steken
 
                 //TAGS
                 string RodeKleur = "FF6A6A";
@@ -116,60 +103,34 @@ namespace Lunchers.Data
                 string Gelekleur = "FFF79A ";
 
 
-                TagInLunch tag1 = new TagInLunch { Tag = new Tag { Naam = "hambuger", Kleur = RodeKleur } };
-                TagInLunch tag2 = new TagInLunch { Tag = new Tag { Naam = "varkensvlees", Kleur = RodeKleur } };
-                TagInLunch tag3 = new TagInLunch { Tag = new Tag { Naam = "frietjes", Kleur = Gelekleur } };
-                TagInLunch tag4 = new TagInLunch { Tag = new Tag { Naam = "sla", Kleur = GroeneKleur } };
-                TagInLunch tag5 = new TagInLunch { Tag = new Tag { Naam = "gezond", Kleur = GroeneKleur } };
-                TagInLunch tag6 = new TagInLunch { Tag = new Tag { Naam = "vegetarisch", Kleur = GroeneKleur } };
-                TagInLunch tag7 = new TagInLunch { Tag = new Tag { Naam = "vis", Kleur = RodeKleur } };
-                TagInLunch tag8 = new TagInLunch { Tag = new Tag { Naam = "zalm", Kleur = RodeKleur } };
-                TagInLunch tag9 = new TagInLunch { Tag = new Tag { Naam = "italiaans", Kleur = RodeKleur } };
-                TagInLunch tag10 = new TagInLunch { Tag = new Tag { Naam = "dieet", Kleur = GroeneKleur } };
-                TagInLunch tag11 = new TagInLunch { Tag = new Tag { Naam = "kip", Kleur = RodeKleur } };
-                TagInLunch tag12 = new TagInLunch { Tag = new Tag { Naam = "kaas", Kleur = Gelekleur } };
-                TagInLunch tag13 = new TagInLunch { Tag = new Tag { Naam = "augurk", Kleur = RodeKleur } };
-                TagInLunch tag14 = new TagInLunch { Tag = new Tag { Naam = "champignonsaus", Kleur = Gelekleur } };
-                TagInLunch tag15 = new TagInLunch { Tag = new Tag { Naam = "Rosbief", Kleur = RodeKleur } };
-                TagInLunch tag16 = new TagInLunch { Tag = new Tag { Naam = "Roomsaus", Kleur = Gelekleur } };
-
-
-                var tagsHamburger = new List<TagInLunch>{
-                    tag1,tag2, tag12, tag13
-                };
-
-                var tagsVleesFriet = new List<TagInLunch>{
-                    tag2,tag3,tag14
-                };
-
-                var tagsVegan = new List<TagInLunch>{
-                    tag4, tag5, tag6, tag10
-                };
-
-                var tagsPasta = new List<TagInLunch>{
-                    tag4, tag10, tag9, tag11, tag15
-                };
-
-                var tagsVis = new List<TagInLunch>{
-                    tag7, tag8, tag10
-                };
-
-                var tagsZalm = new List<TagInLunch>{
-                    tag7, tag8, tag10, tag16
-                };
-                //TAGS EINDE
+                Tag tagHambuger = new Tag { Naam = "Hambuger", Kleur = RodeKleur };
+                Tag tagVarkensvlees = new Tag { Naam = "Varkensvlees", Kleur = RodeKleur };
+                Tag tagFrietjes = new Tag { Naam = "Frietjes", Kleur = Gelekleur };
+                Tag tagSla = new Tag { Naam = "Sla", Kleur = GroeneKleur };
+                Tag tagGezond = new Tag { Naam = "Gezond", Kleur = GroeneKleur };
+                Tag tagVegetarisch = new Tag { Naam = "Vegetarisch", Kleur = GroeneKleur };
+                Tag tagVis = new Tag { Naam = "Vis", Kleur = RodeKleur };
+                Tag tagZalm = new Tag { Naam = "Zalm", Kleur = RodeKleur };
+                Tag tagItaliaans = new Tag { Naam = "Italiaans", Kleur = RodeKleur };
+                Tag tagDieet = new Tag { Naam = "Dieet", Kleur = GroeneKleur };
+                Tag tagKip = new Tag { Naam = "Kip", Kleur = RodeKleur };
+                Tag tagKaas = new Tag { Naam = "Kaas", Kleur = Gelekleur };
+                Tag tagAugurk = new Tag { Naam = "Augurk", Kleur = RodeKleur };
+                Tag tagChampignonsaus = new Tag { Naam = "Champignonsaus", Kleur = Gelekleur };
+                Tag tagRoomsaus = new Tag { Naam = "Roomsaus", Kleur = Gelekleur };
+                //TAGS EINDE -> nog in lijst van lunch steken
 
 
                 //LUNCHES BEGIN
                 //nog Afbeeldingen
-                Lunch lunchStandaardHamburger = new Lunch { Naam = "American hamburger", Prijs = 10.00, Ingredienten = ingredientenVlees, Beschrijving = "Een echte American burger met alles wat er bij hoort zoals bacon, cheddar kaas en augurkjes.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsHamburger };
-                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta rosbief", Prijs = 20, Ingredienten = ingredientenPasta, Beschrijving = "Rosbief is een klassieker, maar waarom niet eens combineren met pasta en lekkere Italiaanse producten?", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsPasta };
-                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15.50, Ingredienten = ingredientenVis, Beschrijving = "Gegratineerde visschotel met duo van puree op grootmoeders wijze.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVis };
-                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25.00, Ingredienten = ingredientenVegan, Beschrijving = "Een lekker frisse en bovenal gezonde vegan salade.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVegan };
-                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Ingredienten = ingredientenVis, Beschrijving = "Zalm vergezeld met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsZalm };
-                Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Ingredienten = ingredientenVlees, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Tags = tagsVleesFriet };
+                Lunch lunchStandaardHamburger = new Lunch { Naam = "American hamburger", Prijs = 10.00, Beschrijving = "Een echte American burger met alles wat er bij hoort zoals bacon, cheddar kaas en augurkjes.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta rosbief", Prijs = 20, Beschrijving = "Rosbief is een klassieker, maar waarom niet eens combineren met pasta en lekkere Italiaanse producten?", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15.50, Beschrijving = "Gegratineerde visschotel met duo van puree op grootmoeders wijze.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25.00, Beschrijving = "Een lekker frisse en bovenal gezonde vegan salade.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Beschrijving = "Zalm vergezeld met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
 
-                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Ingredienten = ingredientenVlees, Beschrijving = "Een ", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30), Tags = tagsHamburger };
+                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Beschrijving = "Een ", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30) };
 
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardHamburger);
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(LunchUitzonderingVervallen);
@@ -184,28 +145,73 @@ namespace Lunchers.Data
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/1.jpg" });
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/2.jpg" });
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/3.jpg" });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagHambuger });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagAugurk });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagKaas });
+                lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVarkensvlees });
+                lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
+                lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKaas });
+                lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientUi });
 
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/1.jpg" });
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/2.jpg" });
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/3.jpg" });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagKaas });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagDieet });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagKip });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagItaliaans });
+                lunchStandaardPasta.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPasta });
+                lunchStandaardPasta.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKip });
 
                 lunchStandaardVis.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch3/1.jpg" });
                 lunchStandaardVis.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch3/2.jpg" });
+                lunchStandaardVis.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch3/3.jpg" });
+                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagVis });
+                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagGezond });
+                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagSla });
+                lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
+                lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVis });
+                lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
 
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/1.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/2.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/3.jpg" });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagGezond });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagDieet });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagVegetarisch });
+                lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
+                lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientBrocoli });
+                lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientTomaat });
 
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/1.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/2.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/3.jpg" });
+                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagZalm });
+                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagRoomsaus });
+                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagGezond });
+                lunchStandaardZalm.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVis });
+                lunchStandaardZalm.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientMelk });
 
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/1.jpg" });
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/2.jpg" });
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/3.jpg" });
+                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
+                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagFrietjes });
+                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagChampignonsaus });
+                lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientRundsvlees });
+                lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientFriet });
+                lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientMelk });
 
                 LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/1.jpg" });
                 LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/2.jpg" });
+                LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/3.jpg" });
+                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagHambuger });
+                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
+                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagAugurk });
+                LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVarkensvlees });
+                LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKaas });
+                LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
                 //AFBEELDINGEN EINDE
 
                 //RESERVATIES -> user lennert
