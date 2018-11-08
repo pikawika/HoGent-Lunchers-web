@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
 using Lunchers.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -26,7 +27,7 @@ namespace Lunchers.Controllers
             return _lunchRespository.GetAll();
         }
 
-        [HttpGet]
+        [HttpGet, Authorize]
         public Lunch GetById(int id)
         {
             return _lunchRespository.getById(id);
