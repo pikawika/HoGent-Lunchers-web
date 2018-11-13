@@ -34,7 +34,7 @@ namespace Lunchers
 
             //windows of mac invullen afhankelijk van je os -> Deployment voor azure -> server voor brent
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("server")));
+                options.UseSqlServer(Configuration.GetConnectionString("windows")));
 
 
 
@@ -94,9 +94,6 @@ namespace Lunchers
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "defaultApi",
-                    template: "api/{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>

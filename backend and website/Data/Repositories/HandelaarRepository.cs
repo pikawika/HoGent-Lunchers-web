@@ -19,7 +19,25 @@ namespace Lunchers.Data.Repositories
             _handelaars = context.Handelaars;
         }
 
-        public Handelaar getById(int id)
+        public IEnumerable<Handelaar> GetAll()
+        {
+            IEnumerable<Handelaar> handelaarsMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar")
+                .Include(h => h.Locatie)
+                .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
+                .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
+                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
+
+            IEnumerable<Handelaar> handelaarEnkelLunchesGeldig = handelaarsMetAlleLunches;
+
+            if (handelaarEnkelLunchesGeldig != null) {
+                foreach (Handelaar h in handelaarEnkelLunchesGeldig)
+                h.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
+            }
+
+            return handelaarEnkelLunchesGeldig;
+        }
+
+        public Handelaar GetById(int id)
         {
             Handelaar handelaarMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
                 .Include(h => h.Locatie)
@@ -28,12 +46,11 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .FirstOrDefault();
 
-            Handelaar handerlaarEnkelLunchesGeldig = handelaarMetAlleLunches;
+            Handelaar handelaarEnkelLunchesGeldig = handelaarMetAlleLunches;
 
-            if (handerlaarEnkelLunchesGeldig != null)
-                handerlaarEnkelLunchesGeldig.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
+            if (handelaarEnkelLunchesGeldig != null) handelaarEnkelLunchesGeldig.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
 
-            return handerlaarEnkelLunchesGeldig;
+            return handelaarEnkelLunchesGeldig;
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Lunchers.Data.Repositories
             _rollen = context.Rollen;
         }
 
-        public Rol GetByNaam(string naam)
+        public Rol GetByName(string naam)
         {
             return _rollen.FirstOrDefault(r => r.Naam == naam);
         }

@@ -12,25 +12,28 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Lunchers.Controllers
 {
+    [Route("api/[controller]")]
     public class LunchController : Controller
     {
-        ILunchRespository _lunchRespository;
+        private ILunchRespository _lunchRespository;
 
         public LunchController(ILunchRespository lunchRespository)
         {
             _lunchRespository = lunchRespository;
         }
 
+        // GET: api/<controller>
         [HttpGet]
-        public IEnumerable<Lunch> GetAll()
+        public IEnumerable<Lunch> Get()
         {
             return _lunchRespository.GetAll();
         }
 
-        [HttpGet, Authorize]
-        public Lunch GetById(int id)
+        // GET api/<controller>/5
+        [HttpGet("{id}")]
+        public Lunch Get(int id)
         {
-            return _lunchRespository.getById(id);
+            return _lunchRespository.GetById(id);
         }
 
     }
