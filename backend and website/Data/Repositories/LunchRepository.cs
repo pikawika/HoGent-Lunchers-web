@@ -29,7 +29,7 @@ namespace Lunchers.Data.Repositories
                 .ToList();
         }
 
-        public Lunch getById(int id)
+        public Lunch GetById(int id)
         {
             return _lunches.Where(l => l.LunchId == id)
                 .Include(l => l.Afbeeldingen)

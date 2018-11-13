@@ -11,9 +11,10 @@ using Lunchers.Models.Domain;
 
 namespace Lunchers.Controllers
 {
+    [Route("api/[controller]")]
     public class HandelaarController : Controller
     {
-        IHandelaarRepository _handelaarRepository;
+        private IHandelaarRepository _handelaarRepository;
 
         public HandelaarController(IHandelaarRepository handelaarRepository)
         {
@@ -21,9 +22,15 @@ namespace Lunchers.Controllers
         }
 
         [HttpGet]
-        public Handelaar GetById(int id)
+        public IEnumerable<Handelaar> Get()
         {
-            return _handelaarRepository.getById(id);
+            return _handelaarRepository.GetAll();
+        }
+
+        [HttpGet("{id}")]
+        public Handelaar Get(int id)
+        {
+            return _handelaarRepository.GetById(id);
         }
 
     }

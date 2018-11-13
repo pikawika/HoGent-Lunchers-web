@@ -34,7 +34,7 @@ namespace Lunchers.Data.Repositories
             return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam);
         }
 
-        public byte[] getSalt(string gebruikersnaam)
+        public byte[] GetSalt(string gebruikersnaam)
         {
             return _gebruikers.Where(g => g.Login.Gebruikersnaam == gebruikersnaam).Include(g => g.Login).FirstOrDefault().Login.Salt;
         }

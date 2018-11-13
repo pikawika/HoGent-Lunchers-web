@@ -8,6 +8,6 @@ namespace Lunchers.Models.IRepositories
 {
     public interface IRolRepository
     {
-        Rol GetByNaam(string naam);
+        Rol GetByName(string naam);
     }
 }
