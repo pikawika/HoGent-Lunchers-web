@@ -19,6 +19,16 @@ namespace Lunchers.Data.Repositories
             _lunches = context.Lunches;
         }
 
+        public void Add(Lunch lunch)
+        {
+            _lunches.Add(lunch);
+        }
+
+        public void Delete(Lunch lunch)
+        {
+            _lunches.Remove(lunch);
+        }
+
         public IEnumerable<Lunch> GetAll()
         {
             return _lunches.Where(l => l.BeginDatum <= DateTime.Now.Date && l.EindDatum >= DateTime.Now.Date )
@@ -37,6 +47,11 @@ namespace Lunchers.Data.Repositories
                 .Include(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(l => l.Handelaar).ThenInclude(h => h.Locatie)
                 .FirstOrDefault();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

@@ -8,6 +8,9 @@ namespace Lunchers.Models.Repositories
     {
         IEnumerable<Lunch> GetAll();
         Lunch GetById(int id);
+        void Add(Lunch lunch);
+        void Delete(Lunch lunch);
+        void SaveChanges();
     }
 }
  
