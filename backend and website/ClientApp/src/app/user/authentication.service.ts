@@ -74,6 +74,32 @@ export class AuthenticationService {
     );
   }
 
+  registerMerchant(username: string, tel:string, email:string,voornaam:string,achternaam:string,
+    name:string, website:string, street: string, number:string, code: string, city:string
+    ): Observable<boolean> {
+    return this.http.post(this._baseUrl+'api/gebruiker/registreer', 
+    { 
+      "Telefoonnummer": tel,
+      "Email": email,
+      "Voornaam": voornaam,
+      "Achternaam": achternaam,
+      "Login": {
+        "Gebruikersnaam": username,
+        "Rol": "handelaar",
+        "Wachtwoord": "voorlopigWachtwoord123"
+      },
+      "HandelsNaam": name,
+      "Website": website,
+		  "Locatie": { "Straat" : street,
+								"Huisnummer" : number,
+								"Postcode" : code,
+								"Gemeente" : city,
+								"Latitude" : "1",
+								"Longitude": "1"}
+    }).pipe(
+      map((res: any) => { return res }));
+  }
+
   logout() {
     if (this.user$.getValue()) {
       localStorage.removeItem('currentUser');

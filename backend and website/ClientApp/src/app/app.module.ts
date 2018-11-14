@@ -15,6 +15,7 @@ import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthGuardService } from './user/auth-guard.service';
+import { RegisterMerchantComponent } from './user/register-merchant/register-merchant.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AuthGuardService } from './user/auth-guard.service';
     LunchComponent,
     RegisterComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    RegisterMerchantComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -38,7 +40,8 @@ import { AuthGuardService } from './user/auth-guard.service';
       { path: 'details/:id',canActivate: [ AuthGuardService ], component:LunchDetailComponent},
       { path: 'register', component:RegisterComponent},
       { path: 'login', component:LoginComponent},
-      { path:'logout', component:LogoutComponent}
+      { path: 'logout', component:LogoutComponent},
+      { path: 'merchantregister', component:RegisterMerchantComponent}
     ]),
     
   ],
