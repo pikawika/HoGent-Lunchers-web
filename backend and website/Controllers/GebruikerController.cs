@@ -31,6 +31,7 @@ using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
 namespace Lunchers.Controllers
 {
     [Authorize]
+    [Route("api/[controller]/[action]")]
     public class GebruikerController : Controller
     {
         private IConfiguration _config;
