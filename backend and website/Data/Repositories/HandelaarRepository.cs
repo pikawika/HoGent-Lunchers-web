@@ -52,5 +52,10 @@ namespace Lunchers.Data.Repositories
 
             return handelaarEnkelLunchesGeldig;
         }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

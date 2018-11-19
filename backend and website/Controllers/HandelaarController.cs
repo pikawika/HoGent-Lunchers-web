@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
 using Lunchers.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Lunchers.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class HandelaarController : Controller
     {
