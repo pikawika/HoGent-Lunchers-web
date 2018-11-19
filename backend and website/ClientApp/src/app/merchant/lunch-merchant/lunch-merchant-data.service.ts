@@ -17,7 +17,6 @@ export class LunchMerchantDataService {
 
    getMerchantById(id):Observable<Handelaar>{
     return this.http.get(this._baseUrl+"api/Handelaar/"+id).pipe(map(Handelaar.fromJSON));
-      )
-    );
+  
   }
 }
