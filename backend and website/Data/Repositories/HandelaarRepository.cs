@@ -53,6 +53,16 @@ namespace Lunchers.Data.Repositories
             return handelaarEnkelLunchesGeldig;
         }
 
+        public void Add(Handelaar handelaar)
+        {
+            _handelaars.Add(handelaar);
+        }
+
+        public void Delete(Handelaar handelaar)
+        {
+            _handelaars.Remove(handelaar);
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();
