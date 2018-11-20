@@ -26,7 +26,7 @@ export class HomeDataService {
 
   getLunchById(id):Observable<Lunch>{
     
-    return this.http.get(this._baseUrl+"api/Lunch/getById/"+id).pipe(
+    return this.http.get(this._baseUrl+"api/Lunch/"+id).pipe(
       map((lun: any): Lunch=>
         lun.map(Lunch.fromJSON)
       )
