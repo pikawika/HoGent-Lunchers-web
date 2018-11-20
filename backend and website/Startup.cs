@@ -34,7 +34,7 @@ namespace Lunchers
 
             //windows of mac invullen afhankelijk van je os -> Deployment voor azure -> server voor brent
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("mac")));
+                options.UseSqlServer(Configuration.GetConnectionString("windows")));
 
 
 
@@ -69,6 +69,9 @@ namespace Lunchers
             services.AddScoped<ILunchRespository, LunchRespository>();
             services.AddScoped<IHandelaarRepository, HandelaarRepository>();
             services.AddScoped<IRolRepository, RolRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IAfbeeldingRepository, AfbeeldingRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)
