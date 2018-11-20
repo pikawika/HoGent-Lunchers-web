@@ -16,7 +16,7 @@ export class DetailDataService {
   }
 
   getLunchById(id):Observable<Lunch>{
-    return this.http.get(this._baseUrl+"api/Lunch/getById/"+id).pipe(map(Lunch.fromJSON));
+    return this.http.get(this._baseUrl+"api/Lunch/"+id).pipe(map(Lunch.fromJSON));
   }
 
 }

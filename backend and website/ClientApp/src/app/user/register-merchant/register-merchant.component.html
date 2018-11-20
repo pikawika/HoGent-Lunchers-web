@@ -1,0 +1,68 @@
+<div class="col-md-6 offset-md-3">
+
+  <h1>Registreer Handelaar</h1>
+  <hr>
+
+  <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
+  <form [formGroup]="merchant" (ngSubmit)='onSubmit()'>
+
+    <div class="form-group">
+      <label for="username">Gebruikersnaam:</label>
+      <input type="text" id="username" formControlName='username' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="voornaam">Voornaam:</label>
+      <input type="text" id="voornaam" formControlName='voornaam' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="achternaam">Achternaam:</label>
+      <input type="text" id="achternaam" formControlName='achternaam' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="tel">Telefoon:</label>
+      <input type="tel" id="tel" formControlName='tel' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" formControlName='email' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="merchant">Handelsnaam:</label>
+      <input type="text" id="merchant" formControlName='merchant' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="website">Website:</label>
+      <input type="url" id="website" formControlName='website' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="street">Street:</label>
+      <input type="text" id="street" formControlName='street' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="number">Huisnummer:</label>
+      <input type="text" id="number" formControlName='number' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="code">Postcode:</label>
+      <input type="text" id="code" formControlName='code' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="city">Gemeente:</label>
+      <input type="text" id="city" formControlName='city' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <button type='submit' [disabled]='!merchant.valid' class="form-control">Registreer</button>
+    </div>
+  </form>
+</div>

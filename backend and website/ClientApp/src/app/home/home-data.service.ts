@@ -17,7 +17,7 @@ export class HomeDataService {
 
   get lunches():Observable<Lunch[]>{
     
-    return this.http.get(this._baseUrl+"api/Lunch/getAll").pipe(
+    return this.http.get(this._baseUrl+"api/Lunch").pipe(
       map((list: any[]): Lunch[]=>
         list.map(Lunch.fromJSON)
       )
