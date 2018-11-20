@@ -9,6 +9,7 @@ namespace Lunchers.Models.IRepositories
     {
         IEnumerable<Tag> GetAll();
         Tag GetById(int id);
+        Tag GetByName(string name);
         void Add(Tag tag);
         void Delete(Tag tag);
         void SaveChanges();

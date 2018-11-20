@@ -39,6 +39,11 @@ namespace Lunchers.Data.Repositories
             return _tags.SingleOrDefault(t => t.TagId == id);
         }
 
+        public Tag GetByName(string name)
+        {
+            return _tags.SingleOrDefault(t => t.Naam.ToLower() == name.ToLower());
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

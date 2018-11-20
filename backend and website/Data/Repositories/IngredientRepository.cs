@@ -39,6 +39,11 @@ namespace Lunchers.Data.Repositories
             return _ingredienten.SingleOrDefault(i => i.IngredientId == id);
         }
 
+        public Ingredient GetByName(string name)
+        {
+            return _ingredienten.SingleOrDefault(i => i.Naam.ToLower() == name.ToLower());
+        }
+
         public void SaveChanges()
         {
             _context.SaveChanges();

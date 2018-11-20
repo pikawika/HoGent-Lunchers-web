@@ -54,59 +54,104 @@ namespace Lunchers.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody]LunchViewModel nieuweLunch)
+        public async Task<IActionResult> Post([FromBody]LunchViewModel nieuweLunch)
         {
-            if (ModelState.IsValid)
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
-                try
+                if (ModelState.IsValid)
                 {
-                    Stream req = Request.Body;
-                    req.Seek(0, System.IO.SeekOrigin.Begin);
-                    string json = new StreamReader(req).ReadToEnd();
-                    LunchViewModel lunchvm = JObject.Parse(json).ToObject<LunchViewModel>();
-
-                    Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
-
-                    Lunch lunch = new Lunch()
+                    try
                     {
-                        Naam = lunchvm.Naam,
-                        Prijs = lunchvm.Prijs,
-                        Beschrijving = lunchvm.Beschrijving,
-                        BeginDatum = lunchvm.BeginDatum,
-                        EindDatum = lunchvm.EindDatum,
-                        LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten),
-                        LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags),
-                    };
+                        Stream req = Request.Body;
+                        req.Seek(0, System.IO.SeekOrigin.Begin);
+                        string json = new StreamReader(req).ReadToEnd();
+                        LunchViewModel lunchvm = JObject.Parse(json).ToObject<LunchViewModel>();
 
-                    handelaar.Lunches.Add(lunch);
-                    _handelaarRepository.SaveChanges();
+                        Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
-                    lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
-                    _lunchRespository.SaveChanges();
+                        Lunch lunch = new Lunch()
+                        {
+                            Naam = lunchvm.Naam,
+                            Prijs = lunchvm.Prijs,
+                            Beschrijving = lunchvm.Beschrijving,
+                            BeginDatum = lunchvm.BeginDatum,
+                            EindDatum = lunchvm.EindDatum,
+                            LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten),
+                            LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags),
+                        };
 
-                    return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
+                        handelaar.Lunches.Add(lunch);
+                        _handelaarRepository.SaveChanges();
+
+                        lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
+                        _lunchRespository.SaveChanges();
+
+                        return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
+                    }
+                    catch
+                    {
+                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de lunch." });
+                    }
                 }
-                catch
-                {
-                    return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de lunch." });
-                }
+                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
             }
-            return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public async Task<IActionResult> Put(int id, [FromBody]LunchEditViewModel aangepasteLunch)
         {
-        }
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
+            {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        Stream req = Request.Body;
+                        req.Seek(0, System.IO.SeekOrigin.Begin);
+                        string json = new StreamReader(req).ReadToEnd();
+                        LunchEditViewModel lunchvm = JObject.Parse(json).ToObject<LunchEditViewModel>();
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-            Lunch lunch =_lunchRespository.GetAll().SingleOrDefault(l => l.LunchId == id);
-            _lunchRespository.Delete(lunch);
-            _lunchRespository.SaveChanges();
+                        Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+
+                        Lunch lunch = _lunchRespository.GetById(id);
+
+                        if (handelaar == lunch.Handelaar) {
+                            lunch.Naam = lunchvm.Naam;
+                            lunch.Prijs = lunchvm.Prijs;
+                            lunch.Beschrijving = lunchvm.Beschrijving;
+                            lunch.BeginDatum = lunchvm.BeginDatum;
+                            lunch.EindDatum = lunchvm.EindDatum;
+                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten);
+                            lunch.LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags);
+
+                            if (lunchvm.Afbeeldingen != null)
+                            {
+                                string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
+                                Directory.Delete(path);
+
+                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
+                            }
+
+                            _lunchRespository.SaveChanges();
+
+                            return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                        }
+
+                        return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
+
+                    }
+                    catch (Exception e)
+                    {
+                        //return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
+                        return BadRequest(new { error = e });
+                    }
+                }
+                //return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+                return BadRequest(new { error = ModelState });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
 
         #region Helper Functies
@@ -133,7 +178,7 @@ namespace Lunchers.Controllers
             List<LunchIngredient> ingredienten = new List<LunchIngredient>();
             foreach (IngredientViewModel ivm in ingredientvms)
             {
-                Ingredient ingredient = _ingredientRepository.GetAll().SingleOrDefault(i => i.Naam == ivm.Naam);
+                Ingredient ingredient = _ingredientRepository.GetByName(ivm.Naam);
                 if (ingredient == null)
                 {
                     ingredient = new Ingredient { Naam = ivm.Naam };
@@ -151,7 +196,7 @@ namespace Lunchers.Controllers
             List<LunchTag> tags = new List<LunchTag>();
             foreach (TagViewModel tvm in tagvms)
             {
-                Tag tag = _tagRepository.GetAll().SingleOrDefault(t => t.Naam == tvm.Naam);
+                Tag tag = _tagRepository.GetByName(tvm.Naam);
                 if (tag == null)
                 {
                     tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };

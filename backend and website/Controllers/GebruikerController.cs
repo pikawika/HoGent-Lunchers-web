@@ -45,7 +45,7 @@ namespace Lunchers.Controllers
             _rolRepository = rolRepository;
         }
 
-        [HttpPost]
+        [HttpPost] 
         [AllowAnonymous]
         public IActionResult Registreer([FromBody]RegistreerGebruikerViewModel gebruikerAanvraag)
         {
