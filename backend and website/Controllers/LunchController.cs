@@ -77,6 +77,8 @@ namespace Lunchers.Controllers
                         BeginDatum = lunchvm.BeginDatum,
                         EindDatum = lunchvm.EindDatum,
                         Afbeeldingen = ConvertAfbeeldingViewModelsToAfbeeldingen(lunchvm.Afbeeldingen),
+                        LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten),
+                        LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags),
                     };
 
                     handelaar.Lunches.Add(lunch);
@@ -125,9 +127,9 @@ namespace Lunchers.Controllers
             return afbeeldingen;
         }
 
-        private List<Ingredient> ConvertIngredientViewModelsToIngredienten(List<IngredientViewModel> ingredientvms)
+        private List<LunchIngredient> ConvertIngredientViewModelsToIngredienten(List<IngredientViewModel> ingredientvms)
         {
-            List<Ingredient> ingredienten = new List<Ingredient>();
+            List<LunchIngredient> ingredienten = new List<LunchIngredient>();
             foreach (IngredientViewModel ivm in ingredientvms)
             {
                 Ingredient ingredient = _ingredientRepository.GetAll().SingleOrDefault(i => i.Naam == ivm.Naam);
@@ -137,14 +139,15 @@ namespace Lunchers.Controllers
                     _ingredientRepository.Add(ingredient);
                     _ingredientRepository.SaveChanges();
                 }
-                ingredienten.Add(ingredient);
+                LunchIngredient lunchIngredient = new LunchIngredient { Ingredient = ingredient };
+                ingredienten.Add(lunchIngredient);
             }
             return ingredienten;
         }
 
-        private List<Tag> ConvertTagViewModelsToTags(List<TagViewModel> tagvms)
+        private List<LunchTag> ConvertTagViewModelsToTags(List<TagViewModel> tagvms)
         {
-            List<Tag> tags = new List<Tag>();
+            List<LunchTag> tags = new List<LunchTag>();
             foreach (TagViewModel tvm in tagvms)
             {
                 Tag tag = _tagRepository.GetAll().SingleOrDefault(t => t.Naam == tvm.Naam);
@@ -154,7 +157,8 @@ namespace Lunchers.Controllers
                     _tagRepository.Add(tag);
                     _tagRepository.SaveChanges();
                 }
-                tags.Add(tag);
+                LunchTag lunchTag = new LunchTag { Tag = tag };
+                tags.Add(lunchTag);
             }
             return tags;
         }

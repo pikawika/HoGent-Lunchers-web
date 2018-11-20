@@ -24,12 +24,14 @@ namespace Lunchers.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IEnumerable<Handelaar> Get()
         {
             return _handelaarRepository.GetAll();
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public Handelaar Get(int id)
         {
             return _handelaarRepository.GetById(id);
