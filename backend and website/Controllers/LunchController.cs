@@ -10,12 +10,10 @@ using Microsoft.AspNetCore.Authorization;
 using Lunchers.Models.ViewModels.Lunch;
 using System.IO;
 using Newtonsoft.Json.Linq;
-using Lunchers.Models.ViewModels.Afbeelding;
 using Lunchers.Models.ViewModels.Ingredient;
 using Lunchers.Models.ViewModels.Tag;
 using Lunchers.Models.IRepositories;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Http;
 
 namespace Lunchers.Controllers
 {
@@ -56,7 +54,7 @@ namespace Lunchers.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public IActionResult Post([FromBody]LunchViewModel nieuweLunch)
+        public async Task<IActionResult> PostAsync([FromBody]LunchViewModel nieuweLunch)
         {
             if (ModelState.IsValid)
             {
@@ -76,13 +74,15 @@ namespace Lunchers.Controllers
                         Beschrijving = lunchvm.Beschrijving,
                         BeginDatum = lunchvm.BeginDatum,
                         EindDatum = lunchvm.EindDatum,
-                        Afbeeldingen = ConvertAfbeeldingViewModelsToAfbeeldingen(lunchvm.Afbeeldingen),
                         LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten),
                         LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags),
                     };
 
                     handelaar.Lunches.Add(lunch);
                     _handelaarRepository.SaveChanges();
+
+                    lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
+                    _lunchRespository.SaveChanges();
 
                     return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
                 }
@@ -110,20 +110,21 @@ namespace Lunchers.Controllers
         }
 
         #region Helper Functies
-        private List<Afbeelding> ConvertAfbeeldingViewModelsToAfbeeldingen(List<AfbeeldingViewModel> afbeeldingvms)
+        private async Task<List<Afbeelding>> ConvertFormFilesToAfbeeldingenAsync(List<IFormFile> afbeeldingFiles, Lunch lunch)
         {
             List<Afbeelding> afbeeldingen = new List<Afbeelding>();
-            foreach (AfbeeldingViewModel avm in afbeeldingvms)
+
+            for (int i = 1; i <= afbeeldingFiles.Capacity; i++)
             {
-                Afbeelding afbeelding = _afbeeldingRepository.GetAll().SingleOrDefault(a => a.Pad == avm.Pad);
-                if (afbeelding == null)
-                {
-                    afbeelding = new Afbeelding { Pad = avm.Pad };
-                    _afbeeldingRepository.Add(afbeelding);
-                    _afbeeldingRepository.SaveChanges();
-                }
-                afbeeldingen.Add(afbeelding);
+                string afbeeldingRelativePath = "/lunches/lunch" + lunch.LunchId + "/" + i + ".jpg";
+                afbeeldingen.Add(new Afbeelding { Pad = afbeeldingRelativePath });
+                string filePath = @"wwwroot" + afbeeldingRelativePath;
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+                FileStream fileStream = new FileStream(filePath, FileMode.Create);
+                await afbeeldingFiles[i].CopyToAsync(fileStream);
+                fileStream.Close();
             }
+
             return afbeeldingen;
         }
 

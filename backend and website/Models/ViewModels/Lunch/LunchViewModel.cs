@@ -1,7 +1,7 @@
 ﻿using Lunchers.Models.Domain;
-using Lunchers.Models.ViewModels.Afbeelding;
 using Lunchers.Models.ViewModels.Ingredient;
 using Lunchers.Models.ViewModels.Tag;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -39,7 +39,8 @@ namespace Lunchers.Models.ViewModels.Lunch
         public List<TagViewModel> Tags { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
-        public List<AfbeeldingViewModel> Afbeeldingen { get; set; }
+        [DataType(DataType.Upload)]
+        public List<IFormFile> Afbeeldingen { set; get; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
