@@ -5,6 +5,8 @@ export class Lunch {
     private _ingredienten: string[]; //lijst van ingredienten (strings doordat ingredient enkel een naam heeft)
     private _beschrijving : string;
     private _afbeeldingen; //lijst van urls in vorm van string
+    private _beginDatum : Date;
+    private _eindDatum : Date;
     private _tags; //lijst van strings
     //private handelaar Handelaar; -> handelaar object nog aan te maken
 
@@ -21,6 +23,8 @@ export class Lunch {
           lunch.beschrijving = json.beschrijving;
           lunch.afbeeldingen = json.afbeeldingen;          
           lunch._tags = json._tags;
+          lunch._beginDatum = json.beginDatum;
+          lunch._eindDatum = json.eindDatum;
           return lunch;
         }
     }
@@ -122,6 +126,38 @@ export class Lunch {
      */
 	public set afbeeldingen(value: string[]) {
 		this._afbeeldingen = value;
+    }
+    
+        /**
+     * Getter beginDatum
+     * @return {Date}
+     */
+	public get beginDatum(): Date {
+		return this._beginDatum;
+	}
+
+    /**
+     * Getter eindDatum
+     * @return {Date}
+     */
+	public get eindDatum(): Date {
+		return this._eindDatum;
+	}
+
+    /**
+     * Setter beginDatum
+     * @param {Date} value
+     */
+	public set beginDatum(value: Date) {
+		this._beginDatum = value;
+	}
+
+    /**
+     * Setter eindDatum
+     * @param {Date} value
+     */
+	public set eindDatum(value: Date) {
+		this._eindDatum = value;
 	}
     
 }

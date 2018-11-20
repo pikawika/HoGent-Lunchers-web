@@ -37,15 +37,20 @@ export class AddLunchComponent implements OnInit {
       enddate: [
         '',
         [Validators.required]
-      ],
-      ingredienten: [
-        '',
-        [Validators.required]
-      ],
-      tags: [
-        '',
-        [Validators.required]
       ]
+      // ,
+      // ingredienten: [
+      //   '',
+      //   [Validators.required]
+      // ],
+      // tags: [
+      //   '',
+      //   [Validators.required]
+      // ],
+      // afb: [
+      //   '',
+      //   [Validators.required]
+      // ]
     });
   }
 

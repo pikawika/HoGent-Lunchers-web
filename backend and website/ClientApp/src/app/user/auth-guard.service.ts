@@ -11,7 +11,11 @@ export class AuthGuardService {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     if (this.authService.user$.getValue()) {
+      
+      
       return true;
+
+
     }
 
     // Retain the attempted URL for redirection
