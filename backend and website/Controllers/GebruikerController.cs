@@ -135,7 +135,11 @@ namespace Lunchers.Controllers
                 }
 
                 //geen user gevonden
-                return Unauthorized("Uw account is nog niet geactiveerd en/of uw wachtwoord en/of gebruikersnaam klopt niet.");
+                if(CheckGebruikersnaamBestaat(login.Gebruikersnaam)){
+                    return Unauthorized(new { error = "Incorrect wachtwoord en/of uw account is niet geactiveerd." });
+                }else{
+                    return Unauthorized(new { error = "Incorrecte gebruikersnaam." });
+                }
             }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
