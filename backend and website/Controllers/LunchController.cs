@@ -54,37 +54,43 @@ namespace Lunchers.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]LunchViewModel nieuweLunch)
+        public async Task<IActionResult> Post([FromForm]LunchViewModel nieuweLunch)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
                 if (ModelState.IsValid)
                 {
-                try {
-                    Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
-
-                    Lunch lunch = new Lunch()
+                    try
                     {
-                        Naam = nieuweLunch.Naam,
-                        Prijs = nieuweLunch.Prijs,
-                        Beschrijving = nieuweLunch.Beschrijving,
-                        BeginDatum = nieuweLunch.BeginDatum,
-                        EindDatum = nieuweLunch.EindDatum,
-                        LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
-                        LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
-                    };
+                        if (nieuweLunch.Afbeeldingen.Files.Count != 0)
+                        {
+                            Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
 
-                    handelaar.Lunches.Add(lunch);
-                    _handelaarRepository.SaveChanges();
+                            Lunch lunch = new Lunch()
+                            {
+                                Naam = nieuweLunch.Naam,
+                                Prijs = double.Parse(nieuweLunch.Prijs),
+                                Beschrijving = nieuweLunch.Beschrijving,
+                                BeginDatum = nieuweLunch.BeginDatum,
+                                EindDatum = nieuweLunch.EindDatum,
+                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
+                                LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
+                            };
 
-                    lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
-                    _lunchRespository.SaveChanges();
+                            handelaar.Lunches.Add(lunch);
+                            _handelaarRepository.SaveChanges();
 
-                    return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
-                }
-                catch (Exception e)
-                {
-                    return BadRequest(new { e });
+                            lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
+                            _lunchRespository.SaveChanges();
+
+                            return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
+                        }
+                        return BadRequest(new { error = "Gelieve minstens één afbeelding meesturen." });
+                    }
+                    catch
+                    {
+                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanmaken van de nieuwe lunch." });
+                    }
                 }
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
             }

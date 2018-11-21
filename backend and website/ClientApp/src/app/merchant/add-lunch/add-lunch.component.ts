@@ -75,7 +75,7 @@ export class AddLunchComponent implements OnInit {
 
       data.append("afbeeldingen", files[0]);
       data.append("naam", this.lunch.value.name);
-      data.append("prijs", this.lunch.value.price);
+      data.append("prijs", Number(this.lunch.value.price));
       data.append("beschrijving", this.lunch.value.description);
       data.append("beginDatum", this.lunch.value.startdate);
       data.append("eindDatum", this.lunch.value.enddate);

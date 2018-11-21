@@ -17,8 +17,8 @@ namespace Lunchers.Models.ViewModels.Lunch
         public string Naam { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
-        [Range(1, 999.99)]
-        public double Prijs { get; set; }
+        [Range(1.00, 999.99, ErrorMessage = "Prijs moet tussen {1} en {2} liggen.")]
+        public string Prijs { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
         [StringLength(2500, MinimumLength = 10)]
