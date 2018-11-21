@@ -28,7 +28,7 @@ namespace Lunchers.Controllers
         }
 
         // GET: api/Ingredient/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public Ingredient Get(int id)
         {
             return _ingredientRepository.GetById(id);
