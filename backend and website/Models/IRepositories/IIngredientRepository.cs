@@ -10,6 +10,7 @@ namespace Lunchers.Models.IRepositories
     {
         IEnumerable<Ingredient> GetAll();
         Ingredient GetById(int id);
+        Ingredient GetByName(string name);
         void Add(Ingredient ingredient);
         void Delete(Ingredient ingredient);
         void SaveChanges();
