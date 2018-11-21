@@ -108,30 +108,25 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
-                        Stream req = Request.Body;
-                        req.Seek(0, System.IO.SeekOrigin.Begin);
-                        string json = new StreamReader(req).ReadToEnd();
-                        LunchEditViewModel lunchvm = JObject.Parse(json).ToObject<LunchEditViewModel>();
-
                         Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                         Lunch lunch = _lunchRespository.GetById(id);
 
                         if (handelaar == lunch.Handelaar) {
-                            lunch.Naam = lunchvm.Naam;
-                            lunch.Prijs = lunchvm.Prijs;
-                            lunch.Beschrijving = lunchvm.Beschrijving;
-                            lunch.BeginDatum = lunchvm.BeginDatum;
-                            lunch.EindDatum = lunchvm.EindDatum;
-                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten);
-                            lunch.LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags);
+                            lunch.Naam = aangepasteLunch.Naam;
+                            lunch.Prijs = aangepasteLunch.Prijs;
+                            lunch.Beschrijving = aangepasteLunch.Beschrijving;
+                            lunch.BeginDatum = aangepasteLunch.BeginDatum;
+                            lunch.EindDatum = aangepasteLunch.EindDatum;
+                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
+                            lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (lunchvm.Afbeeldingen != null)
+                            if (aangepasteLunch.Afbeeldingen != null)
                             {
                                 string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
                                 Directory.Delete(path);
 
-                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
+                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen, lunch);
                             }
 
                             _lunchRespository.SaveChanges();

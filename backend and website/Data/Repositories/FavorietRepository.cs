@@ -1,4 +1,4 @@
-﻿using Lunchers.Models;
+﻿using Lunchers.Models.Domain;
 using Lunchers.Models.IRepositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -8,43 +8,48 @@ using System.Threading.Tasks;
 
 namespace Lunchers.Data.Repositories
 {
-    public class ReservatieRepository : IReservatieRepository
+    public class FavorietRepository : IFavorietRepository
     {
-        private readonly DbSet<Reservatie> _reservaties;
+        private readonly DbSet<Favoriet> _favorieten;
         private readonly ApplicationDbContext _context;
 
-        public ReservatieRepository(ApplicationDbContext context)
+        public FavorietRepository(ApplicationDbContext context)
         {
             _context = context;
-            _reservaties = context.Reservaties;
+            _favorieten = context.Favorieten;
         }
 
-        public void Add(Reservatie reservatie)
+        public void Add(Favoriet favoriet)
         {
-            _reservaties.Add(reservatie);
+            _favorieten.Add(favoriet);
         }
 
-        public IEnumerable<Reservatie> GetAll()
+        public void Delete(Favoriet favoriet)
         {
-            return _reservaties.Include(r => r.Lunch).ToList();
+            _favorieten.Remove(favoriet);
         }
 
-        public IEnumerable<Reservatie> GetAllFromCustomer(int customerId)
+        public IEnumerable<Favoriet> GetAll()
         {
-            return _reservaties.Where(r => r.Klant.GebruikerId == customerId)
+            return _favorieten.Include(f => f.Lunch).ToList();
+        }
+
+        public IEnumerable<Favoriet> GetAllFromCustomer(int customerId)
+        {
+            return _favorieten.Where(f => f.Klant.GebruikerId == customerId)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
                 .ToList();
         }
 
-        public Reservatie GetById(int id)
+        public Favoriet GetById(int id)
         {
-            return _reservaties.Include(r => r.Klant)
+            return _favorieten.Include(r => r.Klant)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
-                .SingleOrDefault(r => r.ReservatieId == id);
+                .SingleOrDefault(r => r.FavorietId == id);
         }
 
         public void SaveChanges()
