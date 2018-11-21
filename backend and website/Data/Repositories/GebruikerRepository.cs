@@ -55,7 +55,8 @@ namespace Lunchers.Data.Repositories
             SaveChanges();
         }
 
-        private void SaveChanges(){
+        private void SaveChanges()
+        {
             _context.SaveChanges();
         }
 

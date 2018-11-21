@@ -64,6 +64,12 @@ namespace Lunchers.Data
                 .HasOne(l => l.Handelaar)
                 .WithMany(h => h.Lunches);
             //EINDE LUNCH HANDELAAR
+
+            //BEGIN RESERVATIE KLANT
+            modelBuilder.Entity<Reservatie>()
+                .HasOne(r => r.Klant)
+                .WithMany(k => k.Reservaties);
+            //EINDE RESERVATIE KLANT
         }
     }
 }

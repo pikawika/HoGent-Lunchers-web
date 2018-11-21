@@ -72,6 +72,8 @@ namespace Lunchers
             services.AddScoped<IIngredientRepository, IngredientRepository>();
             services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<IAfbeeldingRepository, AfbeeldingRepository>();
+            services.AddScoped<IReservatieRepository, ReservatieRepository>();
+            services.AddScoped<IKlantRepository, KlantRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)

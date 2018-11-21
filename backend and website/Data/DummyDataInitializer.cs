@@ -220,6 +220,10 @@ namespace Lunchers.Data
                 ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis });
                 ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan });
                 ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm });
+
+                // --> user niet lennert
+                ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan });
+                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm });
                 //RESERVATIES EINDE
 
                 //FAVORIETEN -> user lennert
@@ -227,6 +231,11 @@ namespace Lunchers.Data
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 26), Lunch = LunchUitzonderingVervallen });
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis });
                 ((Klant)gebruikerStandaardLennert).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 30), Lunch = lunchStandaardVegan });
+
+                // -> user niet lennert
+                ((Klant)gebruikerStandaard1).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis });
+                ((Klant)gebruikerStandaard2).Favorieten.Add(new Favoriet { DatumToegevoegd = new DateTime(2018, 10, 30), Lunch = lunchStandaardVegan });
+                //FAVORIETEN EINDE
                 //FAVORIETEN EINDE
 
                 //WACHTWOORDEN TOEKENNEN
