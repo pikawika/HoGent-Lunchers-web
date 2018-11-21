@@ -41,7 +41,7 @@ namespace Lunchers.Controllers
         [AllowAnonymous]
         public IEnumerable<Lunch> Get()
         {
-            return _lunchRespository.GetAll();
+            return _lunchRespository.GetAll().Reverse();
         }
 
         // GET api/<controller>/5
