@@ -135,14 +135,19 @@ namespace Lunchers.Controllers
                 }
 
                 //geen user gevonden
-                if(CheckGebruikersnaamBestaat(login.Gebruikersnaam)){
+                if (CheckGebruikersnaamBestaat(login.Gebruikersnaam))
+                {
                     return Unauthorized(new { error = "Incorrect wachtwoord en/of uw account is niet geactiveerd." });
-                }else{
+                }
+                else
+                {
                     return Unauthorized(new { error = "Incorrecte gebruikersnaam." });
+                }
                 }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
+
         }
 
         [HttpPost]
