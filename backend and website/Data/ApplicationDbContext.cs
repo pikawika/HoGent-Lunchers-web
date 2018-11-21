@@ -70,6 +70,12 @@ namespace Lunchers.Data
                 .HasOne(r => r.Klant)
                 .WithMany(k => k.Reservaties);
             //EINDE RESERVATIE KLANT
+
+            //BEGIN FAVORIET KLANT
+            modelBuilder.Entity<Favoriet>()
+                .HasOne(f => f.Klant)
+                .WithMany(k => k.Favorieten);
+            //EINDE FAVORIET KLANT
         }
     }
 }

@@ -12,5 +12,6 @@ namespace Lunchers.Models.Domain
         public int FavorietId { get; set; }
         public DateTime DatumToegevoegd { get; set; }
         public Lunch Lunch { get; set; }
+        public Klant Klant { get; set; }
     }
 }

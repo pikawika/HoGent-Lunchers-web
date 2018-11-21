@@ -72,23 +72,18 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
-                        Stream req = Request.Body;
-                        req.Seek(0, System.IO.SeekOrigin.Begin);
-                        string json = new StreamReader(req).ReadToEnd();
-                        ReservatieViewModel reservatievm = JObject.Parse(json).ToObject<ReservatieViewModel>();
-
                         Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
-                        Lunch lunch = _lunchRespository.GetById(reservatievm.LunchId);
+                        Lunch lunch = _lunchRespository.GetById(nieuweReservatie.LunchId);
 
                         if (klant != null && lunch != null)
                         {
-                            if (reservatievm.Datum >= lunch.BeginDatum && reservatievm.Datum <= lunch.EindDatum)
+                            if (nieuweReservatie.Datum >= lunch.BeginDatum && nieuweReservatie.Datum <= lunch.EindDatum)
                             {
                                 Reservatie reservatie = new Reservatie
                                 {
                                     Lunch = lunch,
-                                    Aantal = reservatievm.Aantal,
-                                    Datum = reservatievm.Datum
+                                    Aantal = nieuweReservatie.Aantal,
+                                    Datum = nieuweReservatie.Datum
                                 };
 
                                 klant.Reservaties.Add(reservatie);
