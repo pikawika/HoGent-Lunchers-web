@@ -18,12 +18,13 @@ export class LunchMerchantComponent implements OnInit {
   constructor(
     @Inject('BASE_URL') baseUrl: string,
     public dataService: LunchMerchantDataService,
-    private router: Router) {
+    private router: Router,
+    private authService: AuthenticationService) {
       this._baseUrl = baseUrl;
     }
 
   ngOnInit() {
-    this.dataService.getMerchantById(9).subscribe(handelaar => {
+    this.dataService.getMerchantById(this.authService.id$.value).subscribe(handelaar => {
       this._handelaar = handelaar;
       this._lunches = handelaar.lunches;
     });
@@ -40,12 +41,4 @@ export class LunchMerchantComponent implements OnInit {
   addLunch(){
     this.router.navigate(['/merchant/addlunch']);
   }
-
-  
-
-  showDetails(lunch:Lunch){
-    //ipv id door te geven, en in /details weer op te halen (extra call), complexe data structuur doorgeven (lunch in json formaat)
-    this.router.navigate(['/details', lunch.lunchId]);
-  }
-
 }

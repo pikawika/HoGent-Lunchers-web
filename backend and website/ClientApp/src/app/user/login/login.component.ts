@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private router: Router,
     private fb: FormBuilder
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.user = this.fb.group({
@@ -34,20 +34,25 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authenticationService.login(this.user.value.username,this.user.value.password)
+    this.authenticationService.login(this.user.value.username, this.user.value.password)
       .subscribe(
         val => {
           if (val) {
             if (this.authenticationService.redirectUrl) {
               this.router.navigateByUrl(this.authenticationService.redirectUrl);
               this.authenticationService.redirectUrl = undefined;
-            }else{
-              this.router.navigate(['/']);
+            } else {
+              if (this.authenticationService.rol$.value == "handelaar") {
+                this.router.navigate(['/merchant/lunch']);
+              } else {
+                console.log(this.authenticationService.rol$.value);
+                this.router.navigate(['/']);
+              }
             }
           }
         },
         (error: HttpErrorResponse) => {
-          this.errorMsg = error.error.error;          
+          this.errorMsg = error.error.error;
         }
       );
   }

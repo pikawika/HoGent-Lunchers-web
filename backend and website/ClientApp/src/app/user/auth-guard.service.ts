@@ -13,7 +13,6 @@ export class AuthGuardService {
     if (this.authService.user$.getValue()) {
       return true;
     }
-
     // Retain the attempted URL for redirection
     this.authService.redirectUrl = state.url;
     this.router.navigate(['/login']);
