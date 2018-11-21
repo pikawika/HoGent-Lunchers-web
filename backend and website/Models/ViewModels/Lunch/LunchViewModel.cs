@@ -40,7 +40,7 @@ namespace Lunchers.Models.ViewModels.Lunch
 
         [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Upload)]
-        public List<IFormFile> Afbeeldingen { set; get; }
+        public IFormCollection Afbeeldingen { set; get; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

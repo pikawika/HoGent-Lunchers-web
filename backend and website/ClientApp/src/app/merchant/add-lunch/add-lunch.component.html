@@ -4,7 +4,7 @@
     <hr>
   
     <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
-    <form [formGroup]="lunch" (ngSubmit)='onSubmit()'>
+    <form [formGroup]="lunch" (ngSubmit)='onSubmit()' enctype="multipart/form-data">
   
       <div class="form-group">
         <label for="name">Naam:</label>

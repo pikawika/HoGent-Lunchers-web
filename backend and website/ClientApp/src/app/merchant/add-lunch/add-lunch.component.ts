@@ -15,7 +15,7 @@ export class AddLunchComponent implements OnInit {
 
   public lunch: FormGroup;
   public errorMsg: string;
-  public formData : FormData;
+  filesToUpload: Array<File> = [];
 
   constructor(
     private fb: FormBuilder,
@@ -62,13 +62,44 @@ export class AddLunchComponent implements OnInit {
   }
 
   onSubmit() {
-    this.merchantService.registerMerchant(
-      this.lunch.value.name, 
-      this.lunch.value.price, 
-      this.lunch.value.description,
-      this.lunch.value.startdate,
-      this.lunch.value.enddate,
-      this.formData)
+    const data: any = new FormData();
+    const files: File[] = this.filesToUpload;
+
+    if(files.length > 1) {
+      for(var x = 0; x < files.length; x++) {
+          data.append('afbeeldingen', files[x]);    
+      }
+  } else {
+      data.append('afbeeldingen', files);   
+  }
+
+      data.append("afbeeldingen", files[0]);
+      data.append("naam", this.lunch.value.name);
+      data.append("prijs", this.lunch.value.price);
+      data.append("beschrijving", this.lunch.value.description);
+      data.append("beginDatum", this.lunch.value.startdate);
+      data.append("eindDatum", this.lunch.value.enddate);
+      data.append("ingredienten", [
+        {
+           "naam": "Ui"
+        },
+        {
+           "naam": "Varkensvlees"
+        }
+      ]);
+      data.append("tags", [
+        {
+           "naam": "Hamburger",
+           "kleur": "FF6A6A"
+        },
+        {
+           "naam": "Varkensvlees",
+           "kleur": "FF6A6A"
+        }
+      ]);
+
+    this.merchantService.addLunch(
+      data)
       .subscribe(
         val => {
           if (val) {
@@ -83,13 +114,8 @@ export class AddLunchComponent implements OnInit {
 
 
   fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        let file: File = fileList[0];
-        this.formData = new FormData();
-        this.formData.append('fiel', file, file.name);
-        console.log(this.formData);
+      this.filesToUpload = event.target.files;
     }
 }
-}
+
 

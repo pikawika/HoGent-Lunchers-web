@@ -54,44 +54,40 @@ namespace Lunchers.Controllers
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<IActionResult> PostAsync([FromBody]LunchViewModel nieuweLunch)
+        public async Task<IActionResult> PostAsync([FromForm]LunchViewModel nieuweLunch)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    Stream req = Request.Body;
-                    req.Seek(0, System.IO.SeekOrigin.Begin);
-                    string json = new StreamReader(req).ReadToEnd();
-                    LunchViewModel lunchvm = JObject.Parse(json).ToObject<LunchViewModel>();
-
                     Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                     Lunch lunch = new Lunch()
                     {
-                        Naam = lunchvm.Naam,
-                        Prijs = lunchvm.Prijs,
-                        Beschrijving = lunchvm.Beschrijving,
-                        BeginDatum = lunchvm.BeginDatum,
-                        EindDatum = lunchvm.EindDatum,
-                        LunchIngredienten = ConvertIngredientViewModelsToIngredienten(lunchvm.Ingredienten),
-                        LunchTags = ConvertTagViewModelsToTags(lunchvm.Tags),
+                        Naam = nieuweLunch.Naam,
+                        Prijs = nieuweLunch.Prijs,
+                        Beschrijving = nieuweLunch.Beschrijving,
+                        BeginDatum = nieuweLunch.BeginDatum,
+                        EindDatum = nieuweLunch.EindDatum,
+                        LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
+                        LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
                     };
 
                     handelaar.Lunches.Add(lunch);
                     _handelaarRepository.SaveChanges();
 
-                    lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(lunchvm.Afbeeldingen, lunch);
+                    lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
                     _lunchRespository.SaveChanges();
 
                     return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
                 }
-                catch
+                catch (Exception e)
                 {
-                    return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de lunch." });
+                    return BadRequest(new { e });
                 }
             }
-            return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+            string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
+            return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of incorrect. Foutboodschap: " + foutboodschap });
         }
 
         // PUT api/<controller>/5
@@ -114,14 +110,14 @@ namespace Lunchers.Controllers
         {
             List<Afbeelding> afbeeldingen = new List<Afbeelding>();
 
-            for (int i = 1; i <= afbeeldingFiles.Capacity; i++)
+            for (int i = 1; i <= afbeeldingFiles.Count; i++)
             {
                 string afbeeldingRelativePath = "/lunches/lunch" + lunch.LunchId + "/" + i + ".jpg";
                 afbeeldingen.Add(new Afbeelding { Pad = afbeeldingRelativePath });
                 string filePath = @"wwwroot" + afbeeldingRelativePath;
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 FileStream fileStream = new FileStream(filePath, FileMode.Create);
-                await afbeeldingFiles[i].CopyToAsync(fileStream);
+                await afbeeldingFiles[(i-1)].CopyToAsync(fileStream);
                 fileStream.Close();
             }
 
