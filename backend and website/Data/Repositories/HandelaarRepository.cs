@@ -23,9 +23,9 @@ namespace Lunchers.Data.Repositories
         {
             IEnumerable<Handelaar> handelaarsMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar")
                 .Include(h => h.Locatie)
-                .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
-                .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
-                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
+                .Include(h => h.Lunches.Where(l => l.Deleted == false)).ThenInclude(l => l.Afbeeldingen)
+                .Include(h => h.Lunches.Where(l => l.Deleted == false)).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
+                .Include(h => h.Lunches.Where(l => l.Deleted == false)).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
 
             IEnumerable<Handelaar> handelaarEnkelLunchesGeldig = handelaarsMetAlleLunches;
 

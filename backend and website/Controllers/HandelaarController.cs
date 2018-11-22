@@ -24,17 +24,34 @@ namespace Lunchers.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public IEnumerable<Handelaar> Get()
+        public IActionResult Get()
         {
-            return _handelaarRepository.GetAll();
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
+            {
+                List<Handelaar> handelaars = _handelaarRepository.GetAll().ToList();
+                return Ok(new { handelaars });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als administrator." });
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
-        public Handelaar Get(int id)
+        public IActionResult Get(int id)
         {
-            return _handelaarRepository.GetById(id);
+            if (User.FindFirst("gebruikersId")?.Value != null && (User.FindFirst("rol")?.Value == "handelaar" || User.FindFirst("rol")?.Value == "admin"))
+            {
+                Handelaar handelaar = _handelaarRepository.GetById(id);
+                if (handelaar != null)
+                {
+                    if (handelaar.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value) || User.FindFirst("rol")?.Value == "admin")
+                    {
+                        return Ok(new { handelaar });
+                    }
+                    return BadRequest(new { error = "U bent niet aangemeld als de opgevraagde handelaar en bent ook geen administrator." });
+                }
+                return BadRequest(new { error = "De opgevraagde handelaar bestaat niet" });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar of administrator." });
         }
 
     }

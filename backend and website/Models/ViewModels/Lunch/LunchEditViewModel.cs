@@ -17,8 +17,8 @@ namespace Lunchers.Models.ViewModels.Lunch
         public string Naam { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
-        [Range(1, 999.99)]
-        public double Prijs { get; set; }
+        [Range(1.00, 999.99, ErrorMessage = "Prijs moet tussen {1} en {2} liggen.")]
+        public string Prijs { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
         [StringLength(2500, MinimumLength = 10)]
@@ -38,8 +38,9 @@ namespace Lunchers.Models.ViewModels.Lunch
         [Required(ErrorMessage = "{0} is verplicht.")]
         public List<TagViewModel> Tags { get; set; }
 
+        [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Upload)]
-        public List<IFormFile> Afbeeldingen { set; get; }
+        public IFormCollection Afbeeldingen { set; get; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

@@ -20,5 +20,6 @@ namespace Lunchers.Models
         public DateTime EindDatum { get; set; }
         public List<LunchTag> LunchTags { get; set; } = new List<LunchTag>();
         public Handelaar Handelaar { get; set; }
+        public bool Deleted { get; set; }
     }
 }

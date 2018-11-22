@@ -64,7 +64,7 @@ namespace Lunchers.Controllers
                     {
                         if (nieuweLunch.Afbeeldingen.Files.Count != 0)
                         {
-                            Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
+                            Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                             Lunch lunch = new Lunch()
                             {
@@ -75,6 +75,7 @@ namespace Lunchers.Controllers
                                 EindDatum = nieuweLunch.EindDatum,
                                 LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
                                 LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
+                                Deleted = false,
                             };
 
                             handelaar.Lunches.Add(lunch);
@@ -113,19 +114,19 @@ namespace Lunchers.Controllers
 
                         if (handelaar == lunch.Handelaar) {
                             lunch.Naam = aangepasteLunch.Naam;
-                            lunch.Prijs = aangepasteLunch.Prijs;
+                            lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
                             lunch.Beschrijving = aangepasteLunch.Beschrijving;
                             lunch.BeginDatum = aangepasteLunch.BeginDatum;
                             lunch.EindDatum = aangepasteLunch.EindDatum;
                             lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
                             lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (aangepasteLunch.Afbeeldingen != null)
+                            if (aangepasteLunch.Afbeeldingen.Files.Count != 0)
                             {
                                 string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
                                 Directory.Delete(path);
 
-                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen, lunch);
+                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
                             }
 
                             _lunchRespository.SaveChanges();
@@ -136,14 +137,35 @@ namespace Lunchers.Controllers
                         return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
 
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        //return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
-                        return BadRequest(new { error = e });
+                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
                     }
                 }
-                //return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
-                return BadRequest(new { error = ModelState });
+                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
+        }
+
+        // DELETE api/<controller>/5
+        [HttpDelete("{id}")]
+        private IActionResult Delete(int id)
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
+            {
+                Lunch lunch = _lunchRespository.GetById(id);
+                if (lunch != null)
+                {
+                    Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    if (lunch.Handelaar == handelaar)
+                    {
+                        _lunchRespository.Delete(lunch);
+                        _lunchRespository.SaveChanges();
+                        return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
+                    }
+                    return BadRequest(new { error = "De opgevraagde lunch behoort niet toe aan de opgegeven handelaar." });
+                }
+                return BadRequest(new { error = "De opgegeven lunch bestaat niet." });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
