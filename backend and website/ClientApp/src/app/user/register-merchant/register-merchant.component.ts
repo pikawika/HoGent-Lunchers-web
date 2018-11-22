@@ -24,7 +24,7 @@ export class RegisterMerchantComponent implements OnInit {
     this.merchant = this.fb.group({
       username: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       tel: [
         '',
@@ -36,15 +36,15 @@ export class RegisterMerchantComponent implements OnInit {
       ],
       voornaam: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       achternaam: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       merchant: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required, Validators.minLength(2)]
       ],
       website: [
         '',

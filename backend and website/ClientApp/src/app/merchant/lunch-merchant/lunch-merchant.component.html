@@ -18,7 +18,7 @@
         <td>{{lunch.beschrijving}}</td>
         <td>{{lunch.beginDatum | date : 'dd/MM/yyyy'}}</td>
         <td>{{lunch.eindDatum | date : 'dd/MM/yyyy'}}</td>
-        <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-pencil fa-lg"></i></a></td>
+        <td class="text-center"><a class="btn btn-sm btn-primary" [routerLink]='["/merchant/editlunch"]'><i class="fa fa-pencil fa-lg"></i></a></td>
         <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></a></td>
       </tr>
     </tbody>
