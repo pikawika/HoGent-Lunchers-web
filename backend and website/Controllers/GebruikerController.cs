@@ -30,11 +30,13 @@ using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
 
 namespace Lunchers.Controllers
 {
+    [Authorize]
+    [Route("api/[controller]/[action]")]
     public class GebruikerController : Controller
     {
         private IConfiguration _config;
-        IGebruikerRepository _gebruikerRepository;
-        IRolRepository _rolRepository;
+        private IGebruikerRepository _gebruikerRepository;
+        private IRolRepository _rolRepository;
 
         public GebruikerController(IConfiguration config, IGebruikerRepository gebruikerRepository, IRolRepository rolRepository)
         {
@@ -43,7 +45,7 @@ namespace Lunchers.Controllers
             _rolRepository = rolRepository;
         }
 
-        [HttpPost]
+        [HttpPost] 
         [AllowAnonymous]
         public IActionResult Registreer([FromBody]RegistreerGebruikerViewModel gebruikerAanvraag)
         {
@@ -117,8 +119,8 @@ namespace Lunchers.Controllers
             return BadRequest(new { error = foutboodschap });
         }
 
-        [AllowAnonymous]
         [HttpPost]
+        [AllowAnonymous]
         public IActionResult Login([FromBody]LoginGebruikerViewModel login)
         {
             if (ModelState.IsValid)
@@ -133,14 +135,22 @@ namespace Lunchers.Controllers
                 }
 
                 //geen user gevonden
-                return Unauthorized("Uw account is nog niet geactiveerd en/of uw wachtwoord en/of gebruikersnaam klopt niet.");
-            }
+                if (CheckGebruikersnaamBestaat(login.Gebruikersnaam))
+                {
+                    return Unauthorized(new { error = "Incorrect wachtwoord en/of uw account is niet geactiveerd." });
+                }
+                else
+                {
+                    return Unauthorized(new { error = "Incorrecte gebruikersnaam." });
+                }
+                }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
+
         }
 
-        [HttpPost, Authorize]
+        [HttpPost]
         public IActionResult WijzigWachtwoord([FromBody]WijzigWachtwoordViewModel wijzigWachtwoordAanvraag)
         {
             if (ModelState.IsValid)
@@ -200,7 +210,7 @@ namespace Lunchers.Controllers
                 nieuweHandelaar.Login.Salt = MaakSalt();
                 nieuweHandelaar.Login.Hash = MaakHash(handelaarAanvraag.Login.Wachtwoord, nieuweHandelaar.Login.Salt);
 
-                nieuweHandelaar.Login.Rol = _rolRepository.GetByNaam(handelaarAanvraag.Login.Rol);
+                nieuweHandelaar.Login.Rol = _rolRepository.GetByName(handelaarAanvraag.Login.Rol);
 
                 nieuweHandelaar.HandelsNaam = handelaarAanvraag.HandelsNaam;
                 if (handelaarAanvraag.Website != null)
@@ -246,7 +256,7 @@ namespace Lunchers.Controllers
             nieuweKlant.Login.Salt = MaakSalt();
             nieuweKlant.Login.Hash = MaakHash(klantAanvraag.Login.Wachtwoord, nieuweKlant.Login.Salt);
 
-            nieuweKlant.Login.Rol = _rolRepository.GetByNaam(klantAanvraag.Login.Rol);
+            nieuweKlant.Login.Rol = _rolRepository.GetByName(klantAanvraag.Login.Rol);
 
             nieuweKlant.Login.gebruiker = nieuweKlant;
 
@@ -275,7 +285,7 @@ namespace Lunchers.Controllers
             nieuweAdmin.Login.Salt = MaakSalt();
             nieuweAdmin.Login.Hash = MaakHash(adminAanvraag.Login.Wachtwoord, nieuweAdmin.Login.Salt);
 
-            nieuweAdmin.Login.Rol = _rolRepository.GetByNaam(adminAanvraag.Login.Rol);
+            nieuweAdmin.Login.Rol = _rolRepository.GetByName(adminAanvraag.Login.Rol);
 
             nieuweAdmin.Login.gebruiker = nieuweAdmin;
 
@@ -381,7 +391,7 @@ namespace Lunchers.Controllers
             if (!CheckGebruikerIsGeactiveerd(gebruikersnaam))
                 return null;
 
-            byte[] salt = _gebruikerRepository.getSalt(gebruikersnaam);
+            byte[] salt = _gebruikerRepository.GetSalt(gebruikersnaam);
 
             if (salt == null)
             {

@@ -18,7 +18,7 @@ namespace Lunchers.Models.Repositories
 
         void WijzigWachtwoord(int gebruikersId, byte[] nieuweSalt, string nieuweHash);
 
-        byte[] getSalt(string gebruikersnaam);
+        byte[] GetSalt(string gebruikersnaam);
     }
 }
  

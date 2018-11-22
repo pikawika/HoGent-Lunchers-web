@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Lunchers.Models.Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace Lunchers.Models
         public Lunch Lunch { get; set; }
         public int Aantal { get; set; }
         public DateTime Datum { get; set; }
+        public Klant Klant { get; set; }
     }
 }

@@ -7,7 +7,10 @@ namespace Lunchers.Models.Repositories
     public interface ILunchRespository
     {
         IEnumerable<Lunch> GetAll();
-        Lunch getById(int id);
+        Lunch GetById(int id);
+        void Add(Lunch lunch);
+        void Delete(Lunch lunch);
+        void SaveChanges();
     }
 }
  

@@ -6,7 +6,11 @@ namespace Lunchers.Models.Repositories
 {
     public interface IHandelaarRepository
     {
-        Handelaar getById(int id);
+        IEnumerable<Handelaar> GetAll();
+        Handelaar GetById(int id);
+        void Add(Handelaar handelaar);
+        void Delete(Handelaar handelaar);
+        void SaveChanges();
     }
 }
  

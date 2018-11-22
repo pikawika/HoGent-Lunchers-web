@@ -69,6 +69,12 @@ namespace Lunchers
             services.AddScoped<ILunchRespository, LunchRespository>();
             services.AddScoped<IHandelaarRepository, HandelaarRepository>();
             services.AddScoped<IRolRepository, RolRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<ITagRepository, TagRepository>();
+            services.AddScoped<IAfbeeldingRepository, AfbeeldingRepository>();
+            services.AddScoped<IReservatieRepository, ReservatieRepository>();
+            services.AddScoped<IKlantRepository, KlantRepository>();
+            services.AddScoped<IFavorietRepository, FavorietRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, DummyDataInitializer dummyDataInitializer)
@@ -94,9 +100,6 @@ namespace Lunchers
                 routes.MapRoute(
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
-                routes.MapRoute(
-                    name: "defaultApi",
-                    template: "api/{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>

@@ -19,11 +19,7 @@ namespace Lunchers.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Favoriet> Favorieten { get; set; }
 
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -68,6 +64,18 @@ namespace Lunchers.Data
                 .HasOne(l => l.Handelaar)
                 .WithMany(h => h.Lunches);
             //EINDE LUNCH HANDELAAR
+
+            //BEGIN RESERVATIE KLANT
+            modelBuilder.Entity<Reservatie>()
+                .HasOne(r => r.Klant)
+                .WithMany(k => k.Reservaties);
+            //EINDE RESERVATIE KLANT
+
+            //BEGIN FAVORIET KLANT
+            modelBuilder.Entity<Favoriet>()
+                .HasOne(f => f.Klant)
+                .WithMany(k => k.Favorieten);
+            //EINDE FAVORIET KLANT
         }
     }
 }

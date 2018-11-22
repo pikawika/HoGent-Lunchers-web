@@ -23,4 +23,16 @@ export class NavMenuComponent {
   toggle() {
     this.isExpanded = !this.isExpanded;
   }
+
+  get redirect(){
+    if(this.authService.rol$.value == "handelaar"){
+      return "/merchant/lunch"
+    }else{
+      if(this.authService.rol$.value == "admin"){
+        return "/"
+      }else{
+        return "/"
+      }
+    }
+  }
 }
