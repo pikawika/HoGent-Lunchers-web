@@ -130,7 +130,7 @@ namespace Lunchers.Data
                 Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Beschrijving = "Zalm vergezeld met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
                 Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
 
-                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Beschrijving = "Een ", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30), Deleted = false };
+                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Beschrijving = "Een hamburger met een kilt", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30), Deleted = true };
 
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardHamburger);
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(LunchUitzonderingVervallen);

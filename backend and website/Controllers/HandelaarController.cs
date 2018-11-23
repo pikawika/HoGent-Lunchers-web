@@ -29,7 +29,7 @@ namespace Lunchers.Controllers
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
                 List<Handelaar> handelaars = _handelaarRepository.GetAll().ToList();
-                return Ok(new { handelaars });
+                return Ok( handelaars );
             }
             return Unauthorized(new { error = "U bent niet aangemeld als administrator." });
         }
@@ -45,7 +45,7 @@ namespace Lunchers.Controllers
                 {
                     if (handelaar.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value) || User.FindFirst("rol")?.Value == "admin")
                     {
-                        return Ok(new { handelaar });
+                        return Ok(handelaar);
                     }
                     return BadRequest(new { error = "U bent niet aangemeld als de opgevraagde handelaar en bent ook geen administrator." });
                 }
