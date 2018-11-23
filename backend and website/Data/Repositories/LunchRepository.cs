@@ -26,12 +26,12 @@ namespace Lunchers.Data.Repositories
 
         public void Delete(Lunch lunch)
         {
-            _lunches.Remove(lunch);
+            lunch.Deleted = true;
         }
 
         public IEnumerable<Lunch> GetAll()
         {
-            return _lunches.Where(l => l.BeginDatum <= DateTime.Now.Date && l.EindDatum >= DateTime.Now.Date )
+            return _lunches.Where(l => l.BeginDatum <= DateTime.Now.Date && l.EindDatum >= DateTime.Now.Date && l.Deleted == false )
                 .Include(l => l.Afbeeldingen)
                 .Include(l => l.LunchTags).ThenInclude(lt => lt.Tag)
                 .Include(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
