@@ -3,6 +3,7 @@ import { AuthenticationService } from 'src/app/user/authentication.service';
 import { Lunch } from 'src/models/lunch';
 import { LunchMerchantDataService } from './lunch-merchant-data.service';
 import { Router } from '@angular/router';
+import { MerchantDataService } from '../merchant-data.service';
 
 @Component({
   selector: 'app-lunch-merchant',
@@ -17,7 +18,7 @@ export class LunchMerchantComponent implements OnInit {
 
   constructor(
     @Inject('BASE_URL') baseUrl: string,
-    public dataService: LunchMerchantDataService,
+    public dataService: MerchantDataService,
     private router: Router,
     private authService: AuthenticationService) {
       this._baseUrl = baseUrl;
