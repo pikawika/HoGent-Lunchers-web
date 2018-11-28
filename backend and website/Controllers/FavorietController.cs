@@ -78,7 +78,7 @@ namespace Lunchers.Controllers
                             Favoriet favoriet = new Favoriet
                             {
                                 Lunch = lunch,
-                                DatumToegevoegd = nieuweFavoriet.Datum
+                                DatumToegevoegd = DateTime.Now,
                             };
 
                             klant.Favorieten.Add(favoriet);
