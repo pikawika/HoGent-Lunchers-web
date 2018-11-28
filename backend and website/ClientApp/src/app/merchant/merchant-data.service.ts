@@ -21,19 +21,22 @@ export class MerchantDataService {
 
   getMerchantById(id):Observable<Handelaar>{
     return this.http.get(this._baseUrl+"api/Handelaar/"+id).pipe(map(Handelaar.fromJSON));
-  
   }
 
   addLunch(data: FormData): Observable<boolean> {
     return this.http.post(this._baseUrl+'api/lunch', data).pipe(map((res: any) => { return res }));
   }
 
-  getLunchById(id : number): Observable<Lunch> {
+  getLunchById(id): Observable<Lunch> {
     return this.http.get(this._baseUrl+'api/lunch/' + id).pipe(map(Lunch.fromJSON));
   }
 
-  editLunch(id: number, data: FormData): Observable<boolean> {
-    return this.http.put(this._baseUrl+'api/lunch'+id, data).pipe(map((res: any) => {return res}));
+  editLunch(id, data: FormData): Observable<boolean> {
+    return this.http.put(this._baseUrl+'api/lunch/'+id, data).pipe(map((res: any) => {return res}));
+  }
+
+  removeLunch(id) {
+    this.http.delete(this._baseUrl + 'api/lunch/' + id);
   }
 
 

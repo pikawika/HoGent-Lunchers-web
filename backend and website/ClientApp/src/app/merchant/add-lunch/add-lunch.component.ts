@@ -39,11 +39,9 @@ export class AddLunchComponent implements OnInit {
       ],
       startdate: [
         '',
-        [Validators.required]
       ],
       enddate: [
         '',
-        [Validators.required]
       ]
       // ,
       // ingredienten: [
@@ -64,6 +62,7 @@ export class AddLunchComponent implements OnInit {
   onSubmit() {
     const data: any = new FormData();
     const files: File[] = this.filesToUpload;
+    
 
     if(files.length > 1) {
       for(var x = 0; x < files.length; x++) {
@@ -72,8 +71,6 @@ export class AddLunchComponent implements OnInit {
   } else {
       data.append('afbeeldingen', files);   
   }
-
-      data.append("afbeeldingen", files[0]);
       data.append("naam", this.lunch.value.name);
       data.append("prijs", Number(this.lunch.value.price));
       data.append("beschrijving", this.lunch.value.description);
@@ -115,6 +112,13 @@ export class AddLunchComponent implements OnInit {
 
   fileChange(event) {
       this.filesToUpload = event.target.files;
+    }
+
+    ngAfterViewInit(){
+      var startdate = (<HTMLInputElement>document.getElementById('startdate'));
+      var enddate = (<HTMLInputElement>document.getElementById('enddate'));
+      startdate.value = new Date().toISOString().slice(0,10);
+      enddate.value = new Date().toISOString().slice(0,10);
     }
 }
 

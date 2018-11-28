@@ -55,7 +55,7 @@ import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
       { path: 'merchant/lunch', canActivate: [ AuthGuardService ], component:LunchMerchantComponent},
       { path: 'merchant/addlunch', canActivate: [ AuthGuardService ], component:AddLunchComponent},
       { path: 'landingpage', component:LandingpageComponent},
-      { path: 'merchant/editlunch', canActivate: [ AuthGuardService ], component:EditLunchComponent},
+      { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardService ], component:EditLunchComponent},
     ]),
     
   ],
