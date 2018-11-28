@@ -14,6 +14,7 @@ using Lunchers.Models.ViewModels.Ingredient;
 using Lunchers.Models.ViewModels.Tag;
 using Lunchers.Models.IRepositories;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace Lunchers.Controllers
 {
@@ -39,9 +40,14 @@ namespace Lunchers.Controllers
         // GET: api/<controller>
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Lunch> Get()
+        public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
-            return _lunchRespository.GetAll().Reverse();
+            // Als de locatie meegegeven wordt, wordt gezocht op locatie
+            if (latitude != 0 && longitude != 0)
+                return _lunchRespository.GetAllFromLocation(latitude, longitude);
+            // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
+            else
+                return _lunchRespository.GetAll().Reverse();
         }
 
         // GET api/<controller>/5

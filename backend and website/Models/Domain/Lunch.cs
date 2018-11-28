@@ -1,4 +1,6 @@
-﻿using Lunchers.Models.Domain;
+﻿using GeoCoordinatePortable;
+using Lunchers.Models.Domain;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,5 +23,12 @@ namespace Lunchers.Models
         public List<LunchTag> LunchTags { get; set; } = new List<LunchTag>();
         public Handelaar Handelaar { get; set; }
         public bool Deleted { get; set; }
+
+        [JsonIgnore]
+        public GeoCoordinate GetCoordinate
+        {
+            get { return new GeoCoordinate(Handelaar.Locatie.Latitude, Handelaar.Locatie.Longitude); }
+        }
+
     }
 }
