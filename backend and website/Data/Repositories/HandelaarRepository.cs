@@ -27,9 +27,6 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
 
-            foreach (Handelaar h in handelaarsMetAlleLunches)
-            h.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date || l.Deleted == true);
-
             return handelaarsMetAlleLunches;
         }
 
