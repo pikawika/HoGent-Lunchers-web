@@ -23,14 +23,5 @@ namespace Lunchers.Models.GebruikerViewModels
         [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Text, ErrorMessage = "Geen geldig {0} ingevoerd")]
         public string Gemeente { get; set; }
-
-        [Required(ErrorMessage = "{0} is verplicht.")]
-        [Range(-90.00, 90.00, ErrorMessage = "Latitude moet tussen {1} en {2} liggen.")]
-        public string Latitude { get; set; }
-
-        [Required(ErrorMessage = "{0} is verplicht.")]
-        [Range(-180.00, 180.00, ErrorMessage = "Longitude moet tussen {1} en {2} liggen")]
-        public string Longitude { get; set; }
-
     }
 }
