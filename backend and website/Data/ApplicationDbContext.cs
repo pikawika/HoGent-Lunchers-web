@@ -69,6 +69,12 @@ namespace Lunchers.Data
             modelBuilder.Entity<Reservatie>()
                 .HasOne(r => r.Klant)
                 .WithMany(k => k.Reservaties);
+
+            modelBuilder.Entity<Reservatie>()
+                .Property(r => r.Status)
+                .HasConversion(
+                    s => s.ToString(),
+                    s => (Status)Enum.Parse(typeof(Status), s));
             //EINDE RESERVATIE KLANT
 
             //BEGIN FAVORIET KLANT

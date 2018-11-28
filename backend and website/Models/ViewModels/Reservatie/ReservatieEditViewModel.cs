@@ -5,16 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lunchers.Models
+namespace Lunchers.Models.ViewModels.Reservatie
 {
-    public class Reservatie
+    public class ReservatieEditViewModel
     {
-        [Key]
+        [Required(ErrorMessage = "{0} is verplicht.")]
         public int ReservatieId { get; set; }
-        public Lunch Lunch { get; set; }
-        public int Aantal { get; set; }
-        public DateTime Datum { get; set; }
-        public Klant Klant { get; set; }
+
+        [Required(ErrorMessage = "{0} is verplicht.")]
         public Status Status { get; set; }
     }
 }

@@ -22,12 +22,14 @@ namespace Lunchers.Controllers
         private IReservatieRepository _reservatieRepository;
         private IKlantRepository _klantRepository;
         private ILunchRespository _lunchRespository;
+        private IHandelaarRepository _handelaarRepository;
 
-        public ReservatieController(IReservatieRepository reservatieRepository, IKlantRepository klantRepository, ILunchRespository lunchRespository)
+        public ReservatieController(IReservatieRepository reservatieRepository, IKlantRepository klantRepository, ILunchRespository lunchRespository, IHandelaarRepository handelaarRepository)
         {
             _reservatieRepository = reservatieRepository;
             _klantRepository = klantRepository;
             _lunchRespository = lunchRespository;
+            _handelaarRepository = handelaarRepository;
         }
 
         // GET: api/Reservatie
@@ -37,25 +39,50 @@ namespace Lunchers.Controllers
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
             {
                 List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).ToList();
-                return Ok(new { reservaties });
+                return Ok(reservaties);
             }
-            return Unauthorized(new { error = "U bent niet aangemeld als klant." });
+            else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
+            {
+                List<Reservatie> reservaties = _reservatieRepository.GetAllFromMerchant(int.Parse(User.FindFirst("gebruikersId")?.Value)).ToList();
+                return Ok(reservaties);
+            }
+            else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
+            {
+                List<Reservatie> reservaties = _reservatieRepository.GetAll().ToList();
+                return Ok(reservaties);
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld." });
         }
 
         // GET: api/Reservatie/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
+            if (User.FindFirst("gebruikersId")?.Value != null)
             {
                 Reservatie reservatie = _reservatieRepository.GetById(id);
                 if (reservatie != null)
                 {
-                    if (reservatie.Klant.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value))
+                    if (User.FindFirst("rol")?.Value == "klant")
                     {
-                        return Ok(new { reservatie });
+                        if (reservatie.Klant.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value))
+                        {
+                            return Ok(reservatie);
+                        }
+                        return Unauthorized(new { error = "Deze reservatie behoort niet toe aan deze klant." });
                     }
-                    return Unauthorized(new { error = "Deze reservatie behoort niet toe aan deze klant." });
+                    else if (User.FindFirst("rol")?.Value == "handelaar")
+                    {
+                        if (reservatie.Lunch.Handelaar.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value))
+                        {
+                            return Ok(reservatie);
+                        }
+                        return Unauthorized(new { error = "Deze reservatie behoort niet toe aan deze handelaar." });
+                    }
+                    else if (User.FindFirst("rol")?.Value == "admin")
+                    {
+                        return Ok(reservatie);
+                    }
                 }
                 return BadRequest(new { error = "Deze reservatie bestaat niet." });
             }
@@ -83,7 +110,8 @@ namespace Lunchers.Controllers
                                 {
                                     Lunch = lunch,
                                     Aantal = nieuweReservatie.Aantal,
-                                    Datum = nieuweReservatie.Datum
+                                    Datum = nieuweReservatie.Datum,
+                                    Status = Status.InAfwachting
                                 };
 
                                 klant.Reservaties.Add(reservatie);
@@ -103,6 +131,31 @@ namespace Lunchers.Controllers
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als klant." });
+        }
+
+        // PUT: api/Reservatie/5
+        [HttpPut]
+        public IActionResult Put([FromBody]ReservatieEditViewModel aangepasteReservatie)
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
+            {
+                if (ModelState.IsValid)
+                {
+                    Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    Reservatie reservatie = _reservatieRepository.GetById(aangepasteReservatie.ReservatieId);
+                    
+                    if (reservatie.Lunch.Handelaar.GebruikerId == handelaar.GebruikerId)
+                    {
+                        reservatie.Status = aangepasteReservatie.Status;
+                        _reservatieRepository.SaveChanges();
+
+                        return Ok(new { bericht = "De reservatie werd succesvol bijgewerkt." });
+                    }
+                    return BadRequest(new { error = "De aangemelde handelaar heeft geen toegang tot de opgegeven reservatie" });
+                }
+                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
     }
 }
