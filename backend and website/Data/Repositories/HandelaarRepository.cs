@@ -39,7 +39,7 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .FirstOrDefault();
 
-            handelaarMetAlleLunches.Lunches.RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date || l.Deleted == true);
+            handelaarMetAlleLunches.Lunches.RemoveAll(l => l.Deleted == true);
 
             return handelaarMetAlleLunches;
         }
