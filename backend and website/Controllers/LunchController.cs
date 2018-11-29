@@ -119,21 +119,33 @@ namespace Lunchers.Controllers
                         Lunch lunch = _lunchRespository.GetById(id);
 
                         if (handelaar == lunch.Handelaar) {
-                            lunch.Naam = aangepasteLunch.Naam;
-                            lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
-                            lunch.Beschrijving = aangepasteLunch.Beschrijving;
-                            lunch.BeginDatum = aangepasteLunch.BeginDatum;
-                            lunch.EindDatum = aangepasteLunch.EindDatum;
-                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
-                            lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
+                            if (delete)
+                            {
+                                _lunchRespository.Delete(lunch.LunchId);
+                                _lunchRespository.SaveChanges();
+                                return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
+                            }
 
-                            if (delete) _lunchRespository.Delete(lunch);
+                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date > DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                                lunch.Naam = aangepasteLunch.Naam;
+                                lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
+                                lunch.Beschrijving = aangepasteLunch.Beschrijving;
+                                lunch.BeginDatum = aangepasteLunch.BeginDatum;
+                                lunch.EindDatum = aangepasteLunch.EindDatum;
+                                lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
+                                lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            _lunchRespository.SaveChanges();
+                                if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
 
-                            return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                                _lunchRespository.SaveChanges();
+
+                                return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                            }
+                            else {
+                                return BadRequest(new { error = "Er is iets mis met de begin- en/of einddatum." });
+                            }
+
                         }
 
                         return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });

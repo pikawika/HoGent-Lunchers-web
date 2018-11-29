@@ -20,13 +20,13 @@ export class Lunch {
           lunch.lunchId = json.lunchId;
           lunch.naam = json.naam;
           lunch.prijs = json.prijs;
-          lunch.ingredienten = json.ingredienten;
+          lunch.ingredienten = json.lunchIngredienten;
           lunch.beschrijving = json.beschrijving;
           lunch.afbeeldingen = json.afbeeldingen;          
-          lunch._tags = json._tags;
-          lunch._beginDatum = json.beginDatum;
-          lunch._eindDatum = json.eindDatum;
-          lunch._deleted = json.deleted;
+          lunch.tags = json.lunchTags;
+          lunch.beginDatum = json.beginDatum;
+          lunch.eindDatum = json.eindDatum;
+          lunch.deleted = json.deleted;
           return lunch;
         }
     }
@@ -176,6 +176,13 @@ export class Lunch {
      */
 	public set deleted(value: boolean) {
 		this._deleted = value;
-	}
+    }
+    
+    public get tags() {
+        return this._tags;
+    }
+    public set tags(value) {
+        this._tags = value;
+    }
     
 }

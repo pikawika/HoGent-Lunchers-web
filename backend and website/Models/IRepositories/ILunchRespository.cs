@@ -10,7 +10,7 @@ namespace Lunchers.Models.Repositories
         IEnumerable<Lunch> GetAllFromLocation(double latitude, double longitude);
         Lunch GetById(int id);
         void Add(Lunch lunch);
-        void Delete(Lunch lunch);
+        void Delete(int id);
         void SaveChanges();
     }
 }
