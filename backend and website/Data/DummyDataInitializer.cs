@@ -123,14 +123,14 @@ namespace Lunchers.Data
 
                 //LUNCHES BEGIN
                 //nog Afbeeldingen
-                Lunch lunchStandaardHamburger = new Lunch { Naam = "American hamburger", Prijs = 10.00, Beschrijving = "Een echte American burger met alles wat er bij hoort zoals bacon, cheddar kaas en augurkjes.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
-                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta rosbief", Prijs = 20, Beschrijving = "Rosbief is een klassieker, maar waarom niet eens combineren met pasta en lekkere Italiaanse producten?", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
-                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15.50, Beschrijving = "Gegratineerde visschotel met duo van puree op grootmoeders wijze.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
-                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25.00, Beschrijving = "Een lekker frisse en bovenal gezonde vegan salade.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
-                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Beschrijving = "Zalm vergezeld met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
-                Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30) };
+                Lunch lunchStandaardHamburger = new Lunch { Naam = "American hamburger", Prijs = 10.00, Beschrijving = "Een echte American burger met alles wat er bij hoort zoals bacon, cheddar kaas en augurkjes.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
+                Lunch lunchStandaardPasta = new Lunch { Naam = "Italiaanse pasta rosbief", Prijs = 20, Beschrijving = "Rosbief is een klassieker, maar waarom niet eens combineren met pasta en lekkere Italiaanse producten?", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
+                Lunch lunchStandaardVis = new Lunch { Naam = "Visschotel", Prijs = 15.50, Beschrijving = "Gegratineerde visschotel met duo van puree op grootmoeders wijze.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
+                Lunch lunchStandaardVegan = new Lunch { Naam = "Vegan salad", Prijs = 25.00, Beschrijving = "Een lekker frisse en bovenal gezonde vegan salade.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
+                Lunch lunchStandaardZalm = new Lunch { Naam = "Zalm met venkel", Prijs = 50.00, Beschrijving = "Zalm vergezeld met venkel en heerlijke roomsaus op oma's wijze", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
+                Lunch lunchStandaardBiefstuk = new Lunch { Naam = "Biefstuk met frietjes", Prijs = 22.50, Beschrijving = "Wat smaakt er beter dan een lekkere steak, zeker wanneer die nét goed gebakken is? Bleu, saignant, à point of bien cuit: u zegt het, wij bakken het.", BeginDatum = new DateTime(2018, 10, 30), EindDatum = new DateTime(2018, 12, 30), Deleted = false };
 
-                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Beschrijving = "Een ", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30) };
+                Lunch LunchUitzonderingVervallen = new Lunch { Naam = "Schotse Hamburger", Prijs = 12.50, Beschrijving = "Een hamburger met een kilt", BeginDatum = new DateTime(2017, 10, 30), EindDatum = new DateTime(2017, 12, 30), Deleted = true };
 
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(lunchStandaardHamburger);
                 ((Handelaar)gebruikerHandelaar1Qarfa).Lunches.Add(LunchUitzonderingVervallen);
@@ -215,15 +215,15 @@ namespace Lunchers.Data
                 //AFBEELDINGEN EINDE
 
                 //RESERVATIES -> user lennert
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 5, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 5, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger, Status = Status.Goedgekeurd });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd });
 
                 // --> user niet lennert
-                ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan });
-                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm });
+                ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.Goedgekeurd });
+                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting });
                 //RESERVATIES EINDE
 
                 //FAVORIETEN -> user lennert

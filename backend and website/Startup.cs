@@ -38,6 +38,7 @@ namespace Lunchers
 
 
 
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
