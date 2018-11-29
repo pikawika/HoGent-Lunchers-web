@@ -3,6 +3,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Reservatie } from '../../models/reservatie';
 
 @Injectable({
   providedIn: 'root'
@@ -25,4 +26,13 @@ export class AdminDataService {
       )
     );
   }
+
+  get reservations(): Observable<Reservatie[]> {
+    return this.http.get(this._baseUrl+'api/reservatie/').pipe(
+      map((list: any[]): Reservatie[]=>
+        list.map(Reservatie.fromJSON)
+      )
+    );
+  }
+
 }

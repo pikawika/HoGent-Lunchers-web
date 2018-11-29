@@ -17,7 +17,7 @@ export class Handelaar {
         
         if (json != null) {
            let handelaar = new Handelaar();
-            handelaar.handelaarId = json.handelaarId;
+            handelaar.handelaarId = json.gebruikerId;
             handelaar.naam = json.handelsNaam;
             handelaar.voornaam = json.voornaam;
             handelaar.achternaam = json.achternaam;

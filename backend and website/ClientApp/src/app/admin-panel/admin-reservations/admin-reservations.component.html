@@ -1,0 +1,26 @@
+<h1 class="title">Reservatie overzicht</h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">KlantId</th>
+        <th scope="col">Lunch</th>
+        <th scope="col">Aantal</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Status</th>
+        <th scope="col">Bewerk</th>
+        <th scope="col">Verwijder</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor= 'let reservation of reservations'>
+        <td>{{reservation.Klant.KlantId}}</td>
+        <td>{{reservation.Lunch.naam}}</td>
+        <td>{{reservation.Aantal}}</td>
+        <td>{{reservation.Datum}}</td>
+        <td>{{reservation.Status}}</td>
+        <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-pencil fa-lg"></i></a></td>
+        <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></a></td>
+      </tr>
+    </tbody>
+  </table>
