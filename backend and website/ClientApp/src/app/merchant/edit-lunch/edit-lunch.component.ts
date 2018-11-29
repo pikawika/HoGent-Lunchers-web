@@ -84,7 +84,7 @@ onSubmit() {
           data.append("afbeeldingen", files[x]);    
       }
     } else {
-      data.append("afbeeldingen", files);   
+      data.append("afbeeldingen", files[0]);   
     }
   }
 

@@ -69,13 +69,13 @@ export class AddLunchComponent implements OnInit {
           data.append('afbeeldingen', files[x]);    
       }
   } else {
-      data.append('afbeeldingen', files);   
+      data.append('afbeeldingen', files[0]);   
   }
       data.append("naam", this.lunch.value.name);
       data.append("prijs", Number(this.lunch.value.price));
       data.append("beschrijving", this.lunch.value.description);
-      data.append("beginDatum", this.lunch.value.startdate);
-      data.append("eindDatum", this.lunch.value.enddate);
+      data.append("beginDatum", (<HTMLInputElement>document.getElementById('startdate')).value);
+      data.append("eindDatum", (<HTMLInputElement>document.getElementById('enddate')).value);
       data.append("ingredienten", [
         {
            "naam": "Ui"

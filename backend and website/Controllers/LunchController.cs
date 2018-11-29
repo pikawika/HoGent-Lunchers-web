@@ -122,8 +122,8 @@ namespace Lunchers.Controllers
 
                             if (aangepasteLunch.Afbeeldingen != null)
                             {
-                                string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
-                                Directory.Delete(path);
+                                //string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
+                                //Directory.Delete(path);
 
                                 lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen, lunch);
                             }
