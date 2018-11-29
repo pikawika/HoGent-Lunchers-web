@@ -1,4 +1,4 @@
-var base_url = "https://lunchers.ml/";
+var base_url = "https://localhost:5001/";
 
 describe('lunchers gebruiker login test',function(){
     it('Check detail pagina als niet aangemeld', function(){
