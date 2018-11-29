@@ -46,7 +46,7 @@ namespace Lunchers.Models.ViewModels.Lunch
         {
             List<ValidationResult> results = new List<ValidationResult>();
 
-            if (BeginDatum.Date <= DateTime.Now.Date)
+            if (BeginDatum.Date < DateTime.Now.Date)
             {
                 results.Add(new ValidationResult("Begindatum moet vandaag of later zijn.", new[] { "BeginDatum" }));
             }

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, inject } from '@angular/core';
 import { AuthenticationService } from 'src/app/user/authentication.service';
-import { Lunch } from 'src/models/lunch';
-import { LunchMerchantDataService } from './lunch-merchant-data.service';
 import { Router } from '@angular/router';
+import { MerchantDataService } from '../merchant-data.service';
+import { Lunch } from 'src/models/lunch';
 
 @Component({
   selector: 'app-lunch-merchant',
@@ -17,7 +17,7 @@ export class LunchMerchantComponent implements OnInit {
 
   constructor(
     @Inject('BASE_URL') baseUrl: string,
-    public dataService: LunchMerchantDataService,
+    public dataService: MerchantDataService,
     private router: Router,
     private authService: AuthenticationService) {
       this._baseUrl = baseUrl;
@@ -40,5 +40,13 @@ export class LunchMerchantComponent implements OnInit {
 
   addLunch(){
     this.router.navigate(['/merchant/addlunch']);
+  }
+
+  editLunch(lunch: Lunch){
+    this.router.navigate(['merchant/editlunch', lunch.lunchId])
+  }
+
+  removeLunch(lunch:Lunch){
+    this.dataService.removeLunch(lunch.lunchId);
   }
 }

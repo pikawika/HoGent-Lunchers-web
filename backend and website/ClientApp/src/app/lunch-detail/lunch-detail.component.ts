@@ -14,7 +14,6 @@ export class LunchDetailComponent implements OnInit {
   public _baseUrl;
 
   constructor(private route: ActivatedRoute, private dataService:DetailDataService,@Inject('BASE_URL') baseUrl: string) { 
-    this._baseUrl = baseUrl;
   }
 
   ngOnInit() {
