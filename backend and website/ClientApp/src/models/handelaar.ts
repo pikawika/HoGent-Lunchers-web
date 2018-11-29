@@ -1,3 +1,4 @@
+import { Locatie } from './locatie';
 import { Lunch } from "./lunch";
 
 export class Handelaar {
@@ -10,7 +11,7 @@ export class Handelaar {
     private _website : string;
     private _lunches : Lunch[]; //lijst van lunches
     private _promotierange : Number;
-    //private _locatie : Locatie; -> er is nog geen locatie object wordt later toegevoegd
+    private _locatie : Locatie;
 
     static fromJSON(json: any): Handelaar {
         
@@ -25,6 +26,7 @@ export class Handelaar {
             handelaar.website = json.website;
             handelaar.lunches = json.lunches;
             handelaar.promotierange = json.promotierange;
+            handelaar.locatie = json.locatie;
             return handelaar;
          }
      }
@@ -102,13 +104,13 @@ export class Handelaar {
 		return this._promotierange;
 	}
 
-    // /**
-    //  * Getter locatie
-    //  * @return {Locatie}
-    //  */
-	// public get locatie(): Locatie {
-	// 	return this._locatie;
-	// }
+    /**
+     * Getter locatie
+     * @return {Locatie}
+     */
+	public get locatie(): Locatie {
+		return this._locatie;
+	}
 
     /**
      * Setter handelaarId
@@ -182,16 +184,12 @@ export class Handelaar {
 		this._promotierange = value;
 	}
 
-    // /**
-    //  * Setter locatie
-    //  * @param {Locatie} value
-    //  */
-	// public set locatie(value: Locatie) {
-	// 	this._locatie = value;
-	// }
+    /**
+     * Setter locatie
+     * @param {Locatie} value
+     */
+	public set locatie(value: Locatie) {
+		this._locatie = value;
+	}
      
-
-
-
-    
 }
