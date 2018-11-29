@@ -106,7 +106,7 @@ namespace Lunchers.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromQuery]bool delete = false, [FromForm]LunchEditViewModel aangepasteLunch)
+        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch, [FromQuery]bool delete = false)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
