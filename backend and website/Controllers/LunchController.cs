@@ -127,13 +127,9 @@ namespace Lunchers.Controllers
                             lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
                             lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (aangepasteLunch.Afbeeldingen.Files.Count != 0)
-                            {
-                                //string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
-                                //Directory.Delete(path);
+                            if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
 
-                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
-                            }
+                            if (aangepasteLunch.Delete) _lunchRespository.Delete(lunch);
 
                             _lunchRespository.SaveChanges();
 
@@ -149,29 +145,6 @@ namespace Lunchers.Controllers
                     }
                 }
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
-            }
-            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        private IActionResult Delete(int id)
-        {
-            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
-            {
-                Lunch lunch = _lunchRespository.GetById(id);
-                if (lunch != null)
-                {
-                    Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
-                    if (lunch.Handelaar == handelaar)
-                    {
-                        _lunchRespository.Delete(lunch);
-                        _lunchRespository.SaveChanges();
-                        return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
-                    }
-                    return BadRequest(new { error = "De opgevraagde lunch behoort niet toe aan de opgegeven handelaar." });
-                }
-                return BadRequest(new { error = "De opgegeven lunch bestaat niet." });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
