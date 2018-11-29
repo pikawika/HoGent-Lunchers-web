@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
-using Lunchers.Models.Domain;
+using GeoCoordinatePortable;
 
 namespace Lunchers.Data.Repositories
 {
@@ -37,6 +37,20 @@ namespace Lunchers.Data.Repositories
                 .Include(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(l => l.Handelaar).ThenInclude(h => h.Locatie)
                 .ToList();
+        }
+
+        public IEnumerable<Lunch> GetAllFromLocation(double latitude, double longitude)
+        {
+            List<Lunch> lunches = _lunches.Where(l => l.BeginDatum <= DateTime.Now.Date && l.EindDatum >= DateTime.Now.Date && l.Deleted == false)
+                .Include(l => l.Afbeeldingen)
+                .Include(l => l.LunchTags).ThenInclude(lt => lt.Tag)
+                .Include(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
+                .Include(l => l.Handelaar).ThenInclude(h => h.Locatie)
+                .ToList();
+
+            var coord = new GeoCoordinate(latitude, longitude);
+
+            return lunches.OrderBy(l => l.GetCoordinate.GetDistanceTo(coord));
         }
 
         public Lunch GetById(int id)
