@@ -20,6 +20,7 @@ import { LunchMerchantComponent } from './merchant/lunch-merchant/lunch-merchant
 import { AddLunchComponent } from './merchant/add-lunch/add-lunch.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
     RegisterMerchantComponent,
     LunchMerchantComponent,
     AddLunchComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    EditLunchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +54,8 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
       { path: 'merchantregister', component:RegisterMerchantComponent},
       { path: 'merchant/lunch', canActivate: [ AuthGuardService ], component:LunchMerchantComponent},
       { path: 'merchant/addlunch', canActivate: [ AuthGuardService ], component:AddLunchComponent},
-      { path: 'landingpage', component:LandingpageComponent}
+      { path: 'landingpage', component:LandingpageComponent},
+      { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardService ], component:EditLunchComponent},
     ]),
     
   ],

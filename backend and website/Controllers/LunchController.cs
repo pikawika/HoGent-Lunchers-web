@@ -14,6 +14,7 @@ using Lunchers.Models.ViewModels.Ingredient;
 using Lunchers.Models.ViewModels.Tag;
 using Lunchers.Models.IRepositories;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
 
 namespace Lunchers.Controllers
 {
@@ -39,9 +40,14 @@ namespace Lunchers.Controllers
         // GET: api/<controller>
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Lunch> Get()
+        public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
-            return _lunchRespository.GetAll().Reverse();
+            // Als de locatie meegegeven wordt, wordt gezocht op locatie
+            if (latitude != 0 && longitude != 0)
+                return _lunchRespository.GetAllFromLocation(latitude, longitude);
+            // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
+            else
+                return _lunchRespository.GetAll().Reverse();
         }
 
         // GET api/<controller>/5
@@ -64,7 +70,7 @@ namespace Lunchers.Controllers
                     {
                         if (nieuweLunch.Afbeeldingen.Files.Count != 0)
                         {
-                            Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
+                            Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                             Lunch lunch = new Lunch()
                             {
@@ -75,6 +81,7 @@ namespace Lunchers.Controllers
                                 EindDatum = nieuweLunch.EindDatum,
                                 LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
                                 LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
+                                Deleted = false,
                             };
 
                             handelaar.Lunches.Add(lunch);
@@ -99,7 +106,7 @@ namespace Lunchers.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]LunchEditViewModel aangepasteLunch)
+        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch, [FromQuery]bool delete = false)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
@@ -112,38 +119,44 @@ namespace Lunchers.Controllers
                         Lunch lunch = _lunchRespository.GetById(id);
 
                         if (handelaar == lunch.Handelaar) {
-                            lunch.Naam = aangepasteLunch.Naam;
-                            lunch.Prijs = aangepasteLunch.Prijs;
-                            lunch.Beschrijving = aangepasteLunch.Beschrijving;
-                            lunch.BeginDatum = aangepasteLunch.BeginDatum;
-                            lunch.EindDatum = aangepasteLunch.EindDatum;
-                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
-                            lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (aangepasteLunch.Afbeeldingen != null)
+                            if (delete)
                             {
-                                string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
-                                Directory.Delete(path);
-
-                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen, lunch);
+                                _lunchRespository.Delete(lunch.LunchId);
+                                _lunchRespository.SaveChanges();
+                                return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
                             }
 
-                            _lunchRespository.SaveChanges();
+                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date > DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                                lunch.Naam = aangepasteLunch.Naam;
+                                lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
+                                lunch.Beschrijving = aangepasteLunch.Beschrijving;
+                                lunch.BeginDatum = aangepasteLunch.BeginDatum;
+                                lunch.EindDatum = aangepasteLunch.EindDatum;
+                                lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
+                                lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                                if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
+
+                                _lunchRespository.SaveChanges();
+
+                                return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                            }
+                            else {
+                                return BadRequest(new { error = "Er is iets mis met de begin- en/of einddatum." });
+                            }
+
                         }
 
                         return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
 
                     }
-                    catch (Exception e)
+                    catch
                     {
-                        //return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
-                        return BadRequest(new { error = e });
+                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
                     }
                 }
-                //return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
-                return BadRequest(new { error = ModelState });
+                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }

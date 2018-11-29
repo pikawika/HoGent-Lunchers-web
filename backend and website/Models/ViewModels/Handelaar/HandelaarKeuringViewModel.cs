@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lunchers.Models.ViewModels.Favoriet
+namespace Lunchers.Models.ViewModels.Handelaar
 {
-    public class FavorietViewModel
+    public class HandelaarKeuringViewModel
     {
         [Required(ErrorMessage = "{0} is verplicht.")]
-        public int LunchId { get; set; }
+        public int HandelaarId { get; set; }
     }
 }

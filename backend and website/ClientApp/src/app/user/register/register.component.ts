@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
     this.user = this.fb.group({
       username: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       tel: [
         '',
@@ -50,11 +50,11 @@ export class RegisterComponent implements OnInit {
       ],
       voornaam: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       achternaam: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       passwordGroup: this.fb.group(
         {

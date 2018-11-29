@@ -8,6 +8,7 @@ export class Lunch {
     private _beginDatum : Date;
     private _eindDatum : Date;
     private _tags; //lijst van strings
+    private _deleted : boolean;
     //private handelaar Handelaar; -> handelaar object nog aan te maken
 
 
@@ -19,12 +20,13 @@ export class Lunch {
           lunch.lunchId = json.lunchId;
           lunch.naam = json.naam;
           lunch.prijs = json.prijs;
-          lunch.ingredienten = json.ingredienten;
+          lunch.ingredienten = json.lunchIngredienten;
           lunch.beschrijving = json.beschrijving;
           lunch.afbeeldingen = json.afbeeldingen;          
-          lunch._tags = json._tags;
-          lunch._beginDatum = json.beginDatum;
-          lunch._eindDatum = json.eindDatum;
+          lunch.tags = json.lunchTags;
+          lunch.beginDatum = json.beginDatum;
+          lunch.eindDatum = json.eindDatum;
+          lunch.deleted = json.deleted;
           return lunch;
         }
     }
@@ -158,6 +160,29 @@ export class Lunch {
      */
 	public set eindDatum(value: Date) {
 		this._eindDatum = value;
+    }
+
+    /**
+     * Getter deleted
+     * @return {boolean}
+     */
+	public get deleted(): boolean {
+		return this._deleted;
 	}
+
+    /**
+     * Setter deleted
+     * @param {boolean} value
+     */
+	public set deleted(value: boolean) {
+		this._deleted = value;
+    }
+    
+    public get tags() {
+        return this._tags;
+    }
+    public set tags(value) {
+        this._tags = value;
+    }
     
 }
