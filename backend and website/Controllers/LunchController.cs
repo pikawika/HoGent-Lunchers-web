@@ -106,7 +106,7 @@ namespace Lunchers.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch)
+        public async Task<IActionResult> Put(int id, [FromQuery]bool delete = false, [FromForm]LunchEditViewModel aangepasteLunch)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
@@ -129,7 +129,7 @@ namespace Lunchers.Controllers
 
                             if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
 
-                            if (aangepasteLunch.Delete) _lunchRespository.Delete(lunch);
+                            if (delete) _lunchRespository.Delete(lunch);
 
                             _lunchRespository.SaveChanges();
 
