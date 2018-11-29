@@ -1,8 +1,10 @@
+import { Ingredient } from "./Ingredient";
+
 export class Lunch {
     private _lunchId: Number;
     private _naam : string;
     private _prijs : Number;
-    private _ingredienten: string[]; //lijst van ingredienten (strings doordat ingredient enkel een naam heeft)
+    private _ingredienten: Ingredient[]; //lijst van ingredienten (strings doordat ingredient enkel een naam heeft)
     private _beschrijving : string;
     private _afbeeldingen; //lijst van urls in vorm van string
     private _beginDatum : Date;
@@ -31,6 +33,23 @@ export class Lunch {
         }
     }
 
+
+
+    /**
+     * Getter ingredienten
+     * @return {Ingredient[]}
+     */
+	public get ingredienten(): Ingredient[] {
+		return this._ingredienten;
+	}
+
+    /**
+     * Setter ingredienten
+     * @param {Ingredient[]} value
+     */
+	public set ingredienten(value: Ingredient[]) {
+		this._ingredienten = value;
+	}
 
     /**
      * Getter lunchId
@@ -96,15 +115,6 @@ export class Lunch {
 	public set beschrijving(value: string) {
 		this._beschrijving = value;
 	}
-    
-
-    /**
-     * Getter ingredienten
-     * @return {string[]}
-     */
-	public get ingredienten(): string[] {
-		return this._ingredienten;
-	}
 
     /**
      * Getter afbeeldingen
@@ -112,14 +122,6 @@ export class Lunch {
      */
 	public get afbeeldingen(): string[] {
 		return this._afbeeldingen;
-	}
-
-    /**
-     * Setter ingredienten
-     * @param {string[]} value
-     */
-	public set ingredienten(value: string[]) {
-		this._ingredienten = value;
 	}
 
     /**
