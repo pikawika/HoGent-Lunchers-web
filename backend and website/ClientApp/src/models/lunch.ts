@@ -1,3 +1,5 @@
+import { Handelaar } from "./handelaar";
+
 export class Lunch {
     private _lunchId: Number;
     private _naam : string;
@@ -9,10 +11,8 @@ export class Lunch {
     private _eindDatum : Date;
     private _tags; //lijst van strings
     private _deleted : boolean;
-    //private handelaar Handelaar; -> handelaar object nog aan te maken
-
-
-
+    private _handelaar: Handelaar;
+    
     static fromJSON(json: any): Lunch {
         
        if (json != null) {
@@ -27,6 +27,7 @@ export class Lunch {
           lunch._beginDatum = json.beginDatum;
           lunch._eindDatum = json.eindDatum;
           lunch._deleted = json.deleted;
+          lunch.handelaar = Handelaar.fromJSON(json.handelaar);
           return lunch;
         }
     }
@@ -176,6 +177,14 @@ export class Lunch {
      */
 	public set deleted(value: boolean) {
 		this._deleted = value;
-	}
+    }
+    
+    public get handelaar(): Handelaar {
+        return this._handelaar;
+    }
+    public set handelaar(value: Handelaar) {
+        this._handelaar = value;
+    }
+
     
 }

@@ -10,7 +10,7 @@ export class Klant {
         if (json != null) {
             let klant = new Klant();
 
-            klant.gebruikerId = json.gebruikderId;
+            klant.gebruikerId = json.gebruikerId;
             klant.telefoonnummer = json.telefoonnummer;
             klant.email = json.email;
             klant.voornaam = json.voornaam;
