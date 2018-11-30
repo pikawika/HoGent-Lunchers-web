@@ -3,3 +3,8 @@
     color:white!important;
     border:none;
  }
+
+ .right{
+     margin-left: auto;
+     margin-right: 0%;
+ }

@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MerchantDataService } from '../merchant-data.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { RequestOptions } from '@angular/http';
-import { Observable } from 'rxjs';
+import { Ingredient } from 'src/models/Ingredient';
+import { Tag } from 'src/models/Tag';
 
 @Component({
   selector: 'app-add-lunch',
@@ -16,12 +16,47 @@ export class AddLunchComponent implements OnInit {
   public lunch: FormGroup;
   public errorMsg: string;
   filesToUpload: Array<File> = [];
+  public _ingredienten = [];
+  public _tags = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private merchantService : MerchantDataService
     ) { }
+
+
+    addIngredient(ingredient: string){
+      let ing = new Ingredient();
+      ing.Naam = ingredient;
+      this._ingredienten.push(ing);
+      console.log(this._ingredienten);
+    }
+
+    addTag(tag: string){
+      let t = new Tag();
+      t.Naam = tag;
+      this._tags.push(t);
+      console.log(this._tags);
+    }
+
+    removeIng(ingredient){
+      for(let i = 0; i < this._ingredienten.length;i++){
+        if(this._ingredienten[i].Naam == ingredient.Naam){
+          this._ingredienten.splice(i, 1);
+          break;
+        }
+      }
+    }
+
+    removeTag(tag){
+      for(let i = 0; i < this._tags.length;i++){
+        if(this._tags[i].Naam == tag.Naam){
+          this._tags.splice(i, 1);
+          break;
+        }
+      }
+    }
 
   ngOnInit() {
     this.lunch = this.fb.group({
@@ -42,20 +77,15 @@ export class AddLunchComponent implements OnInit {
       ],
       enddate: [
         '',
+      ],
+      ingredient: [
+        '',
+        [Validators.required]
+      ],
+      tag: [
+        '',
+        [Validators.required]
       ]
-      // ,
-      // ingredienten: [
-      //   '',
-      //   [Validators.required]
-      // ],
-      // tags: [
-      //   '',
-      //   [Validators.required]
-      // ],
-      // afb: [
-      //   '',
-      //   [Validators.required]
-      // ]
     });
   }
 
@@ -76,24 +106,8 @@ export class AddLunchComponent implements OnInit {
       data.append("beschrijving", this.lunch.value.description);
       data.append("beginDatum", (<HTMLInputElement>document.getElementById('startdate')).value);
       data.append("eindDatum", (<HTMLInputElement>document.getElementById('enddate')).value);
-      data.append("ingredienten", [
-        {
-           "naam": "Ui"
-        },
-        {
-           "naam": "Varkensvlees"
-        }
-      ]);
-      data.append("tags", [
-        {
-           "naam": "Hamburger",
-           "kleur": "FF6A6A"
-        },
-        {
-           "naam": "Varkensvlees",
-           "kleur": "FF6A6A"
-        }
-      ]);
+      data.append("ingredienten", this._ingredienten);
+      data.append("tags", this._tags);
 
     this.merchantService.addLunch(
       data)

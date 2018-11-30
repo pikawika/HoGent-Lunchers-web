@@ -1,3 +1,4 @@
+import { Tag } from "./Tag";
 import { Ingredient } from "./Ingredient";
 
 export class Lunch {
@@ -9,11 +10,9 @@ export class Lunch {
     private _afbeeldingen; //lijst van urls in vorm van string
     private _beginDatum : Date;
     private _eindDatum : Date;
-    private _tags; //lijst van strings
+    private _tags: Tag[]; //lijst van strings
     private _deleted : boolean;
     //private handelaar Handelaar; -> handelaar object nog aan te maken
-
-
 
     static fromJSON(json: any): Lunch {
         
@@ -180,11 +179,21 @@ export class Lunch {
 		this._deleted = value;
     }
     
-    public get tags() {
-        return this._tags;
-    }
-    public set tags(value) {
-        this._tags = value;
-    }
+    /**
+     * Getter tags
+     * @return {Tag[]}
+     */
+	public get tags(): Tag[] {
+		return this._tags;
+	}
+
+    /**
+     * Setter tags
+     * @param {Tag[]} value
+     */
+	public set tags(value: Tag[]) {
+		this._tags = value;
+	}
+
     
 }

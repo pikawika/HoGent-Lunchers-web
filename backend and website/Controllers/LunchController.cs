@@ -206,7 +206,8 @@ namespace Lunchers.Controllers
                 Tag tag = _tagRepository.GetByName(tvm.Naam);
                 if (tag == null)
                 {
-                    tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };
+                    if (tvm.Kleur == null) tag = new Tag { Naam = tvm.Naam, Kleur = "#000000"  };
+                    else tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };
                     _tagRepository.Add(tag);
                     _tagRepository.SaveChanges();
                 }

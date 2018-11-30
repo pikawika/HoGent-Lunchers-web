@@ -1,7 +1,7 @@
 export class Ingredient{
 
     private _ingredientId: Number;
-    private _naam : string;
+    private naam : string;
 
     static fromJSON(json: any): Ingredient{
         if (json != null) {
@@ -24,8 +24,8 @@ export class Ingredient{
      * Getter naam
      * @return {string}
      */
-	public get naam(): string {
-		return this._naam;
+	public get Naam(): string {
+		return this.naam;
 	}
 
     /**
@@ -40,8 +40,8 @@ export class Ingredient{
      * Setter naam
      * @param {string} value
      */
-	public set naam(value: string) {
-		this._naam = value;
+	public set Naam(value: string) {
+		this.naam = value;
 	}
 
 } 

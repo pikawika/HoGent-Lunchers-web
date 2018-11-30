@@ -1,56 +1,62 @@
 <div class="col-md-6 offset-md-3">
 
-    <h1>Toevoegen van een lunch</h1>
-    <hr>
-  
-    <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
-    <form [formGroup]="lunch" (ngSubmit)='onSubmit()' enctype="multipart/form-data">
-  
-      <div class="form-group">
-        <label for="name">Naam:</label>
-        <input type="text" id="name" formControlName='name' class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="price">Prijs:</label>
-        <input type="number" id="price" formControlName='price' class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="description">Beschrijving:</label>
-        <input type="text" id="description" formControlName='description' class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="startdate">Begindatum:</label>
-        <input type="date" id="startdate" formControlName='startdate' class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="enddate">Einddatum:</label>
-        <input type="date" id="enddate" formControlName='enddate' class="form-control">
-      </div>
-      
-      <div class="form-group">
-        <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg" multiple>
-      </div>
-      <!-- <div class="form-group">
-        <label for="ingredienten">Ingredienten:</label>
-        <input type="text" id="ingredienten" formControlName='ingredienten' class="form-control">
-      </div>
-  
-      <div class="form-group">
-        <label for="tags">Tags:</label>
-        <input type="url" id="tags" formControlName='tags' class="form-control">
-      </div>
+  <h1>Toevoegen van een lunch</h1>
+  <hr>
 
-      <div class="form-group">
-        <label for="afb">Afbeeldingen:</label>
-        <input type="url" id="afb" formControlName='afb' class="form-control">
-      </div> -->
-  
-      <div class="form-group">
-        <button type='submit' [disabled]='!lunch.valid' class="form-control">Voeg lunch toe</button>
+  <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
+  <form [formGroup]="lunch" (ngSubmit)='onSubmit()' enctype="multipart/form-data">
+
+    <div class="form-group">
+      <label for="name">Naam:</label>
+      <input type="text" id="name" formControlName='name' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="price">Prijs:</label>
+      <input type="number" id="price" formControlName='price' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="description">Beschrijving:</label>
+      <input type="text" id="description" formControlName='description' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="startdate">Begindatum:</label>
+      <input type="date" id="startdate" formControlName='startdate' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label for="enddate">Einddatum:</label>
+      <input type="date" id="enddate" formControlName='enddate' class="form-control">
+    </div>
+
+    <div class="form-group">
+      <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg" multiple>
+    </div>
+
+    <div class="form-group">
+      <label for="ingredienten">Ingredienten:</label>
+      <input #ing (keyup.enter)="addIngredient(ing.value)" type="text" id="ingredienten" formControlName='ingredient' class="form-control" />
+      <div *ngFor='let ingredient of _ingredienten'>
+        <div class="card">
+          <a>{{ingredient.Naam}} <a class="right" (click)="removeIng(ingredient)">Verwijder</a></a>
+        </div>
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags:</label>
+      <input #tag (keyup.enter)="addTag(tag.value)" type="text" id="tags" formControlName='tag' class="form-control" />
+      <div *ngFor='let tag of _tags'>
+        <div class="card">
+          <a>{{tag.Naam}} <a class="right" (click)="removeTag(tag)">Verwijder</a></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <button type='submit' [disabled]='!lunch.valid' class="form-control">Voeg lunch toe</button>
+    </div>
+  </form>
+</div>

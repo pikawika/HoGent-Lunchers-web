@@ -1,7 +1,7 @@
 export class Tag{
 
     private _tagId: Number;
-    private _naam : string;
+    private naam : string;
     private _kleur : string;
 
     static fromJSON(json: any): Tag{
@@ -26,8 +26,8 @@ export class Tag{
      * Getter naam
      * @return {string}
      */
-	public get naam(): string {
-		return this._naam;
+	public get Naam(): string {
+		return this.naam;
 	}
 
     /**
@@ -50,8 +50,8 @@ export class Tag{
      * Setter naam
      * @param {string} value
      */
-	public set naam(value: string) {
-		this._naam = value;
+	public set Naam(value: string) {
+		this.naam = value;
 	}
 
     /**
