@@ -136,8 +136,8 @@ export class EditLunchComponent implements OnInit {
     data.append("beginDatum", (<HTMLInputElement>document.getElementById('startdate')).value);
     data.append("eindDatum", (<HTMLInputElement>document.getElementById('enddate')).value);
     data.append("prijs", Number((<HTMLInputElement>document.getElementById('price')).value));
-    data.append("ingredienten", this._ingredienten);
-    data.append("tags", this._tags);
+    data.append("ingredienten", JSON.stringify(this._ingredienten));
+    data.append("tags", JSON.stringify(this._tags));
 
     if(this._ingredienten.length != 0 && this._tags.length != 0){
       this.merchantService.editLunch(this._lunch.lunchId,

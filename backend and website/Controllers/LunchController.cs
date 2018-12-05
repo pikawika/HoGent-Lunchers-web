@@ -166,9 +166,9 @@ namespace Lunchers.Controllers
                         return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
 
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
+                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanpassen van de lunch. " + e.Message.ToString().ToLower() });
                     }
                 }
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
