@@ -26,7 +26,23 @@ namespace Lunchers.Data.Repositories
 
         public IEnumerable<Reservatie> GetAll()
         {
-            return _reservaties.Include(r => r.Lunch).ToList();
+            return _reservaties.Include(r => r.Lunch)
+                .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
+                .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
+                .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
+                .Include(r => r.Klant)
+                .OrderByDescending(r => r.Datum)
+                .ToList();
+        }
+
+        public IEnumerable<Reservatie> GetAllFromMerchant(int merchantId)
+        {
+            return _reservaties.Where(r => r.Lunch.Handelaar.GebruikerId == merchantId)
+                .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
+                .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
+                .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
+                .ToList();
         }
 
         public IEnumerable<Reservatie> GetAllFromCustomer(int customerId)
@@ -44,6 +60,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
                 .SingleOrDefault(r => r.ReservatieId == id);
         }
 

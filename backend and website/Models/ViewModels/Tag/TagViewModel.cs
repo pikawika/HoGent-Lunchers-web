@@ -12,7 +12,6 @@ namespace Lunchers.Models.ViewModels.Tag
         [StringLength(60)]
         public string Naam { get; set; }
 
-        [Required(ErrorMessage = "{0} is verplicht.")]
         [StringLength(60)]
         public string Kleur { get; set; }
     }

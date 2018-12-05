@@ -2,6 +2,10 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Lunch } from 'src/models/lunch';
+import { Handelaar } from 'src/models/handelaar';
+import { Ingredient } from 'src/models/Ingredient';
+import { Tag } from 'src/models/Tag';
 
 @Injectable({
   providedIn: 'root'
@@ -17,11 +21,37 @@ export class MerchantDataService {
     this._baseUrl = baseUrl;
   }
 
-
-  addLunch(data: FormData
-    ): Observable<boolean> {
-    return this.http.post(this._baseUrl+'api/lunch',
-    data).pipe(
-      map((res: any) => { return res }));
+  getMerchantById(id):Observable<Handelaar>{
+    return this.http.get(this._baseUrl+"api/Handelaar/"+id).pipe(map(Handelaar.fromJSON));
   }
+
+  getIngredienten():Observable<Ingredient[]>{
+    return this.http.get(this._baseUrl+"api/ingredient").pipe(
+      map((list: any[]): Ingredient[] => list.map(Ingredient.fromJSON))
+      );
+  }
+
+  getTag(): Observable<Tag[]>{
+    return this.http.get(this._baseUrl+"api/tag").pipe(
+      map((list: any[]): Tag[] => list.map(Tag.fromJSON))
+      );
+  }
+
+  addLunch(data: FormData): Observable<boolean> {
+    return this.http.post(this._baseUrl+'api/lunch', data).pipe(map((res: any) => { return res }));
+  }
+
+  getLunchById(id): Observable<Lunch> {
+    return this.http.get(this._baseUrl+'api/lunch/' + id).pipe(map(Lunch.fromJSON));
+  }
+
+  editLunch(id, data: FormData): Observable<boolean> {
+    return this.http.put(this._baseUrl+'api/lunch/'+id, data).pipe(map((res: any) => {return res}));
+  }
+
+  removeLunch(id, data: FormData): Observable<string> {
+    return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
+
 }

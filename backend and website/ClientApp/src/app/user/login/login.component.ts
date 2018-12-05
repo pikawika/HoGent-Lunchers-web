@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     this.user = this.fb.group({
       username: [
         '',
-        [Validators.required, Validators.minLength(4)]
+        [Validators.required]
       ],
       password: [
         '',
@@ -44,6 +44,8 @@ export class LoginComponent implements OnInit {
             } else {
               if (this.authenticationService.rol$.value == "handelaar") {
                 this.router.navigate(['/merchant/lunch']);
+              } else if (this.authenticationService.rol$.value == "admin") {
+                this.router.navigate(['/admin']);
               } else {
                 console.log(this.authenticationService.rol$.value);
                 this.router.navigate(['/']);

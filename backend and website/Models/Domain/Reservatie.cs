@@ -15,5 +15,6 @@ namespace Lunchers.Models
         public int Aantal { get; set; }
         public DateTime Datum { get; set; }
         public Klant Klant { get; set; }
+        public Status Status { get; set; }
     }
 }

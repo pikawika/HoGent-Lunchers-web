@@ -14,6 +14,8 @@ using Lunchers.Models.ViewModels.Ingredient;
 using Lunchers.Models.ViewModels.Tag;
 using Lunchers.Models.IRepositories;
 using Microsoft.AspNetCore.Http;
+using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace Lunchers.Controllers
 {
@@ -39,9 +41,14 @@ namespace Lunchers.Controllers
         // GET: api/<controller>
         [HttpGet]
         [AllowAnonymous]
-        public IEnumerable<Lunch> Get()
+        public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
-            return _lunchRespository.GetAll().Reverse();
+            // Als de locatie meegegeven wordt, wordt gezocht op locatie
+            if (latitude != 0 && longitude != 0)
+                return _lunchRespository.GetAllFromLocation(latitude, longitude);
+            // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
+            else
+                return _lunchRespository.GetAll().Reverse();
         }
 
         // GET api/<controller>/5
@@ -64,7 +71,15 @@ namespace Lunchers.Controllers
                     {
                         if (nieuweLunch.Afbeeldingen.Files.Count != 0)
                         {
-                            Handelaar handelaar = _handelaarRepository.GetAll().SingleOrDefault(h => h.GebruikerId == int.Parse(User.FindFirst("gebruikersId")?.Value));
+                            
+                            Debug.WriteLine(nieuweLunch.ToString());
+                            Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+
+                            string stringIngredients = nieuweLunch.RawData["Ingredienten"];
+                            string stringTags = nieuweLunch.RawData["Tags"];
+
+                            List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
+                            List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
 
                             Lunch lunch = new Lunch()
                             {
@@ -73,8 +88,9 @@ namespace Lunchers.Controllers
                                 Beschrijving = nieuweLunch.Beschrijving,
                                 BeginDatum = nieuweLunch.BeginDatum,
                                 EindDatum = nieuweLunch.EindDatum,
-                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
-                                LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
+                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten),
+                                LunchTags = ConvertTagViewModelsToTags(tags),
+                                Deleted = false,
                             };
 
                             handelaar.Lunches.Add(lunch);
@@ -85,11 +101,11 @@ namespace Lunchers.Controllers
 
                             return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
                         }
-                        return BadRequest(new { error = "Gelieve minstens één afbeelding meesturen." });
+                        return BadRequest(new { error = "Gelieve minstens ï¿½ï¿½n afbeelding meesturen." });
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanmaken van de nieuwe lunch." });
+                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanmaken van de nieuwe lunch. " + e.Message.ToString().ToLower() });
                     }
                 }
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
@@ -99,7 +115,7 @@ namespace Lunchers.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody]LunchEditViewModel aangepasteLunch)
+        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch, [FromQuery]bool delete = false)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
@@ -112,25 +128,39 @@ namespace Lunchers.Controllers
                         Lunch lunch = _lunchRespository.GetById(id);
 
                         if (handelaar == lunch.Handelaar) {
-                            lunch.Naam = aangepasteLunch.Naam;
-                            lunch.Prijs = aangepasteLunch.Prijs;
-                            lunch.Beschrijving = aangepasteLunch.Beschrijving;
-                            lunch.BeginDatum = aangepasteLunch.BeginDatum;
-                            lunch.EindDatum = aangepasteLunch.EindDatum;
-                            lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
-                            lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
 
-                            if (aangepasteLunch.Afbeeldingen != null)
+                            if (delete)
                             {
-                                string path = @"wwwroot" + "/lunches/lunch" + lunch.LunchId;
-                                Directory.Delete(path);
-
-                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen, lunch);
+                                _lunchRespository.Delete(lunch.LunchId);
+                                _lunchRespository.SaveChanges();
+                                return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
                             }
 
-                            _lunchRespository.SaveChanges();
+                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                                string stringIngredients = aangepasteLunch.RawData["Ingredienten"];
+                                string stringTags = aangepasteLunch.RawData["Tags"];
 
-                            return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                                List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
+                                List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
+
+                                lunch.Naam = aangepasteLunch.Naam;
+                                lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
+                                lunch.Beschrijving = aangepasteLunch.Beschrijving;
+                                lunch.BeginDatum = aangepasteLunch.BeginDatum;
+                                lunch.EindDatum = aangepasteLunch.EindDatum;
+                                lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten);
+                                lunch.LunchTags = ConvertTagViewModelsToTags(tags);
+
+                                if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
+
+                                _lunchRespository.SaveChanges();
+
+                                return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
+                            }
+                            else {
+                                return BadRequest(new { error = "Er is iets mis met de begin- en/of einddatum." });
+                            }
+
                         }
 
                         return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
@@ -138,12 +168,10 @@ namespace Lunchers.Controllers
                     }
                     catch (Exception e)
                     {
-                        //return BadRequest(new { error = "Er is iets fout gegaan tijdens het bijwerken van de lunch." });
-                        return BadRequest(new { error = e });
+                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanpassen van de lunch. " + e.Message.ToString().ToLower() });
                     }
                 }
-                //return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
-                return BadRequest(new { error = ModelState });
+                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
         }
@@ -169,12 +197,17 @@ namespace Lunchers.Controllers
 
         private List<LunchIngredient> ConvertIngredientViewModelsToIngredienten(List<IngredientViewModel> ingredientvms)
         {
+            
             List<LunchIngredient> ingredienten = new List<LunchIngredient>();
+            Debug.WriteLine(ingredientvms.Count);
             foreach (IngredientViewModel ivm in ingredientvms)
             {
                 Ingredient ingredient = _ingredientRepository.GetByName(ivm.Naam);
+
+                
                 if (ingredient == null)
                 {
+                    
                     ingredient = new Ingredient { Naam = ivm.Naam };
                     _ingredientRepository.Add(ingredient);
                     _ingredientRepository.SaveChanges();
@@ -193,7 +226,8 @@ namespace Lunchers.Controllers
                 Tag tag = _tagRepository.GetByName(tvm.Naam);
                 if (tag == null)
                 {
-                    tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };
+                    if (tvm.Kleur == null) tag = new Tag { Naam = tvm.Naam, Kleur = "#000000"  };
+                    else tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };
                     _tagRepository.Add(tag);
                     _tagRepository.SaveChanges();
                 }

@@ -25,16 +25,10 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Locatie)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
-                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
+                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
+                .Where(h => h.Deleted == false);
 
-            IEnumerable<Handelaar> handelaarEnkelLunchesGeldig = handelaarsMetAlleLunches;
-
-            if (handelaarEnkelLunchesGeldig != null) {
-                foreach (Handelaar h in handelaarEnkelLunchesGeldig)
-                h.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
-            }
-
-            return handelaarEnkelLunchesGeldig;
+            return handelaarsMetAlleLunches;
         }
 
         public Handelaar GetById(int id)
@@ -46,11 +40,9 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .FirstOrDefault();
 
-            Handelaar handelaarEnkelLunchesGeldig = handelaarMetAlleLunches;
+            handelaarMetAlleLunches.Lunches.RemoveAll(l => l.Deleted == true);
 
-            if (handelaarEnkelLunchesGeldig != null) handelaarEnkelLunchesGeldig.Lunches.ToList().RemoveAll(l => l.EindDatum <= DateTime.Now.Date || l.BeginDatum >= DateTime.Now.Date);
-
-            return handelaarEnkelLunchesGeldig;
+            return handelaarMetAlleLunches;
         }
 
         public void Add(Handelaar handelaar)
@@ -58,9 +50,10 @@ namespace Lunchers.Data.Repositories
             _handelaars.Add(handelaar);
         }
 
-        public void Delete(Handelaar handelaar)
+        public void Delete(int handelaarId)
         {
-            _handelaars.Remove(handelaar);
+            Handelaar handelaar = GetById(handelaarId);
+            handelaar.Deleted = true;
         }
 
         public void SaveChanges()

@@ -25,6 +25,8 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Lunchers.Models.GebruikerViewModels.Login;
 using Lunchers.Models.IRepositories;
 using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
+using Newtonsoft.Json;
+using System.Diagnostics;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -45,9 +47,9 @@ namespace Lunchers.Controllers
             _rolRepository = rolRepository;
         }
 
-        [HttpPost] 
+        [HttpPost]
         [AllowAnonymous]
-        public IActionResult Registreer([FromBody]RegistreerGebruikerViewModel gebruikerAanvraag)
+        public async Task<IActionResult> Registreer([FromBody]RegistreerGebruikerViewModel gebruikerAanvraag)
         {
             //gebruiker model moet bij eender welk type valid zijn
             if (ModelState.IsValid)
@@ -64,11 +66,11 @@ namespace Lunchers.Controllers
 
                         //body converten naar handelaar registratie
                         RegistreerHandelaarViewModel handelaarAanvraag = JObject.Parse(json).ToObject<RegistreerHandelaarViewModel>();
-                        return RegistreerHandelaar(handelaarAanvraag);
+                        return await RegistreerHandelaarAsync(handelaarAanvraag);
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return BadRequest(new { error = "Casting error, verkeerde datatype?" });
+                        return BadRequest(new { error = e });
                     }
 
                 }
@@ -143,7 +145,7 @@ namespace Lunchers.Controllers
                 {
                     return Unauthorized(new { error = "Incorrecte gebruikersnaam." });
                 }
-                }
+            }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
@@ -161,14 +163,14 @@ namespace Lunchers.Controllers
 
                 WijzigWachtwoord(int.Parse(User.FindFirst("gebruikersId")?.Value), wijzigWachtwoordAanvraag.Wachtwoord);
 
-                return Ok(new { bericht = "Het wachtwoord is succesvol gewijzigd."  });
+                return Ok(new { bericht = "Het wachtwoord is succesvol gewijzigd." });
             }
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
         }
 
-        private IActionResult RegistreerHandelaar(RegistreerHandelaarViewModel handelaarAanvraag)
+        private async Task<IActionResult> RegistreerHandelaarAsync(RegistreerHandelaarViewModel handelaarAanvraag)
         {
             //modelstate controleren van de NIEUWE gemaakte model
             var context = new ValidationContext(handelaarAanvraag, null, null);
@@ -180,14 +182,6 @@ namespace Lunchers.Controllers
                 //long en latitude moeten voor validatie een string zijn, validatie moet er normaal voor zorgen dat ze altijd castable zijn naar double maar altijd goed om te checken.
                 //checken of url geldig is
                 Uri website;
-                double latitude;
-                double longitude;
-
-                if (!double.TryParse(handelaarAanvraag.Locatie.Latitude, out latitude))
-                    return BadRequest(new { error = "Latitude moet een string zijn die castable is naar double" });
-
-                if (!double.TryParse(handelaarAanvraag.Locatie.Longitude, out longitude))
-                    return BadRequest(new { error = "Longitude moet een string zijn die castable is naar double" });
 
                 if (!Uri.TryCreate(handelaarAanvraag.Website, UriKind.Absolute, out website))
                     return BadRequest(new { error = "Ongeldige website" });
@@ -221,8 +215,14 @@ namespace Lunchers.Controllers
                 nieuweHandelaar.Locatie.Huisnummer = handelaarAanvraag.Locatie.Huisnummer;
                 nieuweHandelaar.Locatie.Postcode = handelaarAanvraag.Locatie.Postcode;
                 nieuweHandelaar.Locatie.Gemeente = handelaarAanvraag.Locatie.Gemeente;
-                nieuweHandelaar.Locatie.Latitude = latitude;
-                nieuweHandelaar.Locatie.Longitude = longitude;
+
+                // Ophalen van Latitude en Longitude op basis van het meegegeven adres
+                var adres = $"{nieuweHandelaar.Locatie.Straat}+{nieuweHandelaar.Locatie.Huisnummer},+{nieuweHandelaar.Locatie.Postcode}+{nieuweHandelaar.Locatie.Gemeente},+België";
+
+                List<double> latAndLong = await GetLatAndLongFromAddressAsync(adres);
+
+                nieuweHandelaar.Locatie.Latitude = latAndLong[0];
+                nieuweHandelaar.Locatie.Longitude = latAndLong[1];
 
                 nieuweHandelaar.Login.gebruiker = nieuweHandelaar;
 
@@ -402,6 +402,34 @@ namespace Lunchers.Controllers
 
             //probeer login met de hash, indien foutief wachtwoord returnt dit ook null
             return _gebruikerRepository.Login(gebruikersnaam, hash);
+        }
+
+        // Methode voor het ophalen van de Latitude en Longitude van een bepaald adres
+        private async Task<List<double>> GetLatAndLongFromAddressAsync(string adres)
+        {
+            var httpClient = new HttpClient();
+
+            // We maken gebruik van Open Street Maps i.p.v. Google Maps omdat dit gratis en net zo goed werkt
+            var url = $"https://nominatim.openstreetmap.org/search?q={adres}&format=json&polygon=1&addressdetails=1";
+
+            // De enige van Nominatim is dat we een User-Agent meegeven aan onze request
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "Lunchers");
+
+            var httpResult = await httpClient.GetAsync(url);
+
+            var result = await httpResult.Content.ReadAsStringAsync();
+
+            // De request geeft ons een array met een aantal gegevens, waaronder de Latitude en Longitude
+            var r = (JArray)JsonConvert.DeserializeObject(result);
+
+            var latString = ((JValue)r[0]["lat"]);
+            var longString = ((JValue)r[0]["lon"]);
+
+            // We krijgen strings terug, dus het enige dat we nog moeten doen is ze omzetten naar doubles
+            var latDouble = latString.ToObject<double>();
+            var longDouble = longString.ToObject<double>();
+
+            return new List<double>() { latDouble, longDouble };
         }
 
     }

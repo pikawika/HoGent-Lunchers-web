@@ -10,9 +10,5 @@ namespace Lunchers.Models.ViewModels.Favoriet
     {
         [Required(ErrorMessage = "{0} is verplicht.")]
         public int LunchId { get; set; }
-
-        [Required(ErrorMessage = "{0} is verplicht.")]
-        [DataType(DataType.Date)]
-        public DateTime Datum { get; set; }
     }
 }

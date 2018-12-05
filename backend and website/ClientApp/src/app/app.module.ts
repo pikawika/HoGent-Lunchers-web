@@ -20,6 +20,11 @@ import { LunchMerchantComponent } from './merchant/lunch-merchant/lunch-merchant
 import { AddLunchComponent } from './merchant/add-lunch/add-lunch.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LandingpageComponent } from './landingpage/landingpage.component';
+import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel/admin-panel.component';
+import { AdminMerchantsComponent } from './admin-panel/admin-merchants/admin-merchants.component';
+import { AdminReservationsComponent } from './admin-panel/admin-reservations/admin-reservations.component';
+import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches.component';
 
 
 @NgModule({
@@ -35,7 +40,12 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
     RegisterMerchantComponent,
     LunchMerchantComponent,
     AddLunchComponent,
-    LandingpageComponent
+    LandingpageComponent,
+    EditLunchComponent,
+    AdminPanelComponent,
+    AdminMerchantsComponent,
+    AdminReservationsComponent,
+    AdminLunchesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -52,7 +62,12 @@ import { LandingpageComponent } from './landingpage/landingpage.component';
       { path: 'merchantregister', component:RegisterMerchantComponent},
       { path: 'merchant/lunch', canActivate: [ AuthGuardService ], component:LunchMerchantComponent},
       { path: 'merchant/addlunch', canActivate: [ AuthGuardService ], component:AddLunchComponent},
-      { path: 'landingpage', component:LandingpageComponent}
+      { path: 'landingpage', component:LandingpageComponent},
+      { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardService ], component:EditLunchComponent},
+      { path: 'admin', canActivate: [ AuthGuardService ], component:AdminPanelComponent},
+      { path: 'admin/merchants', canActivate: [ AuthGuardService ], component:AdminMerchantsComponent},
+      { path: 'admin/reservations', canActivate: [ AuthGuardService ], component:AdminReservationsComponent},
+      { path: 'admin/lunches', canActivate: [ AuthGuardService ], component:AdminLunchesComponent},
     ]),
     
   ],

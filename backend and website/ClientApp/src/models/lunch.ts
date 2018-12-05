@@ -1,17 +1,20 @@
+import { Tag } from "./Tag";
+import { Ingredient } from "./Ingredient";
+import { Handelaar } from "./handelaar";
+
 export class Lunch {
     private _lunchId: Number;
     private _naam : string;
     private _prijs : Number;
-    private _ingredienten: string[]; //lijst van ingredienten (strings doordat ingredient enkel een naam heeft)
+    private _ingredienten: Ingredient[]; //lijst van ingredienten (strings doordat ingredient enkel een naam heeft)
     private _beschrijving : string;
     private _afbeeldingen; //lijst van urls in vorm van string
     private _beginDatum : Date;
     private _eindDatum : Date;
-    private _tags; //lijst van strings
-    //private handelaar Handelaar; -> handelaar object nog aan te maken
-
-
-
+    private _tags: Tag[]; //lijst van strings
+    private _deleted : boolean;
+    private _handelaar: Handelaar;
+  
     static fromJSON(json: any): Lunch {
         
        if (json != null) {
@@ -19,16 +22,35 @@ export class Lunch {
           lunch.lunchId = json.lunchId;
           lunch.naam = json.naam;
           lunch.prijs = json.prijs;
-          lunch.ingredienten = json.ingredienten;
+          lunch.ingredienten = json.lunchIngredienten;
           lunch.beschrijving = json.beschrijving;
           lunch.afbeeldingen = json.afbeeldingen;          
-          lunch._tags = json._tags;
-          lunch._beginDatum = json.beginDatum;
-          lunch._eindDatum = json.eindDatum;
+          lunch.tags = json.lunchTags;
+          lunch.beginDatum = json.beginDatum;
+          lunch.eindDatum = json.eindDatum;
+          lunch.deleted = json.deleted;
+          lunch.handelaar = Handelaar.fromJSON(json.handelaar);
           return lunch;
         }
     }
 
+
+
+    /**
+     * Getter ingredienten
+     * @return {Ingredient[]}
+     */
+	public get ingredienten(): Ingredient[] {
+		return this._ingredienten;
+	}
+
+    /**
+     * Setter ingredienten
+     * @param {Ingredient[]} value
+     */
+	public set ingredienten(value: Ingredient[]) {
+		this._ingredienten = value;
+	}
 
     /**
      * Getter lunchId
@@ -94,15 +116,6 @@ export class Lunch {
 	public set beschrijving(value: string) {
 		this._beschrijving = value;
 	}
-    
-
-    /**
-     * Getter ingredienten
-     * @return {string[]}
-     */
-	public get ingredienten(): string[] {
-		return this._ingredienten;
-	}
 
     /**
      * Getter afbeeldingen
@@ -110,14 +123,6 @@ export class Lunch {
      */
 	public get afbeeldingen(): string[] {
 		return this._afbeeldingen;
-	}
-
-    /**
-     * Setter ingredienten
-     * @param {string[]} value
-     */
-	public set ingredienten(value: string[]) {
-		this._ingredienten = value;
 	}
 
     /**
@@ -158,6 +163,37 @@ export class Lunch {
      */
 	public set eindDatum(value: Date) {
 		this._eindDatum = value;
+    }
+
+    /**
+     * Getter deleted
+     * @return {boolean}
+     */
+	public get deleted(): boolean {
+		return this._deleted;
 	}
+
+    /**
+     * Setter deleted
+     * @param {boolean} value
+     */
+	public set deleted(value: boolean) {
+		this._deleted = value;
+    }
     
+	public get tags(): Tag[] {
+		return this._tags;
+	}
+
+	public set tags(value: Tag[]) {
+		this._tags = value;
+	}
+    public get handelaar(): Handelaar {
+        return this._handelaar;
+    }
+    public set handelaar(value: Handelaar) {
+        this._handelaar = value;
+    }
+
+   
 }
