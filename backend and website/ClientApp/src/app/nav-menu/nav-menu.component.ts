@@ -29,7 +29,7 @@ export class NavMenuComponent {
       return "/merchant/lunch"
     }else{
       if(this.authService.rol$.value == "admin"){
-        return "/"
+        return "/admin"
       }else{
         return "/"
       }
