@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, inject } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { AuthenticationService } from 'src/app/user/authentication.service';
 import { Router } from '@angular/router';
 import { MerchantDataService } from '../merchant-data.service';

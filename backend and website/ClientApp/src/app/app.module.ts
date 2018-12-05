@@ -21,6 +21,10 @@ import { AddLunchComponent } from './merchant/add-lunch/add-lunch.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminMerchantsComponent } from './admin-panel/admin-merchants/admin-merchants.component';
+import { AdminReservationsComponent } from './admin-panel/admin-reservations/admin-reservations.component';
+import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches.component';
 
 
 @NgModule({
@@ -37,7 +41,11 @@ import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
     LunchMerchantComponent,
     AddLunchComponent,
     LandingpageComponent,
-    EditLunchComponent
+    EditLunchComponent,
+    AdminPanelComponent,
+    AdminMerchantsComponent,
+    AdminReservationsComponent,
+    AdminLunchesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -56,6 +64,10 @@ import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
       { path: 'merchant/addlunch', canActivate: [ AuthGuardService ], component:AddLunchComponent},
       { path: 'landingpage', component:LandingpageComponent},
       { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardService ], component:EditLunchComponent},
+      { path: 'admin', canActivate: [ AuthGuardService ], component:AdminPanelComponent},
+      { path: 'admin/merchants', canActivate: [ AuthGuardService ], component:AdminMerchantsComponent},
+      { path: 'admin/reservations', canActivate: [ AuthGuardService ], component:AdminReservationsComponent},
+      { path: 'admin/lunches', canActivate: [ AuthGuardService ], component:AdminLunchesComponent},
     ]),
     
   ],

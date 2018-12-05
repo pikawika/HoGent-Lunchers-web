@@ -1,0 +1,21 @@
+<h1 class="title">Reservatie overzicht</h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Handelaar</th>
+        <th scope="col">Lunch</th>
+        <th scope="col">Aantal</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor= 'let reservation of reservations'>
+        <td>{{reservation.handelaar.naam}}</td>
+        <td>{{reservation.lunch.naam}}</td>
+        <td>{{reservation.aantal}}</td>
+        <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
+        <td>{{reservation.status}}</td>
+    </tbody>
+  </table>

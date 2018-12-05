@@ -38,7 +38,8 @@ namespace Lunchers.Models.ViewModels.Lunch
         [Required(ErrorMessage = "{0} is verplicht.")]
         public List<TagViewModel> Tags { get; set; }
 
-        [Required(ErrorMessage = "{0} is verplicht.")]
+        public IFormCollection RawData { get; set; }
+
         [DataType(DataType.Upload)]
         public IFormCollection Afbeeldingen { set; get; }
     }

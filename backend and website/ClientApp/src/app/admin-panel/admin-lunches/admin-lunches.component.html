@@ -1,0 +1,26 @@
+<h1 class="title">Lunch overzicht</h1>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Handelaar</th>
+        <th scope="col">Naam</th>
+        <th scope="col">Kostprijs</th>
+        <th scope="col">Beschrijving</th>
+        <th scope="col">Begindatum</th>
+        <th scope="col">Einddatum</th>
+        <th scope="col">Verwijder</th>
+      </tr>
+    </thead>
+    <tbody> 
+      <tr *ngFor= 'let lunch of lunches'>
+        <td>{{lunch.handelaar.naam}}</td>
+        <td>{{lunch.naam}}</td>
+        <td>€ {{lunch.prijs | number : '1.2-2'}}</td>
+        <td>{{lunch.beschrijving}}</td>
+        <td>{{lunch.beginDatum | date : 'dd/MM/yyyy'}}</td>
+        <td>{{lunch.eindDatum | date : 'dd/MM/yyyy'}}</td>
+        <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></a></td>
+      </tr>
+    </tbody>
+  </table>
