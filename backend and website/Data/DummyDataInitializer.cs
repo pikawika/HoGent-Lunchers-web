@@ -66,13 +66,16 @@ namespace Lunchers.Data
                 Gebruiker gebruikerHandelaar5Dion = new Handelaar { HandelsNaam = "Restaurant Dion", Voornaam = "John", Achternaam = "Dion", Email = "info@Dion.be", Telefoonnummer = "+3253787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
                 gebruikerHandelaar5Dion.Login = new Login { Gebruikersnaam = "dion", Rol = rolHandelaar, Geactiveerd = true };
 
+                Gebruiker testgebruiker = new Handelaar { HandelsNaam = "testgebruiker", Voornaam = "John", Achternaam = "Dion", Email = "info@test.be", Telefoonnummer = "+3254787815", Locatie = new Locatie { Straat = "Oude Gentbaan", Huisnummer = "51", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.940219, Longitude = 4.017006 }, Website = "http://www.restaurantdion.be/", PromotieRange = 10 };
+                testgebruiker.Login = new Login { Gebruikersnaam = "testgebruiker", Rol = rolHandelaar, Geactiveerd = true };
+
 
 
                 var gebruikers = new List<Gebruiker>
                 {
                     gebruikerStandaardLennert, gebruikerStandaard1, gebruikerStandaard2, gebruikerStandaard3, gebruikerStandaard4, gebruikerStandaard5,
                     gebruikerAdmin1TeamGdpr, gebruikerAdmin2QarfaRenate,
-                    gebruikerHandelaar1Qarfa, gebruikerHandelaar2BrasserieBlomme, gebruikerHandelaar3Kelderman, gebruikerHandelaar4Zorba, gebruikerHandelaar5Dion
+                    gebruikerHandelaar1Qarfa, gebruikerHandelaar2BrasserieBlomme, gebruikerHandelaar3Kelderman, gebruikerHandelaar4Zorba, gebruikerHandelaar5Dion,testgebruiker
                 };
 
 

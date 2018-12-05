@@ -18,9 +18,9 @@
         <td>{{lunch.beschrijving}}</td>
         <td>{{lunch.beginDatum | date : 'dd/MM/yyyy'}}</td>
         <td>{{lunch.eindDatum | date : 'dd/MM/yyyy'}}</td>
-        <td class="text-center"><a class="btn btn-sm btn-primary" (click)='editLunch(lunch)'><i class="fa fa-pencil fa-lg"></i></a></td>
+        <td class="text-center"><a class="btn btn-sm btn-primary editLunchButton" (click)='editLunch(lunch)'><i class="fa fa-pencil fa-lg"></i></a></td>
         <td class="text-center">
-          <button (click)='removeLunch(lunch)' class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button>
+          <button (click)='removeLunch(lunch)' class="btn btn-sm btn-primary removeLunchButton"><i class="fa fa-trash fa-lg"></i></button>
       </tr>
     </tbody>
   </table>
