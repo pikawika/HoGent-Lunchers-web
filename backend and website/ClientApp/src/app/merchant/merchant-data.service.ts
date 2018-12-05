@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Lunch } from 'src/models/lunch';
 import { Handelaar } from 'src/models/handelaar';
+import { Ingredient } from 'src/models/Ingredient';
+import { Tag } from 'src/models/Tag';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,18 @@ export class MerchantDataService {
     return this.http.get(this._baseUrl+"api/Handelaar/"+id).pipe(map(Handelaar.fromJSON));
   }
 
+  getIngredienten():Observable<Ingredient[]>{
+    return this.http.get(this._baseUrl+"api/ingredient").pipe(
+      map((list: any[]): Ingredient[] => list.map(Ingredient.fromJSON))
+      );
+  }
+
+  getTag(): Observable<Tag[]>{
+    return this.http.get(this._baseUrl+"api/tag").pipe(
+      map((list: any[]): Tag[] => list.map(Tag.fromJSON))
+      );
+  }
+
   addLunch(data: FormData): Observable<boolean> {
     return this.http.post(this._baseUrl+'api/lunch', data).pipe(map((res: any) => { return res }));
   }
@@ -35,8 +49,8 @@ export class MerchantDataService {
     return this.http.put(this._baseUrl+'api/lunch/'+id, data).pipe(map((res: any) => {return res}));
   }
 
-  removeLunch(id) {
-    this.http.delete(this._baseUrl + 'api/lunch/' + id);
+  removeLunch(id, data: FormData): Observable<string> {
+    return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
   }
 
 

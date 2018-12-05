@@ -24,8 +24,9 @@ namespace Lunchers.Data.Repositories
             _lunches.Add(lunch);
         }
 
-        public void Delete(Lunch lunch)
+        public void Delete(int id)
         {
+            Lunch lunch = GetById(id);
             lunch.Deleted = true;
         }
 

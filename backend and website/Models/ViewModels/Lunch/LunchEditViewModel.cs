@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Lunchers.Models.ViewModels.Lunch
 {
-    public class LunchEditViewModel : IValidatableObject
+    public class LunchEditViewModel
     {
         [Required(ErrorMessage = "{0} is verplicht.")]
         [StringLength(60, MinimumLength = 3)]
@@ -41,22 +41,5 @@ namespace Lunchers.Models.ViewModels.Lunch
         [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Upload)]
         public IFormCollection Afbeeldingen { set; get; }
-
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            List<ValidationResult> results = new List<ValidationResult>();
-
-            if (BeginDatum.Date < DateTime.Now.Date)
-            {
-                results.Add(new ValidationResult("Begindatum moet vandaag of later zijn.", new[] { "BeginDatum" }));
-            }
-
-            if (EindDatum < BeginDatum)
-            {
-                results.Add(new ValidationResult("Einddatum mag niet eerder zijn dan begindatum.", new[] { "EindDatum" }));
-            }
-
-            return results;
-        }
     }
 }
