@@ -15,6 +15,7 @@ using Lunchers.Models.ViewModels.Tag;
 using Lunchers.Models.IRepositories;
 using Microsoft.AspNetCore.Http;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace Lunchers.Controllers
 {
@@ -74,8 +75,11 @@ namespace Lunchers.Controllers
                             Debug.WriteLine(nieuweLunch.ToString());
                             Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
-                            Debug.WriteLine($"Aantal ingredienten: {nieuweLunch.Ingredienten.Count}");
-                            Debug.WriteLine($"Aantal tags: {nieuweLunch.Tags.Count}");
+                            string stringIngredients = nieuweLunch.RawData["Ingredienten"];
+                            string stringTags = nieuweLunch.RawData["Tags"];
+
+                            List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
+                            List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
 
                             Lunch lunch = new Lunch()
                             {
@@ -84,8 +88,8 @@ namespace Lunchers.Controllers
                                 Beschrijving = nieuweLunch.Beschrijving,
                                 BeginDatum = nieuweLunch.BeginDatum,
                                 EindDatum = nieuweLunch.EindDatum,
-                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(nieuweLunch.Ingredienten),
-                                LunchTags = ConvertTagViewModelsToTags(nieuweLunch.Tags),
+                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten),
+                                LunchTags = ConvertTagViewModelsToTags(tags),
                                 Deleted = false,
                             };
 
@@ -99,9 +103,9 @@ namespace Lunchers.Controllers
                         }
                         return BadRequest(new { error = "Gelieve minstens ��n afbeelding meesturen." });
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanmaken van de nieuwe lunch." });
+                        return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanmaken van de nieuwe lunch. " + e.Message.ToString().ToLower() });
                     }
                 }
                 return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
@@ -133,13 +137,19 @@ namespace Lunchers.Controllers
                             }
 
                             if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                                string stringIngredients = aangepasteLunch.RawData["Ingredienten"];
+                                string stringTags = aangepasteLunch.RawData["Tags"];
+
+                                List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
+                                List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
+
                                 lunch.Naam = aangepasteLunch.Naam;
                                 lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
                                 lunch.Beschrijving = aangepasteLunch.Beschrijving;
                                 lunch.BeginDatum = aangepasteLunch.BeginDatum;
                                 lunch.EindDatum = aangepasteLunch.EindDatum;
-                                lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(aangepasteLunch.Ingredienten);
-                                lunch.LunchTags = ConvertTagViewModelsToTags(aangepasteLunch.Tags);
+                                lunch.LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten);
+                                lunch.LunchTags = ConvertTagViewModelsToTags(tags);
 
                                 if (aangepasteLunch.Afbeeldingen.Files.Count != 0) lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(aangepasteLunch.Afbeeldingen.Files.ToList(), lunch);
 
@@ -193,8 +203,7 @@ namespace Lunchers.Controllers
             foreach (IngredientViewModel ivm in ingredientvms)
             {
                 Ingredient ingredient = _ingredientRepository.GetByName(ivm.Naam);
-                
-                Debug.WriteLine(ingredient.Naam);
+
                 
                 if (ingredient == null)
                 {
