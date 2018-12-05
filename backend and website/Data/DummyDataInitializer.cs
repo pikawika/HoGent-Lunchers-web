@@ -126,19 +126,19 @@ namespace Lunchers.Data
                 //TAGS EINDE -> nog in lijst van lunch steken
 
                 //ALLERGIES
-                //Allergie allergieGluten = new Allergie { Naam = "Gluten" };
-                //Allergie allergieLactose = new Allergie { Naam = "Lactose" };
-                //Allergie allergieNoten = new Allergie { Naam = "Noten" };
-                //Allergie allergieMosterd = new Allergie { Naam = "Mosterd" };
-                //Allergie allergieSesam = new Allergie { Naam = "Sesam" };
-                //Allergie allergieSoja = new Allergie { Naam = "Soja" };
-                //Allergie allergieTarwe = new Allergie { Naam = "Tarwe" };
-                //Allergie allergieVis = new Allergie { Naam = "Vis" };
-                //Allergie allergieSulfiet = new Allergie { Naam = "Sulfiet" };
-                //Allergie allergieLupine = new Allergie { Naam = "Lupine" };
+                Allergie allergieGluten = new Allergie { Naam = "Gluten" };
+                Allergie allergieLactose = new Allergie { Naam = "Lactose" };
+                Allergie allergieNoten = new Allergie { Naam = "Noten" };
+                Allergie allergieMosterd = new Allergie { Naam = "Mosterd" };
+                Allergie allergieSesam = new Allergie { Naam = "Sesam" };
+                Allergie allergieSoja = new Allergie { Naam = "Soja" };
+                Allergie allergieTarwe = new Allergie { Naam = "Tarwe" };
+                Allergie allergieVis = new Allergie { Naam = "Vis" };
+                Allergie allergieSulfiet = new Allergie { Naam = "Sulfiet" };
+                Allergie allergieLupine = new Allergie { Naam = "Lupine" };
 
-                //(gebruikerStandaard6 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieGluten });
-                //(gebruikerStandaard6 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieLactose });
+                (gebruikerStandaard5 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieGluten });
+                (gebruikerStandaard5 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieLactose });
                 //ALLERGIES EINDE
 
                 //LUNCHES BEGIN

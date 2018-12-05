@@ -27,6 +27,7 @@ using Lunchers.Models.IRepositories;
 using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Lunchers.Models.ViewModels.Allergie;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,12 +40,14 @@ namespace Lunchers.Controllers
         private IConfiguration _config;
         private IGebruikerRepository _gebruikerRepository;
         private IRolRepository _rolRepository;
+        private IAllergieRepository _allergieRepository;
 
-        public GebruikerController(IConfiguration config, IGebruikerRepository gebruikerRepository, IRolRepository rolRepository)
+        public GebruikerController(IConfiguration config, IGebruikerRepository gebruikerRepository, IRolRepository rolRepository, IAllergieRepository allergieRepository)
         {
             _config = config;
             _gebruikerRepository = gebruikerRepository;
             _rolRepository = rolRepository;
+            _allergieRepository = allergieRepository;
         }
 
         [HttpPost]
@@ -168,6 +171,27 @@ namespace Lunchers.Controllers
             //Als we hier zijn is is modelstate niet voldaan dus stuur error 400, slechte aanvraag
             string foutboodschap = string.Join(" | ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage));
             return BadRequest(new { error = "De ingevoerde waarden zijn onvolledig of voldoen niet aan de eisen voor een login. Foutboodschap: " + foutboodschap });
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Allergie()
+        {
+            if((User.FindFirst("gebruikersId")?.Value != null)){
+                List<Allergie> allergie = _allergieRepository.GetAll().ToList();
+                return Ok(allergie);
+            }
+            return BadRequest(new { error = "Er liep iets fout bij het ophalen van je allergieen" });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Allergie([FromBody]AllergieViewModel allergie)
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null)
+            {
+
+            }
         }
 
         private async Task<IActionResult> RegistreerHandelaarAsync(RegistreerHandelaarViewModel handelaarAanvraag)
