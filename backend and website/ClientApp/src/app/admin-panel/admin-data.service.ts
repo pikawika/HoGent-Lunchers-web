@@ -44,6 +44,10 @@ export class AdminDataService {
     );
   }
 
+  getMerchantById(id): Observable<Handelaar> {
+    return this.http.get(this._baseUrl+'api/handelaar/' + id).pipe(map(Handelaar.fromJSON));
+  }
+
   removeMerchant(data: FormData): Observable<string> {
     return this.http.post(this._baseUrl+'api/admin/verwijderhandelaar', data, {observe:'response'}).pipe(map((res: any) => {return res}));
   }

@@ -1,0 +1,13 @@
+.nav-item.nav-link.active {
+    font-weight: 600;
+  }
+  
+  .navbar-brand {
+    margin-right: 5rem;
+  }
+  
+  .title {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      margin-left: 0.8rem;
+  }

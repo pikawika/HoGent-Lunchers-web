@@ -25,6 +25,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel/admin-panel.compo
 import { AdminMerchantsComponent } from './admin-panel/admin-merchants/admin-merchants.component';
 import { AdminReservationsComponent } from './admin-panel/admin-reservations/admin-reservations.component';
 import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches.component';
+import { AdminMerchantDetailComponent } from './admin-panel/admin-merchant-detail/admin-merchant-detail.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches
     AdminPanelComponent,
     AdminMerchantsComponent,
     AdminReservationsComponent,
-    AdminLunchesComponent
+    AdminLunchesComponent,
+    AdminMerchantDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -68,6 +70,7 @@ import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches
       { path: 'admin/merchants', canActivate: [ AuthGuardService ], component:AdminMerchantsComponent},
       { path: 'admin/reservations', canActivate: [ AuthGuardService ], component:AdminReservationsComponent},
       { path: 'admin/lunches', canActivate: [ AuthGuardService ], component:AdminLunchesComponent},
+      { path: 'admin/merchantdetail/:id', canActivate: [ AuthGuardService ], component:AdminMerchantDetailComponent},
     ]),
     
   ],

@@ -32,6 +32,10 @@ export class AdminMerchantsComponent implements OnInit {
     return this._merchants;
   }
 
+  goToMerchantDetail(merchant: Handelaar) {
+    this.router.navigate(['admin/merchantdetail', merchant.handelaarId])
+  }
+
   removeMerchant(merchant: Handelaar) {
     const data: any = new FormData();
     data.append("handelaarId", merchant.handelaarId);
