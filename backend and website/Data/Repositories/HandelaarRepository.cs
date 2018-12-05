@@ -25,7 +25,8 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Locatie)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
-                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient);
+                .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
+                .Where(h => h.Deleted == false);
 
             return handelaarsMetAlleLunches;
         }
@@ -49,9 +50,10 @@ namespace Lunchers.Data.Repositories
             _handelaars.Add(handelaar);
         }
 
-        public void Delete(Handelaar handelaar)
+        public void Delete(int handelaarId)
         {
-            _handelaars.Remove(handelaar);
+            Handelaar handelaar = GetById(handelaarId);
+            handelaar.Deleted = true;
         }
 
         public void SaveChanges()

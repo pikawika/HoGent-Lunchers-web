@@ -58,15 +58,15 @@ namespace Lunchers.Controllers
             return Unauthorized(new { error = "U bent niet aangemeld als administrator." });
         }
 
-        [HttpDelete]
-        public IActionResult VerwijderHandelaar([FromBody]HandelaarKeuringViewModel handelaarGoedkeuring)
+        [HttpPost]
+        public IActionResult VerwijderHandelaar([FromForm]HandelaarKeuringViewModel handelaarGoedkeuring)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
                 Handelaar handelaar = _handelaarRepository.GetById(handelaarGoedkeuring.HandelaarId);
                 if (handelaar != null)
                 {
-                    _handelaarRepository.Delete(handelaar);
+                    _handelaarRepository.Delete(handelaar.GebruikerId);
                     _handelaarRepository.SaveChanges();
 
                     return Ok(new { bericht = "De handelaar werd succesvol verwijderd." });

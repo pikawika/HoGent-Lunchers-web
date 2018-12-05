@@ -36,7 +36,7 @@
           <td>{{merchant.email}}</td>
           <td>{{merchant.telefoonnummer}}</td>
           <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-pencil fa-lg"></i></a></td>
-          <td class="text-center"><a class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></a></td>
+          <td class="text-center"><button (click)='removeMerchant(merchant)' class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button></td>
         </tr>
       </tbody>
     </table>
