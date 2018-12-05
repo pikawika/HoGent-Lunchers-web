@@ -18,6 +18,7 @@ namespace Lunchers.Data
         public DbSet<Rol> Rollen { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Favoriet> Favorieten { get; set; }
+        public DbSet<Allergie> Allergies { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options) { }
 
@@ -58,6 +59,21 @@ namespace Lunchers.Data
                 .WithMany(t => t.LunchTag)
                 .HasForeignKey(lt => lt.TagId);
             //EINDE TAG LUNCH
+
+            //BEGIN KLANT ALLERGIE
+            modelBuilder.Entity<KlantAllergie>()
+                .HasKey(ka => new { ka.KlantId, ka.AllergieId });
+
+            modelBuilder.Entity<KlantAllergie>()
+                .HasOne(ka => ka.Klant)
+                .WithMany(k => k.KlantAllergies)
+                .HasForeignKey(ka => ka.KlantId);
+
+            modelBuilder.Entity<KlantAllergie>()
+                .HasOne(ka => ka.Allergie)
+                .WithMany(a => a.KlantAllergies)
+                .HasForeignKey(ka => ka.AllergieId);
+            //EINDE KLANT ALLERGIE
 
             //BEGIN LUNCH HANDELAAR
             modelBuilder.Entity<Lunch>()

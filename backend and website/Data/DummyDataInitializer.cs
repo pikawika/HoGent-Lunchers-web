@@ -49,6 +49,8 @@ namespace Lunchers.Data
                 gebruikerStandaard4.Login = new Login { Gebruikersnaam = "jena", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard5 = new Klant { Voornaam = "Jan", Achternaam = "Vermassen", Email = "jan@mac.com", Telefoonnummer = "+32491234515" };
                 gebruikerStandaard5.Login = new Login { Gebruikersnaam = "jan", Rol = rolStandaard, Geactiveerd = true };
+                //Gebruiker gebruikerStandaard6 = new Klant { Voornaam = "Bram", Achternaam = "De Coninck", Email = "info@bramdeconinck.com", Telefoonnummer = "+32491234516" };
+                //gebruikerStandaard5.Login = new Login { Gebruikersnaam = "BramDC3", Rol = rolStandaard, Geactiveerd = true };
 
                 Gebruiker gebruikerAdmin1TeamGdpr = new Administrator { Voornaam = "Team", Achternaam = "GDPR", Email = "info@teamgdpr.be", Telefoonnummer = "+32491234514" };
                 gebruikerAdmin1TeamGdpr.Login = new Login { Gebruikersnaam = "teamGDPR", Rol = rolAdmin, Geactiveerd = true };
@@ -123,6 +125,21 @@ namespace Lunchers.Data
                 Tag tagRoomsaus = new Tag { Naam = "Roomsaus", Kleur = Gelekleur };
                 //TAGS EINDE -> nog in lijst van lunch steken
 
+                //ALLERGIES
+                //Allergie allergieGluten = new Allergie { Naam = "Gluten" };
+                //Allergie allergieLactose = new Allergie { Naam = "Lactose" };
+                //Allergie allergieNoten = new Allergie { Naam = "Noten" };
+                //Allergie allergieMosterd = new Allergie { Naam = "Mosterd" };
+                //Allergie allergieSesam = new Allergie { Naam = "Sesam" };
+                //Allergie allergieSoja = new Allergie { Naam = "Soja" };
+                //Allergie allergieTarwe = new Allergie { Naam = "Tarwe" };
+                //Allergie allergieVis = new Allergie { Naam = "Vis" };
+                //Allergie allergieSulfiet = new Allergie { Naam = "Sulfiet" };
+                //Allergie allergieLupine = new Allergie { Naam = "Lupine" };
+
+                //(gebruikerStandaard6 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieGluten });
+                //(gebruikerStandaard6 as Klant).KlantAllergies.Add(new KlantAllergie() { Allergie = allergieLactose });
+                //ALLERGIES EINDE
 
                 //LUNCHES BEGIN
                 //nog Afbeeldingen

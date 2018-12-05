@@ -11,5 +11,6 @@ namespace Lunchers.Models.Domain
     {
         public List<Favoriet> Favorieten { get; set; } = new List<Favoriet>();
         public List<Reservatie> Reservaties { get; set; } = new List<Reservatie>();
+        public List<KlantAllergie> KlantAllergies { get; set; } = new List<KlantAllergie>();
     }
 }

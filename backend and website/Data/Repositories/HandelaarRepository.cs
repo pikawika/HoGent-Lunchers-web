@@ -26,7 +26,7 @@ namespace Lunchers.Data.Repositories
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
-                .Where(h => h.Deleted == false);
+                .Where(h => h.Deleted == false).Reverse();
 
             return handelaarsMetAlleLunches;
         }
