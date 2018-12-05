@@ -1,5 +1,6 @@
 import { Tag } from "./Tag";
 import { Ingredient } from "./Ingredient";
+import { Handelaar } from "./handelaar";
 
 export class Lunch {
     private _lunchId: Number;
@@ -12,8 +13,8 @@ export class Lunch {
     private _eindDatum : Date;
     private _tags: Tag[]; //lijst van strings
     private _deleted : boolean;
-    //private handelaar Handelaar; -> handelaar object nog aan te maken
-
+    private _handelaar: Handelaar;
+  
     static fromJSON(json: any): Lunch {
         
        if (json != null) {
@@ -28,6 +29,7 @@ export class Lunch {
           lunch.beginDatum = json.beginDatum;
           lunch.eindDatum = json.eindDatum;
           lunch.deleted = json.deleted;
+          lunch.handelaar = Handelaar.fromJSON(json.handelaar);
           return lunch;
         }
     }
@@ -179,21 +181,19 @@ export class Lunch {
 		this._deleted = value;
     }
     
-    /**
-     * Getter tags
-     * @return {Tag[]}
-     */
 	public get tags(): Tag[] {
 		return this._tags;
 	}
 
-    /**
-     * Setter tags
-     * @param {Tag[]} value
-     */
 	public set tags(value: Tag[]) {
 		this._tags = value;
 	}
+    public get handelaar(): Handelaar {
+        return this._handelaar;
+    }
+    public set handelaar(value: Handelaar) {
+        this._handelaar = value;
+    }
 
-    
+   
 }
