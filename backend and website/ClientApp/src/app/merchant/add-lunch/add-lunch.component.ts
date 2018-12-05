@@ -28,16 +28,22 @@ export class AddLunchComponent implements OnInit {
 
     addIngredient(ingredient: string){
       let ing = new Ingredient();
-      ing.Naam = ingredient;
-      this._ingredienten.push(ing);
-      console.log(this._ingredienten);
+      if(ingredient.length <= 20 && ingredient.length > 0){
+        ing.Naam = ingredient;
+        this._ingredienten.push(ing);
+      }else{
+        this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een ingredient(max 20 tekens)"
+      }
     }
 
     addTag(tag: string){
       let t = new Tag();
-      t.Naam = tag;
-      this._tags.push(t);
-      console.log(this._tags);
+      if(tag.length <= 20 && tag.length > 0){
+        t.Naam = tag;
+        this._tags.push(t);
+      }else{
+        this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een tag(max 20 tekens)";
+      }
     }
 
     removeIng(ingredient){

@@ -70,7 +70,12 @@ namespace Lunchers.Controllers
                     {
                         if (nieuweLunch.Afbeeldingen.Files.Count != 0)
                         {
+                            
+                            Debug.WriteLine(nieuweLunch.ToString());
                             Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+
+                            Debug.WriteLine($"Aantal ingredienten: {nieuweLunch.Ingredienten.Count}");
+                            Debug.WriteLine($"Aantal tags: {nieuweLunch.Tags.Count}");
 
                             Lunch lunch = new Lunch()
                             {
@@ -92,7 +97,7 @@ namespace Lunchers.Controllers
 
                             return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
                         }
-                        return BadRequest(new { error = "Gelieve minstens één afbeelding meesturen." });
+                        return BadRequest(new { error = "Gelieve minstens ï¿½ï¿½n afbeelding meesturen." });
                     }
                     catch
                     {
@@ -127,7 +132,7 @@ namespace Lunchers.Controllers
                                 return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
                             }
 
-                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date > DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
                                 lunch.Naam = aangepasteLunch.Naam;
                                 lunch.Prijs = double.Parse(aangepasteLunch.Prijs);
                                 lunch.Beschrijving = aangepasteLunch.Beschrijving;
@@ -182,12 +187,18 @@ namespace Lunchers.Controllers
 
         private List<LunchIngredient> ConvertIngredientViewModelsToIngredienten(List<IngredientViewModel> ingredientvms)
         {
+            
             List<LunchIngredient> ingredienten = new List<LunchIngredient>();
+            Debug.WriteLine(ingredientvms.Count);
             foreach (IngredientViewModel ivm in ingredientvms)
             {
                 Ingredient ingredient = _ingredientRepository.GetByName(ivm.Naam);
+                
+                Debug.WriteLine(ingredient.Naam);
+                
                 if (ingredient == null)
                 {
+                    
                     ingredient = new Ingredient { Naam = ivm.Naam };
                     _ingredientRepository.Add(ingredient);
                     _ingredientRepository.SaveChanges();
