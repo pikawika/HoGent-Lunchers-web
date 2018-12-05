@@ -21,7 +21,7 @@ import { AddLunchComponent } from './merchant/add-lunch/add-lunch.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { EditLunchComponent } from './merchant/edit-lunch/edit-lunch.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel/admin-panel.component';
 import { AdminMerchantsComponent } from './admin-panel/admin-merchants/admin-merchants.component';
 import { AdminReservationsComponent } from './admin-panel/admin-reservations/admin-reservations.component';
 import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches.component';
