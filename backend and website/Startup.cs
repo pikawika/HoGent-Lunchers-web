@@ -113,7 +113,7 @@ namespace Lunchers
                 }
             });
 
-            dummyDataInitializer.InitializeData();
+            //dummyDataInitializer.InitializeData();
         }
     }
 }

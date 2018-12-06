@@ -28,7 +28,7 @@ namespace Lunchers.Controllers
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
-                List<Handelaar> handelaars = _handelaarRepository.GetAll().ToList();
+                List<Handelaar> handelaars = _handelaarRepository.GetAll().Reverse().ToList();
                 return Ok( handelaars );
             }
             return Unauthorized(new { error = "U bent niet aangemeld als administrator." });

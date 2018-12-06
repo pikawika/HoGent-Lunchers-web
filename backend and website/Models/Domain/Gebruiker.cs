@@ -13,7 +13,6 @@ namespace Lunchers.Models.Domain
         public int GebruikerId { get; private set; }
         public string Telefoonnummer { get; set; }
         public string Email { get; set; }
-        [JsonIgnore]
         public Login Login { get; set; } = new Login();
         public string Voornaam { get; set; }
         public string Achternaam { get; set; }
