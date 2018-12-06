@@ -48,7 +48,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AdminMerchantsComponent,
     AdminReservationsComponent,
     AdminLunchesComponent,
-    AdminMerchantDetailComponent
+    AdminMerchantDetailComponent,
     ReservationsComponent,
     PageNotFoundComponent
   ],

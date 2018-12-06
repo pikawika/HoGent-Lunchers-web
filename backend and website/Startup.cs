@@ -35,7 +35,7 @@ namespace Lunchers
             //windows of mac invullen afhankelijk van je os -> Deployment voor azure -> server voor brent
             services.AddDbContext<ApplicationDbContext>(options =>
 
-                options.UseSqlServer(Configuration.GetConnectionString("mac")));
+                options.UseSqlServer(Configuration.GetConnectionString("windows")));
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -111,7 +111,7 @@ namespace Lunchers
                 }
             });
 
-            //dummyDataInitializer.InitializeData();
+            dummyDataInitializer.InitializeData();
         }
     }
 }
