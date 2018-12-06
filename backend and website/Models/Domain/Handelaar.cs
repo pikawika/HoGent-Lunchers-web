@@ -15,5 +15,6 @@ namespace Lunchers.Models
         public string Website { get; set; }
         public List<Lunch> Lunches { get; set; } = new List<Lunch>();
         public int PromotieRange { get; set; }
+        public bool Deleted { get; set; } = false;
     }
 }

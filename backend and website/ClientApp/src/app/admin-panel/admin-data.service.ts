@@ -44,4 +44,8 @@ export class AdminDataService {
     );
   }
 
+  removeMerchant(data: FormData): Observable<string> {
+    return this.http.post(this._baseUrl+'api/admin/verwijderhandelaar', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
 }
