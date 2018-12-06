@@ -79,18 +79,16 @@ export class AddLunchComponent implements OnInit {
         [Validators.required, Validators.minLength(10)]
       ],
       startdate: [
-        '',
+        ''
       ],
       enddate: [
-        '',
+        ''
       ],
       ingredient: [
-        '',
-        [Validators.required]
+        ''
       ],
       tag: [
-        '',
-        [Validators.required]
+        ''
       ]
     });
   }
@@ -99,7 +97,6 @@ export class AddLunchComponent implements OnInit {
     const data: any = new FormData();
     const files: File[] = this.filesToUpload;
     
-
     if(files.length > 1) {
       for(var x = 0; x < files.length; x++) {
           data.append('afbeeldingen', files[x]);    
@@ -127,6 +124,7 @@ export class AddLunchComponent implements OnInit {
           this.errorMsg = error.error.error;
         }
       );
+
   }
 
 
