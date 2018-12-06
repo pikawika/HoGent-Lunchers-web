@@ -23,6 +23,7 @@ namespace Lunchers.Data.Repositories
         {
             IEnumerable<Handelaar> handelaarsMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar")
                 .Include(h => h.Locatie)
+                .Include(h => h.Login)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
@@ -35,6 +36,7 @@ namespace Lunchers.Data.Repositories
         {
             Handelaar handelaarMetAlleLunches = _handelaars.Where(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id)
                 .Include(h => h.Locatie)
+                .Include(h => h.Login)
                 .Include(h => h.Lunches).ThenInclude(l => l.Afbeeldingen)
                 .Include(h => h.Lunches).ThenInclude(t => t.LunchTags).ThenInclude(lt => lt.Tag)
                 .Include(h => h.Lunches).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)

@@ -5,3 +5,10 @@
 .navbar-brand {
   margin-right: 5rem;
 }
+
+.card {
+  margin-top: 2rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  text-align: center;
+}
