@@ -14,7 +14,7 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { LoginComponent } from './user/login/login.component';
 import { LogoutComponent } from './user/logout/logout.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { AuthGuardService } from './user/auth-guard.service';
+import { AuthGuardService, AuthGuardServiceKlant, AuthGuardServiceHandelaar, AuthGuardServiceAdmin } from './user/auth-guard.service';
 import { RegisterMerchantComponent } from './user/register-merchant/register-merchant.component';
 import { LunchMerchantComponent } from './merchant/lunch-merchant/lunch-merchant.component';
 import { AddLunchComponent } from './merchant/add-lunch/add-lunch.component';
@@ -59,22 +59,21 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'details/:id',canActivate: [ AuthGuardService ], component:LunchDetailComponent},
+      { path: 'details/:id', component:LunchDetailComponent},
       { path: 'register', component:RegisterComponent},
       { path: 'login', component:LoginComponent},
       { path: 'logout', component:LogoutComponent},
       { path: 'merchantregister', component:RegisterMerchantComponent},
-      { path: 'merchant/lunch', canActivate: [ AuthGuardService ], component:LunchMerchantComponent},
-      { path: 'merchant/addlunch', canActivate: [ AuthGuardService ], component:AddLunchComponent},
+      { path: 'merchant/lunch', canActivate: [ AuthGuardServiceHandelaar ], component:LunchMerchantComponent},
+      { path: 'merchant/addlunch', canActivate: [ AuthGuardServiceHandelaar ], component:AddLunchComponent},
       { path: 'landingpage', component:LandingpageComponent},
-      { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardService ], component:EditLunchComponent},
-      { path: 'admin', canActivate: [ AuthGuardService ], component:AdminPanelComponent},
-      { path: 'admin/merchants', canActivate: [ AuthGuardService ], component:AdminMerchantsComponent},
-      { path: 'admin/reservations', canActivate: [ AuthGuardService ], component:AdminReservationsComponent},
-      { path: 'admin/lunches', canActivate: [ AuthGuardService ], component:AdminLunchesComponent},
-      { path: 'merchant/reservations', canActivate: [ AuthGuardService ], component:ReservationsComponent},
-      { path: '**', component:PageNotFoundComponent},
-
+      { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardServiceHandelaar ], component:EditLunchComponent},
+      { path: 'admin', canActivate: [ AuthGuardServiceAdmin ], component:AdminPanelComponent},
+      { path: 'admin/merchants', canActivate: [ AuthGuardServiceAdmin ], component:AdminMerchantsComponent},
+      { path: 'admin/reservations', canActivate: [ AuthGuardServiceAdmin ], component:AdminReservationsComponent},
+      { path: 'admin/lunches', canActivate: [ AuthGuardServiceAdmin ], component:AdminLunchesComponent},
+      { path: 'merchant/reservations', canActivate: [ AuthGuardServiceHandelaar ], component:ReservationsComponent},
+      { path: '**', component:PageNotFoundComponent}
     ]),
     
   ],
