@@ -1,0 +1,74 @@
+<div class="page">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" [routerLink]='["/admin"]'>Lunchers</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link" [routerLink]='["/admin"]'>Overzicht</a>
+        <a class="nav-item nav-link active" [routerLink]='["/admin/merchants"]'>Handelaars</a>
+        <a class="nav-item nav-link" [routerLink]='["/admin/lunches"]'>Lunches</a>
+        <a class="nav-item nav-link" [routerLink]='["/admin/reservations"]'>Reservaties</a>
+      </div>
+    </div>
+  </nav>
+  <div class="content">
+    <div class="col-md-6 offset-md-3">
+      <h3 class="title">Handelaar detailpagina</h3>
+      <hr>
+
+      <div *ngIf='errorMsg' style="color:crimson;">{{errorMsg}}</div>
+      <form [formGroup]="merchant" (ngSubmit)='onSubmit()' enctype="multipart/form-data">
+
+        <div class="form-group">
+          <label for="naam">Handelsnaam:</label>
+          <input type="text" id="naam" formControlName='naam' class="form-control" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="voornaam">Voornaam:</label>
+          <input type="text" id="voornaam" formControlName='voornaam' class="form-control" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="achternaam">Achternaam:</label>
+          <input type="text" id="achternaam" formControlName='achternaam' class="form-control" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mailadres:</label>
+          <input type="text" id="email" formControlName='email' class="form-control" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="telefoonnummer">Telefoonnummer:</label>
+          <input type="text" id="telefoonnummer" formControlName='telefoonnummer' class="form-control" disabled>
+        </div>
+
+        <div class="form-group">
+          <label for="website">Website:</label>
+          <input type="text" id="website" formControlName='website' class="form-control" disabled>
+        </div>
+
+        <div *ngIf="!mGeactiveerd" class="container">
+          <div class="form-group">
+            <label for="message">Boodschap (optioneel):</label>
+            <textarea type="text" id="message" formControlName='message' class="form-control" rows="4" placeholder="Vul hier een boodschap in die via e-mail naar de handelaar verstuurd wordt."></textarea>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <button type='submit' (click)='keurHandelaarAf()' class="form-control btn btn-danger">Keur handelaar af</button>
+            </div>
+            <div class="form-group col-md-6">
+              <button type='submit' (click)='keurHandelaarGoed()' class="form-control btn btn-success">Keur handelaar
+                goed</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

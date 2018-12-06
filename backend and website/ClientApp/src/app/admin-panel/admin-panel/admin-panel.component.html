@@ -15,6 +15,30 @@
     </div>
   </nav>
   <div class="content">
-
+    <div class="container">
+      <div class="row justify-content-md-center">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h1 class="card-title">{{aantalHandelaars}}</h1>
+            <p class="card-text">Aantal handelaars</p>
+            <a [routerLink]='["/admin/merchants"]' class="btn btn-danger">Bezoek</a>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h1 class="card-title">{{aantalLunches}}</h1>
+            <p class="card-text">Aantal lunches</p>
+            <a [routerLink]='["/admin/lunches"]' class="btn btn-success">Bezoek</a>
+          </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h1 class="card-title">{{aantalReservaties}}</h1>
+            <p class="card-text">Aantal reservaties</p>
+            <a [routerLink]='["/admin/reservations"]' class="btn btn-primary">Bezoek</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

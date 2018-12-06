@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lunchers.Models;
+using Lunchers.Models.IRepositories;
 using Lunchers.Models.Repositories;
 using Lunchers.Models.ViewModels.Handelaar;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +17,18 @@ namespace Lunchers.Controllers
     public class AdminController : Controller
     {
         private IHandelaarRepository _handelaarRepository;
+        private IReservatieRepository _reservatieRepository;
+        private ILunchRespository _lunchRespository;
 
-        public AdminController(IHandelaarRepository handelaarRepository)
+        public AdminController(IHandelaarRepository handelaarRepository, IReservatieRepository reservatieRepository, ILunchRespository lunchRespository)
         {
             _handelaarRepository = handelaarRepository;
+            _reservatieRepository = reservatieRepository;
+            _lunchRespository = lunchRespository;
         }
 
         [HttpPost]
-        public IActionResult KeurHandelaarGoed([FromBody]HandelaarKeuringViewModel handelaarGoedkeuring)
+        public IActionResult KeurHandelaarGoed([FromForm]HandelaarKeuringViewModel handelaarGoedkeuring)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
@@ -41,7 +46,7 @@ namespace Lunchers.Controllers
         }
 
         [HttpPost]
-        public IActionResult KeurHandelaarAf([FromBody]HandelaarKeuringViewModel handelaarGoedkeuring)
+        public IActionResult KeurHandelaarAf([FromForm]HandelaarKeuringViewModel handelaarGoedkeuring)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
@@ -72,6 +77,23 @@ namespace Lunchers.Controllers
                     return Ok(new { bericht = "De handelaar werd succesvol verwijderd." });
                 }
                 return BadRequest(new { error = "De opgegeven handelaar werd niet teruggevonden." });
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als administrator." });
+        }
+
+        [HttpGet]
+        public IActionResult KrijgAantallen()
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
+            {
+                var aantallen = new
+                {
+                    AantalHandelaars = _handelaarRepository.GetAll().Count(),
+                    AantalLunches = _lunchRespository.GetAll().Count(),
+                    AantalReservaties = _reservatieRepository.GetAll().Count()
+                };
+
+                return Ok(aantallen);
             }
             return Unauthorized(new { error = "U bent niet aangemeld als administrator." });
         }

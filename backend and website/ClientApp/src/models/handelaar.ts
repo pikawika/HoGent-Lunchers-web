@@ -1,5 +1,6 @@
 import { Locatie } from './locatie';
 import { Lunch } from "./lunch";
+import { Login } from './login';
 
 export class Handelaar {
     private _handelaarId: Number;
@@ -12,6 +13,7 @@ export class Handelaar {
     private _lunches : Lunch[]; //lijst van lunches
     private _promotierange : Number;
     private _locatie : Locatie;
+    private _login: Login;
 
     static fromJSON(json: any): Handelaar {
         
@@ -27,6 +29,7 @@ export class Handelaar {
             handelaar.lunches = json.lunches;
             handelaar.promotierange = json.promotierange;
             handelaar.locatie = json.locatie;
+            handelaar.login = Login.fromJSON(json.login);
             return handelaar;
          }
      }
@@ -70,7 +73,14 @@ export class Handelaar {
      */
 	public get telefoonnummer(): string {
 		return this._telefoonnummer;
-	}
+    }
+    
+    public get login(): Login {
+        return this._login;
+    }
+    public set login(value: Login) {
+        this._login = value;
+    }
 
     /**
      * Getter naam

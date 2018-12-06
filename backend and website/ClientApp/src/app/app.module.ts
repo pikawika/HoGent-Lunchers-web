@@ -25,9 +25,9 @@ import { AdminPanelComponent } from './admin-panel/admin-panel/admin-panel.compo
 import { AdminMerchantsComponent } from './admin-panel/admin-merchants/admin-merchants.component';
 import { AdminReservationsComponent } from './admin-panel/admin-reservations/admin-reservations.component';
 import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches.component';
+import { AdminMerchantDetailComponent } from './admin-panel/admin-merchant-detail/admin-merchant-detail.component';
 import { ReservationsComponent } from './merchant/reservations/reservations.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
 
 @NgModule({
   declarations: [
@@ -48,6 +48,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AdminMerchantsComponent,
     AdminReservationsComponent,
     AdminLunchesComponent,
+    AdminMerchantDetailComponent
     ReservationsComponent,
     PageNotFoundComponent
   ],
@@ -66,12 +67,13 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       { path: 'merchantregister', component:RegisterMerchantComponent},
       { path: 'merchant/lunch', canActivate: [ AuthGuardServiceHandelaar ], component:LunchMerchantComponent},
       { path: 'merchant/addlunch', canActivate: [ AuthGuardServiceHandelaar ], component:AddLunchComponent},
-      { path: 'landingpage', component:LandingpageComponent},
+      { path: 'landingpage', component:LandingpageComponent},                
       { path: 'merchant/editlunch/:id', canActivate: [ AuthGuardServiceHandelaar ], component:EditLunchComponent},
       { path: 'admin', canActivate: [ AuthGuardServiceAdmin ], component:AdminPanelComponent},
       { path: 'admin/merchants', canActivate: [ AuthGuardServiceAdmin ], component:AdminMerchantsComponent},
       { path: 'admin/reservations', canActivate: [ AuthGuardServiceAdmin ], component:AdminReservationsComponent},
       { path: 'admin/lunches', canActivate: [ AuthGuardServiceAdmin ], component:AdminLunchesComponent},
+      { path: 'admin/merchantdetail/:id', canActivate: [ AuthGuardServiceAdmin ], component:AdminMerchantDetailComponent},
       { path: 'merchant/reservations', canActivate: [ AuthGuardServiceHandelaar ], component:ReservationsComponent},
       { path: '**', component:PageNotFoundComponent}
     ]),

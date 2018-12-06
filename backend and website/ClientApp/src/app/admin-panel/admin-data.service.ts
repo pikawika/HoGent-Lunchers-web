@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Reservatie } from '../../models/reservatie';
 import { Lunch } from '../../models/lunch';
+import { Aantal } from 'src/models/aantal';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,24 @@ export class AdminDataService {
     );
   }
 
+  getMerchantById(id): Observable<Handelaar> {
+    return this.http.get(this._baseUrl+'api/handelaar/' + id).pipe(map(Handelaar.fromJSON));
+  }
+
   removeMerchant(data: FormData): Observable<string> {
     return this.http.post(this._baseUrl+'api/admin/verwijderhandelaar', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
+  keurHandelaarGoed(data: FormData): Observable<string> {
+    return this.http.post(this._baseUrl+'api/admin/keurhandelaargoed', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
+  keurHandelaarAf(data: FormData): Observable<string> {
+    return this.http.post(this._baseUrl+'api/admin/keurhandelaaraf', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
+  getAantallen(): Observable<Aantal> {
+    return this.http.get(this._baseUrl+'api/admin/krijgaantallen').pipe(map(Aantal.fromJSON));
   }
 
 }
