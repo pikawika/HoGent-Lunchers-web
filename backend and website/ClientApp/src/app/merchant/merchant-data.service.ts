@@ -6,6 +6,7 @@ import { Lunch } from 'src/models/lunch';
 import { Handelaar } from 'src/models/handelaar';
 import { Ingredient } from 'src/models/Ingredient';
 import { Tag } from 'src/models/Tag';
+import { Reservatie } from 'src/models/reservatie';
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,14 @@ export class MerchantDataService {
 
   removeLunch(id, data: FormData): Observable<string> {
     return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  }
+
+  get reservations(): Observable<Reservatie[]> {
+    return this.http.get(this._baseUrl+'api/reservatie/').pipe(
+      map((list: any[]): Reservatie[]=>
+        list.map(Reservatie.fromJSON)
+      )
+    );
   }
 
 

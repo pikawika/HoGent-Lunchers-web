@@ -43,7 +43,11 @@ export class LunchMerchantComponent implements OnInit {
   }
 
   editLunch(lunch: Lunch) {
-    this.router.navigate(['merchant/editlunch', lunch.lunchId])
+    this.router.navigate(['merchant/editlunch', lunch.lunchId]);
+  }
+
+  seeReservation(){
+    this.router.navigate(['merchant/reservations']);
   }
 
   removeLunch(lunch: Lunch) {
@@ -53,26 +57,9 @@ export class LunchMerchantComponent implements OnInit {
     data.append("beginDatum", lunch.beginDatum);
     data.append("eindDatum", lunch.eindDatum);
     data.append("prijs", lunch.prijs);
-    data.append("ingredienten",
-      [
-        {
-          "naam": "Ui"
-        },
-        {
-          "naam": "Varkensvlees"
-        }
-      ]);
-    data.append("tags",
-      [
-        {
-          "naam": "Hamburger",
-          "kleur": "FF6A6A"
-        },
-        {
-          "naam": "Varkensvlees",
-          "kleur": "FF6A6A"
-        }
-      ]);
+    data.append("ingredienten",lunch.ingredienten);
+    data.append("tags",lunch.tags);
+    
     this.dataService.removeLunch(lunch.lunchId, data).subscribe(receivedData => {
       if (receivedData["status"] == 200) {
         for (var i = this._lunches.length - 1; i >= 0; i--) {
