@@ -7,7 +7,7 @@
       <th scope="col">Lunch</th>
       <th scope="col">Aantal</th>
       <th scope="col">Datum</th>
-      <th scope="col"></th>
+      <th scope="col">Goedkeuren/Afkeuren</th>
     </tr>
   </thead>
   <tbody>
@@ -15,7 +15,7 @@
       <td>{{reservation.lunch.naam}}</td>
       <td>{{reservation.aantal}}</td>
       <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
-      <td><a class="btn btn-success"><i class="fa fa-check "></i></a><a (click)='approved(reservation)'class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></a></td>
+      <td><a (click)='approved(reservation)' class="btn btn-success"><i class="fa fa-check "></i></a><a (click)='declined(reservation)' class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></a></td>
   </tbody>
 </table>
 
@@ -26,7 +26,6 @@
       <th scope="col">Lunch</th>
       <th scope="col">Aantal</th>
       <th scope="col">Datum</th>
-      <th scope="col">Status</th>
     </tr>
   </thead>
   <tbody>
@@ -34,6 +33,5 @@
       <td>{{reservation.lunch.naam}}</td>
       <td>{{reservation.aantal}}</td>
       <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
-      <td>{{reservation.status}}</td>
   </tbody>
 </table>

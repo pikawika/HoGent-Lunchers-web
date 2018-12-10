@@ -21,7 +21,7 @@ export class ReservationsComponent implements OnInit {
     @Inject('BASE_URL') baseUrl: string,
     public dataService: MerchantDataService,
     private router: Router,
-  ) { 
+  ) {
     this._baseUrl = baseUrl;
   }
 
@@ -30,30 +30,50 @@ export class ReservationsComponent implements OnInit {
       this._reservaties = reservaties;
 
       this._reservaties.forEach(res => {
-        if(res.status == "In afwachting"){
+        if (res.status == "In afwachting") {
           this._goedTeKeuren.push(res);
         }
-        if(res.status == "Goedgekeurd"){
+        if (res.status == "Goedgekeurd") {
           this._goedGekeurd.push(res);
         }
       });
     });
   }
 
-  approved(reservatie: Reservatie){
-      this.dataService.approveReservation(reservatie.reservatieId).subscribe(
-        val => {
-          if (val) {
-            this.errorMsg = val;
+  approved(reservatie: Reservatie) {
+    this.dataService.approveReservation(reservatie.reservatieId).subscribe(
+      receivedData => {
+        if (receivedData["bericht"] == "De reservatie werd succesvol bijgewerkt.") {
+          for (var i = this._goedTeKeuren.length - 1; i >= 0; i--) {
+            if (this._goedTeKeuren[i].reservatieId === reservatie.reservatieId) {
+              this._goedTeKeuren.splice(i, 1);
+              this._goedGekeurd.push(reservatie);
+            }
           }
-        },
-        (error: HttpErrorResponse) => {
-          this.errorMsg = error.error.error;     
         }
-      );
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = error.error.error;
+      }
+    );
   }
 
-  declined(reservatieId){
+  declined(reservatie: Reservatie) {
+    this.dataService.declineReservation(reservatie.reservatieId).subscribe(
+      receivedData => {
+        if (receivedData["bericht"] == "De reservatie werd succesvol bijgewerkt.") {
+          for (var i = this._goedTeKeuren.length - 1; i >= 0; i--) {
+            if (this._goedTeKeuren[i].reservatieId === reservatie.reservatieId) {
+              console.log("splice");
+              this._goedTeKeuren.splice(i, 1);
+            }
+          }
+        }
+      },
+      (error: HttpErrorResponse) => {
+        this.errorMsg = error.error.error;
+      }
+    )
   }
 
 
@@ -62,11 +82,11 @@ export class ReservationsComponent implements OnInit {
     return this._reservaties;
   }
 
-  get approvedReservations(){
+  get approvedReservations() {
     return this._goedGekeurd;
   }
 
-  get waitingReservations(){
+  get waitingReservations() {
     return this._goedTeKeuren;
   }
 
