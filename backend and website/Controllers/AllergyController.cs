@@ -63,12 +63,17 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
+                        Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                        if(klant.Allergies.Where(a => a.AllergyNaam == nieuweAllergie.Allergie).Count() > 0){
+                            return BadRequest(new { error = "Je hebt deze allergie reeds toegevoegd." });
+                        }
+
                         _klantRepository.AddAllergy(int.Parse(User.FindFirst("gebruikersId")?.Value),nieuweAllergie.Allergie);
                         return Ok(_klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value)).Allergies);
                     }
                     catch(Exception e)
                     {
-                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de allergy." + e.Message });
+                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de allergy." });
                     }
                 }
                 return BadRequest(new { error = ModelState });
