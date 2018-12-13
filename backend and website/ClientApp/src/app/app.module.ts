@@ -28,6 +28,7 @@ import { AdminLunchesComponent } from './admin-panel/admin-lunches/admin-lunches
 import { AdminMerchantDetailComponent } from './admin-panel/admin-merchant-detail/admin-merchant-detail.component';
 import { ReservationsComponent } from './merchant/reservations/reservations.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { UserPanelComponent } from './user/user-panel/user-panel.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     AdminLunchesComponent,
     AdminMerchantDetailComponent,
     ReservationsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    UserPanelComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -75,6 +77,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
       { path: 'admin/lunches', canActivate: [ AuthGuardServiceAdmin ], component:AdminLunchesComponent},
       { path: 'admin/merchantdetail/:id', canActivate: [ AuthGuardServiceAdmin ], component:AdminMerchantDetailComponent},
       { path: 'merchant/reservations', canActivate: [ AuthGuardServiceHandelaar ], component:ReservationsComponent},
+      { path: 'user/reservations', canActivate: [ AuthGuardServiceKlant ], component: UserPanelComponent},
       { path: '**', component:PageNotFoundComponent}
     ]),
     

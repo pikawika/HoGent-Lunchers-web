@@ -128,7 +128,7 @@ namespace Lunchers.Controllers
                         return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de reservatie." });
                     }
                 }
-                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+                return BadRequest(new { error = ModelState });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als klant." });
         }

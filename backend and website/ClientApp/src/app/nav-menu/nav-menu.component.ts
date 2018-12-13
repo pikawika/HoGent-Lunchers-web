@@ -31,7 +31,7 @@ export class NavMenuComponent {
       if(this.authService.rol$.value == "admin"){
         return "/admin"
       }else{
-        return "/"
+        return "/user/reservations"
       }
     }
   }
