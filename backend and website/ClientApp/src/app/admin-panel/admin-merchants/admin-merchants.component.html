@@ -15,55 +15,64 @@
     </div>
   </nav>
 
-  <div class="content">
-    <h3 class="title">Goed te keuren handelaars</h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Handelsnaam</th>
-          <th scope="col">Voornaam</th>
-          <th scope="col">Achternaam</th>
-          <th scope="col">E-mailadres</th>
-          <th scope="col">Telefoonnummer</th>
-          <th scope="col">Bekijk</th>
-          <th scope="col">Verwijder</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor='let merchant of approvableMerchants'>
-          <td>{{merchant.naam}}</td>
-          <td>{{merchant.voornaam}}</td>
-          <td>{{merchant.achternaam}}</td>
-          <td>{{merchant.email}}</td>
-          <td>{{merchant.telefoonnummer}}</td>
-          <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i class="fa fa-eye fa-lg"></i></button></td>
-          <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button></td>
+  <div *ngIf='(requests) else elseBlock'>
+    <div class="content">
+      <h3 class="title">Goed te keuren handelaars</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Handelsnaam</th>
+            <th scope="col">Voornaam</th>
+            <th scope="col">Achternaam</th>
+            <th scope="col">E-mailadres</th>
+            <th scope="col">Telefoonnummer</th>
+            <th scope="col">Bekijk</th>
+            <th scope="col">Verwijder</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor='let merchant of approvableMerchants'>
+            <td>{{merchant.naam}}</td>
+            <td>{{merchant.voornaam}}</td>
+            <td>{{merchant.achternaam}}</td>
+            <td>{{merchant.email}}</td>
+            <td>{{merchant.telefoonnummer}}</td>
+            <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i
+                  class="fa fa-eye fa-lg"></i></button></td>
+            <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i
+                  class="fa fa-trash fa-lg"></i></button></td>
 
-                  <!--pop up-->
-        <div id="myModal" class="modal fade">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Verwijderen Handelaar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Bent u zeker dat u deze handelaar wilt verwijderen?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee</button>
-                <button type="button" class="btn btn-primary" (click)='removeMerchant(merchant)' data-dismiss="modal">Ja</button>
+            <!--pop up-->
+            <div id="myModal" class="modal fade">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Verwijderen Handelaar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    Bent u zeker dat u deze handelaar wilt verwijderen?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee</button>
+                    <button type="button" class="btn btn-primary" (click)='removeMerchant(merchant)' data-dismiss="modal">Ja</button>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        </tr>
-      </tbody>
-    </table>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
+  <ng-template #elseBlock>
+    <div class="content">
+      <h3 class="title">Er zijn geen handelaars om goed te keuren.</h3>
+    </div>
+  </ng-template>
 
   <div class="content">
     <h3 class="title">Handelaar overzicht</h3>
@@ -86,29 +95,31 @@
           <td>{{merchant.achternaam}}</td>
           <td>{{merchant.email}}</td>
           <td>{{merchant.telefoonnummer}}</td>
-          <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i class="fa fa-eye fa-lg"></i></button></td>
-          <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button></td>
+          <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i
+                class="fa fa-eye fa-lg"></i></button></td>
+          <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i
+                class="fa fa-trash fa-lg"></i></button></td>
 
-                  <!--pop up-->
-        <div id="myModal" class="modal fade">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Verwijderen Handelaar</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Bent u zeker dat u deze handelaar wilt verwijderen?
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee</button>
-                <button type="button" class="btn btn-primary" (click)='removeMerchant(merchant)' data-dismiss="modal">Ja</button>
+          <!--pop up-->
+          <div id="myModal" class="modal fade">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Verwijderen Handelaar</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  Bent u zeker dat u deze handelaar wilt verwijderen?
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Nee</button>
+                  <button type="button" class="btn btn-primary" (click)='removeMerchant(merchant)' data-dismiss="modal">Ja</button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
         </tr>
       </tbody>

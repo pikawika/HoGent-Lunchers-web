@@ -49,6 +49,14 @@ export class AdminMerchantsComponent implements OnInit {
     return this._approvableMerchtans;
   }
 
+  get requests(){
+    if(this._approvableMerchtans.length != 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
   goToMerchantDetail(merchant: Handelaar) {
     this.router.navigate(['admin/merchantdetail', merchant.handelaarId])
   }

@@ -90,4 +90,12 @@ export class ReservationsComponent implements OnInit {
     return this._goedTeKeuren;
   }
 
+  get requests(){
+    if(this._goedTeKeuren.length != 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }
