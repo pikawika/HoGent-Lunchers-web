@@ -1,0 +1,25 @@
+.description-image{
+    height: 200px;
+    object-fit: cover;
+}
+
+.card{
+    width: 18rem; 
+    width: 100%;
+    text-align: center;
+}
+
+.btn-primary{
+    background-color: #B22222;
+    color: white!important;
+    border: none!important;
+}
+
+.reserveer-btn{
+    width: 100%;
+}
+
+.reservatie-message{
+    font-size: 1.5em;
+    color: green;
+}

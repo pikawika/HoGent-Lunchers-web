@@ -1,14 +1,66 @@
 <div class="row">
 
   <div class="col-md-12">
-    <div class="card" style="width: 18rem; width: 100%;">
-      <img class="card-img-top" src="{{_lunch.afbeeldingen[0].pad}}" alt="{{_lunch.naam}}">
+    <h1 class="reservatie-message text-center">{{reservatie_message}}</h1>
+  </div>
+
+  <div class="col-md-12">
+    <div class="card">
+      <img class="card-img-top description-image" src="{{_lunch.afbeeldingen[0].pad}}" alt="{{_lunch.naam}}">
       <div class="card-body">
         <h5 class="card-title">{{_lunch.naam}} - € {{_lunch.prijs}}</h5>
         <p class="card-text">{{_lunch.beschrijving}}</p>
+        <p class="card-text">Tel: {{_lunch.handelaar.telefoonnummer}}</p>
+        <p class="card-text">
+          {{_lunch.handelaar.locatie.straat}} {{_lunch.handelaar.locatie.huisnummer}},
+          {{_lunch.handelaar.locatie.postcode}} {{_lunch.handelaar.locatie.gemeente}}
+        </p>
+
+        <a class="btn btn-primary" data-toggle="modal" data-target="#reserveer-modal">Reserveer deze lunch</a>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="reserveer-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Reserveren voor {{_lunch.naam}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
 
+      <div class="modal-body">
+        <form [formGroup]="reserveerForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Datum:</label>
+            <input type="date" formControlName="datum" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Uur:</label>
+            <input type="time" formControlName="uur" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Aantal:</label>
+            <input type="number" formControlName="aantal" class="form-control">
+          </div>
+
+          <div class="form-group">
+            <label>Opmerkingen:</label>
+            <input type="text" class="form-control" formControlName="opmerkingen" />
+          </div>
+
+          <button type="button" [disabled]="!reserveerForm.valid" (click)="onSubmit()" data-dismiss="modal" class="btn btn-primary reserveer-btn">Reserveren</button>
+
+        </form>
+      </div>
+      
+    </div>
+  </div>
 </div>

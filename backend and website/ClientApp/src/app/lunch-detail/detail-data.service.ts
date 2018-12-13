@@ -19,4 +19,18 @@ export class DetailDataService {
     return this.http.get(this._baseUrl+"api/Lunch/"+id).pipe(map(Lunch.fromJSON));
   }
 
+  reserveer(lunchId, datum, uur, aantal, opmerkingen){
+
+    console.log(`${datum}T${uur}:00`);
+    
+    let reservatie = {
+      "LunchId":lunchId,
+      "Datum": `${datum}T${uur}:00`,
+      "Aantal":aantal,
+      "Opmerkingen":opmerkingen
+    }
+
+    return this.http.post(this._baseUrl+"api/reservatie",reservatie,{observe: 'response'});
+  }
+
 }
