@@ -17,3 +17,7 @@
       margin-bottom: 1rem;
       margin-left: 0.8rem;
   }
+
+  .center{
+    text-align: center !important;
+  }
