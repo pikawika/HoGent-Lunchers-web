@@ -38,7 +38,7 @@ namespace Lunchers.Controllers
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
             {
-                List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).ToList();
+                List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).OrderByDescending(r => r.Datum).ToList();
                 return Ok(reservaties);
             }
             else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
@@ -128,7 +128,7 @@ namespace Lunchers.Controllers
                         return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de reservatie." });
                     }
                 }
-                return BadRequest(new { error = "De opgestuurde gegevens zijn onvolledig of incorrect." });
+                return BadRequest(new { error = ModelState });
             }
             return Unauthorized(new { error = "U bent niet aangemeld als klant." });
         }
