@@ -38,7 +38,7 @@ namespace Lunchers.Controllers
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
             {
-                List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).ToList();
+                List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).OrderByDescending(r => r.Datum).ToList();
                 return Ok(reservaties);
             }
             else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
