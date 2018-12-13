@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { HomeDataService } from './home-data.service';
 import { Router } from '@angular/router';
 import { Lunch } from '../../models/lunch';
+import { Tag } from 'src/models/Tag';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import { Lunch } from '../../models/lunch';
 })
 export class HomeComponent {
 
+  private _all_lunches;
   public _lunches; //public voor html
   public _baseUrl;
 
@@ -20,6 +22,7 @@ export class HomeComponent {
   ngOnInit(){
     this.dataService.lunches.subscribe(lunches => {
       this._lunches = lunches;
+      this._all_lunches = lunches;
     });
   }
 
@@ -30,5 +33,34 @@ export class HomeComponent {
   showDetails(lunch:Lunch){
     //ipv id door te geven, en in /details weer op te halen (extra call), complexe data structuur doorgeven (lunch in json formaat)
     this.router.navigate(['/details', lunch.lunchId]);
+  }
+
+  onSearchChange(searchValue : string ) {  
+    console.log(searchValue);
+
+    this._lunches = []
+
+    this._all_lunches.forEach(lunch => {
+
+      let contain_name = lunch.naam.toLowerCase().indexOf(searchValue) >= 0;
+      let contain_tag = false;
+      let contain_ingredient = false;
+      
+      lunch.tags.forEach(tag => {
+        if(tag.tag.naam.toLowerCase().indexOf(searchValue) >= 0){
+          contain_tag = true;
+        }
+      });
+
+      lunch.ingredienten.forEach(ingredient => {
+        if(ingredient.ingredient.naam.toLowerCase().indexOf(searchValue) >= 0){
+          contain_ingredient = true;
+        }
+      });
+
+      if(contain_name||contain_tag||contain_ingredient){
+        this._lunches.push(lunch);        
+      }
+    });
   }
 }
