@@ -2,6 +2,11 @@
   <h1 class="title">Populair</h1>
   <hr class="seperator">
   <h3 class="subtitle">Populaire lunches in jou buurt</h3>
+
+  <div class="col-md-6 offset-md-3 zoeken">
+    <input type="text" (input)="onSearchChange($event.target.value)" placeholder="Zoeken..." class="form-control"/>
+  </div>
+
   <div class="row">
     <app-lunch *ngFor='let localLunch of lunches' [lunch]="localLunch" (details)="showDetails($event)" class="col-md-4"></app-lunch>
   </div>
