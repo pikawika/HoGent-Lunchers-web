@@ -8,8 +8,6 @@ namespace Lunchers.Models.GebruikerViewModels.GebruikerTaken
 {
     public class AllergieToevoegenViewModel
     {
-        [Required(ErrorMessage = "{0} is verplicht.")]
-        [DataType(DataType.Text, ErrorMessage = "Geen geldig {0} ingevoerd")]
         public string Allergie { get; set; }
     }
 }

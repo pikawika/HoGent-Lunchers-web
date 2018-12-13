@@ -26,7 +26,7 @@ namespace Lunchers.Data.Repositories
 
         public void AddAllergy(int gebruikersId, string allergy)
         {
-            Klant klant = _klanten.Where(g => g.GebruikerId == gebruikersId).FirstOrDefault();
+            Klant klant = _klanten.Include(k => k.Allergies).SingleOrDefault(k => k.GebruikerId == gebruikersId);
             if (klant != null)
             {
                 klant.Allergies.Add(new Allergy() { AllergyNaam = allergy });

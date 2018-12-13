@@ -40,7 +40,7 @@ namespace Lunchers.Controllers
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
             {
                 Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
-                return Ok(klant.Reservaties);
+                return Ok(klant.Allergies);
             }
             else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
@@ -64,10 +64,11 @@ namespace Lunchers.Controllers
                     try
                     {
                         _klantRepository.AddAllergy(int.Parse(User.FindFirst("gebruikersId")?.Value),nieuweAllergie.Allergie);
+                        return Ok(_klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value)).Allergies);
                     }
-                    catch
+                    catch(Exception e)
                     {
-                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de reservatie." });
+                        return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de allergy." + e.Message });
                     }
                 }
                 return BadRequest(new { error = ModelState });
