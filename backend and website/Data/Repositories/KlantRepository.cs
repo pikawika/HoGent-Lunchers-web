@@ -34,6 +34,17 @@ namespace Lunchers.Data.Repositories
             }
         }
 
+        public void RemoveAllergy(int gebruikersId, string allergy){
+            Klant klant = _klanten.Include(k => k.Allergies).SingleOrDefault(k => k.GebruikerId == gebruikersId);
+            if (klant != null)
+            {
+                if(allergy != null){
+                    klant.Allergies.Remove(klant.Allergies.Where(a => a.AllergyNaam == allergy).FirstOrDefault());
+                    SaveChanges();
+                }
+            }
+        }
+
         private void SaveChanges()
         {
             _context.SaveChanges();

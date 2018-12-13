@@ -53,6 +53,27 @@ namespace Lunchers.Controllers
             return Unauthorized(new { error = "U bent niet aangemeld." });
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
+            {
+                try
+                {
+                    Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    _klantRepository.RemoveAllergy(int.Parse(User.FindFirst("gebruikersId")?.Value), klant.Allergies.Where(a => a.AllergyId == id).FirstOrDefault().AllergyNaam);
+                    return Ok(_klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value)).Allergies);
+                }
+                catch
+                {
+                    return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de allergy." });
+                }
+            }else{
+                return Unauthorized(new { error = "U bent niet aangemeld als klant." });
+            }
+
+        }
+
         // POST: api/Reservatie
         [HttpPost]
         public IActionResult Post([FromBody]AllergieToevoegenViewModel nieuweAllergie)
@@ -71,7 +92,7 @@ namespace Lunchers.Controllers
                         _klantRepository.AddAllergy(int.Parse(User.FindFirst("gebruikersId")?.Value),nieuweAllergie.Allergie);
                         return Ok(_klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value)).Allergies);
                     }
-                    catch(Exception e)
+                    catch
                     {
                         return BadRequest(new { error = "Er is iets fout gegaan tijdens het aanmaken van de allergy." });
                     }

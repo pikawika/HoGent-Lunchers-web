@@ -10,5 +10,6 @@ namespace Lunchers.Models.IRepositories
     {
         Klant GetById(int customerId);
         void AddAllergy(int gebruikersId, string allergy);
+        void RemoveAllergy(int gebruikersId, string allergy);
     }
 }
