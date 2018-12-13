@@ -43,7 +43,8 @@ export class ReservationsComponent implements OnInit {
   approved(reservatie: Reservatie) {
     this.dataService.approveReservation(reservatie.reservatieId).subscribe(
       receivedData => {
-        if (receivedData["bericht"] == "De reservatie werd succesvol bijgewerkt.") {
+        console.log(receivedData.status)
+        if (receivedData.status == 200) {
           for (var i = this._goedTeKeuren.length - 1; i >= 0; i--) {
             if (this._goedTeKeuren[i].reservatieId === reservatie.reservatieId) {
               this._goedTeKeuren.splice(i, 1);
@@ -61,10 +62,9 @@ export class ReservationsComponent implements OnInit {
   declined(reservatie: Reservatie) {
     this.dataService.declineReservation(reservatie.reservatieId).subscribe(
       receivedData => {
-        if (receivedData["bericht"] == "De reservatie werd succesvol bijgewerkt.") {
+        if (receivedData.status == 200) {
           for (var i = this._goedTeKeuren.length - 1; i >= 0; i--) {
             if (this._goedTeKeuren[i].reservatieId === reservatie.reservatieId) {
-              console.log("splice");
               this._goedTeKeuren.splice(i, 1);
             }
           }
