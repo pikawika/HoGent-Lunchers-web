@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['/admin']);
               } else {
                 console.log(this.authenticationService.rol$.value);
-                this.router.navigate(['/']);
+                this.router.navigate(['/user/reservations']);
               }
             }
           }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { TouchSequence } from 'selenium-webdriver';
+import { Reservatie } from 'src/models/reservatie';
 
 @Injectable({
   providedIn: 'root'
@@ -135,6 +136,14 @@ export class AuthenticationService {
 
   get id$(){
     return this._id$;
+  }
+
+  get reservations(): Observable<Reservatie[]> {
+    return this.http.get(this._baseUrl+'api/reservatie/').pipe(
+      map((list: any[]): Reservatie[]=>
+        list.map(Reservatie.fromJSON)
+      )
+    );
   }
   
 }
