@@ -21,7 +21,22 @@ namespace Lunchers.Data.Repositories
 
         public Klant GetById(int customerId)
         {
-            return _klanten.Include(k => k.Reservaties).Include(k => k.Favorieten).SingleOrDefault(k => k.GebruikerId == customerId);
+            return _klanten.Include(k => k.Reservaties).Include(k => k.Favorieten).Include(k => k.Allergies).SingleOrDefault(k => k.GebruikerId == customerId);
+        }
+
+        public void AddAllergy(int gebruikersId, string allergy)
+        {
+            Klant klant = _klanten.Include(k => k.Allergies).SingleOrDefault(k => k.GebruikerId == gebruikersId);
+            if (klant != null)
+            {
+                klant.Allergies.Add(new Allergy() { AllergyNaam = allergy });
+                SaveChanges();
+            }
+        }
+
+        private void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

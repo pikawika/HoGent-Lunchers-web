@@ -9,5 +9,6 @@ namespace Lunchers.Models.IRepositories
     public interface IKlantRepository
     {
         Klant GetById(int customerId);
+        void AddAllergy(int gebruikersId, string allergy);
     }
 }
