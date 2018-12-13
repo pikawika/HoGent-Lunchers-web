@@ -38,16 +38,8 @@ export class LunchMerchantComponent implements OnInit {
     return this._lunches;
   }
 
-  addLunch() {
-    this.router.navigate(['/merchant/addlunch']);
-  }
-
   editLunch(lunch: Lunch) {
     this.router.navigate(['merchant/editlunch', lunch.lunchId]);
-  }
-
-  seeReservation(){
-    this.router.navigate(['merchant/reservations']);
   }
 
   removeLunch(lunch: Lunch) {
