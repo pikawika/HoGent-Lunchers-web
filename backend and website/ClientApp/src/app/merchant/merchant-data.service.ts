@@ -54,6 +54,14 @@ export class MerchantDataService {
     return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
   }
 
+  approveReservation(reservatieId): Observable<string> {
+    return this.http.put(this._baseUrl+'api/reservatie', { 'reservatieId':reservatieId, 'status':'Goedgekeurd' }).pipe(map((res:any) => {return res}));
+  }
+
+  declineReservation(reservatieId): Observable<string> {
+    return this.http.put(this._baseUrl+'api/reservatie', { 'reservatieId':reservatieId, 'status':'Afgekeurd' }).pipe(map((res:any) => {return res}));
+  }
+
   get reservations(): Observable<Reservatie[]> {
     return this.http.get(this._baseUrl+'api/reservatie/').pipe(
       map((list: any[]): Reservatie[]=>
@@ -61,6 +69,4 @@ export class MerchantDataService {
       )
     );
   }
-
-
 }

@@ -1,19 +1,37 @@
 <h1 class="title">Reservatie overzicht</h1>
 
+<h2 class="subtitle pd-25">Nog goed te keuren reservaties</h2>
 <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Lunch</th>
-        <th scope="col">Aantal</th>
-        <th scope="col">Datum</th>
-        <th scope="col">Status</th>
-      </tr>
-    </thead>
-    <tbody> 
-      <tr *ngFor= 'let reservation of reservations'>
-        <td>{{reservation.lunch.naam}}</td>
-        <td>{{reservation.aantal}}</td>
-        <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
-        <td>{{reservation.status}}</td>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th scope="col">Lunch</th>
+      <th scope="col">Aantal</th>
+      <th scope="col">Datum</th>
+      <th scope="col">Goedkeuren/Afkeuren</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let reservation of waitingReservations'>
+      <td>{{reservation.lunch.naam}}</td>
+      <td>{{reservation.aantal}}</td>
+      <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
+      <td><a (click)='approved(reservation)' class="btn btn-success"><i class="fa fa-check "></i></a><a (click)='declined(reservation)' class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></a></td>
+  </tbody>
+</table>
+
+<h2 class="subtitle pd-50">Goedgekeurde Reservaties</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Lunch</th>
+      <th scope="col">Aantal</th>
+      <th scope="col">Datum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let reservation of approvedReservations'>
+      <td>{{reservation.lunch.naam}}</td>
+      <td>{{reservation.aantal}}</td>
+      <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
+  </tbody>
+</table>
