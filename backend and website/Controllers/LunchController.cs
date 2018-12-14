@@ -27,14 +27,21 @@ namespace Lunchers.Controllers
         private IHandelaarRepository _handelaarRepository;
         private IAfbeeldingRepository _afbeeldingRepository;
         private IIngredientRepository _ingredientRepository;
+        private IKlantRepository _klantRepository;
         private ITagRepository _tagRepository;
 
-        public LunchController(ILunchRespository lunchRespository, IHandelaarRepository handelaarRepository, IAfbeeldingRepository afbeeldingRepository, IIngredientRepository ingredientRepository, ITagRepository tagRepository)
+        public LunchController(ILunchRespository lunchRespository, 
+                               IHandelaarRepository handelaarRepository, 
+                               IAfbeeldingRepository afbeeldingRepository, 
+                               IIngredientRepository ingredientRepository, 
+                               ITagRepository tagRepository,
+                               IKlantRepository klantRepository)
         {
             _lunchRespository = lunchRespository;
             _handelaarRepository = handelaarRepository;
             _afbeeldingRepository = afbeeldingRepository;
             _ingredientRepository = ingredientRepository;
+            _klantRepository = klantRepository;
             _tagRepository = tagRepository;
         }
 
@@ -48,7 +55,32 @@ namespace Lunchers.Controllers
                 return _lunchRespository.GetAllFromLocation(latitude, longitude);
             // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
             else
+                if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant"){
+                    Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    if(klant.Allergies.Count > 0){
+                        List<Lunch> lunches = new List<Lunch>();
+                        foreach(Lunch lunch in _lunchRespository.GetAll()){
+                            if(!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten)){
+                                lunches.Add(lunch);
+                            }
+
+                        }
+                        return lunches.AsEnumerable().Reverse();
+                    }
+                }
                 return _lunchRespository.GetAll().Reverse();
+        }
+
+        private bool ContainsAllergy(List<Allergy> allergies, List<LunchIngredient> ingredients){
+            bool has_allergy = false;
+            foreach(Allergy allergy in allergies){
+                foreach(LunchIngredient lunch_ingredient in ingredients){
+                    if(allergy.AllergyNaam.Equals(lunch_ingredient.Ingredient.Naam, StringComparison.InvariantCultureIgnoreCase)){
+                        has_allergy = true;
+                    }
+                }
+            }
+            return has_allergy;
         }
 
         // GET api/<controller>/5

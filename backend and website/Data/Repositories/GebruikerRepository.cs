@@ -55,14 +55,18 @@ namespace Lunchers.Data.Repositories
             SaveChanges();
         }
 
+        public bool GebruikerIsGeactiveerd(string gebruikersnaam)
+        {
+            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam && g.Login.Geactiveerd);
+        }
+
+        
+
         private void SaveChanges()
         {
             _context.SaveChanges();
         }
 
-        public bool GebruikerIsGeactiveerd(string gebruikersnaam)
-        {
-            return _gebruikers.Any(g => g.Login.Gebruikersnaam == gebruikersnaam && g.Login.Geactiveerd) ;
-        }
+        
     }
 }
