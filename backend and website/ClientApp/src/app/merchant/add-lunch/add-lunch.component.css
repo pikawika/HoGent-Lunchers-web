@@ -8,3 +8,8 @@
      margin-left: auto;
      margin-right: 0%;
  }
+
+ nav{
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 20px;
+}

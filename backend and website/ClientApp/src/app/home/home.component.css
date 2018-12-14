@@ -30,17 +30,24 @@
 
 .jumbotron a{
     background: none;
+    border: 3px solid #B22222;
+    background: #B22222;
+    text-shadow: 5px 10px 15px rgba(0,0,0,0.4);
+}
+
+.jumbotron a:hover{
+    background: none;
     border: 3px solid white;
-    text-shadow: 5px 10px 10px rgba(0,0,0,0.2);
+    text-shadow: 5px 10px 15px rgba(0,0,0,0.4);
 }
 
 .jumbotron h1{
     font-size: 5em;
     font-weight: bold;
-    text-shadow: 5px 10px 10px rgba(0,0,0,0.2);
+    text-shadow: 5px 10px 15px rgba(0,0,0,0.4);
 }
 
 .jumbotron p{
     font-size: 2em;
-    text-shadow: 5px 10px 10px rgba(0,0,0,0.2);
+    text-shadow: 5px 10px 15px rgba(0,0,0,0.4);
 }

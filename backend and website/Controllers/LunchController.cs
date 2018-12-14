@@ -67,9 +67,9 @@ namespace Lunchers.Controllers
 
                         }
                         return lunches.AsEnumerable();
+                    }else{
+                        return _lunchRespository.GetAllFromLocation(latitude, longitude);
                     }
-                }else{
-                    return _lunchRespository.GetAllFromLocation(latitude, longitude);
                 }
             }
             // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
