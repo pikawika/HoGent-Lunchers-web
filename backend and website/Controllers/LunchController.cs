@@ -51,8 +51,27 @@ namespace Lunchers.Controllers
         public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
             // Als de locatie meegegeven wordt, wordt gezocht op locatie
-            if (latitude != 0 && longitude != 0)
-                return _lunchRespository.GetAllFromLocation(latitude, longitude);
+            if (latitude != 0 && longitude != 0){
+                if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
+                {
+                    Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    if (klant.Allergies.Count > 0)
+                    {
+                        List<Lunch> lunches = new List<Lunch>();
+                        foreach (Lunch lunch in _lunchRespository.GetAllFromLocation(latitude, longitude))
+                        {
+                            if (!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten))
+                            {
+                                lunches.Add(lunch);
+                            }
+
+                        }
+                        return lunches.AsEnumerable();
+                    }
+                }else{
+                    return _lunchRespository.GetAllFromLocation(latitude, longitude);
+                }
+            }
             // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
             else
                 if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant"){
