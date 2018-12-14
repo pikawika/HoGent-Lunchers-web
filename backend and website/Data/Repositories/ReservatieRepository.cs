@@ -42,6 +42,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
                 .ToList();
         }
 
@@ -51,6 +52,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
                 .ToList();
         }
 

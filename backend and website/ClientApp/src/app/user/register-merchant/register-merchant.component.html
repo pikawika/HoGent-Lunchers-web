@@ -31,6 +31,17 @@
       <input type="email" id="email" formControlName='email' class="form-control">
     </div>
 
+    <div formGroupName='passwordGroup'>
+      <div class="form-group">
+        <label for="password">Wachtwoord:</label>
+        <input type="password" id="password" formControlName='password' class="form-control">
+      </div>
+      <div class="form-group">
+        <label for="confirmpassword">Bevestig wachtwoord:</label>
+        <input type="password" id="confirmpassword" formControlName='confirmPassword' class="form-control">
+      </div>
+    </div>
+
     <div class="form-group">
       <label for="merchant">Handelsnaam:</label>
       <input type="text" id="merchant" formControlName='merchant' class="form-control">

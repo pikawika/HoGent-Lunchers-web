@@ -90,7 +90,8 @@ export class AuthenticationService {
 
   registerMerchant(username: string, tel:string, email:string,voornaam:string,achternaam:string,
     name:string, website:string, street: string, number:string, code: string, city:string
-    ): Observable<boolean> {
+    ,password:string): Observable<boolean> {
+      console.log(password)
     return this.http.post(this._baseUrl+'api/gebruiker/registreer', 
     { 
       "Telefoonnummer": tel,
@@ -100,7 +101,7 @@ export class AuthenticationService {
       "Login": {
         "Gebruikersnaam": username,
         "Rol": "handelaar",
-        "Wachtwoord": "voorlopigWachtwoord123"
+        "Wachtwoord": password
       },
       "HandelsNaam": name,
       "Website": website,
