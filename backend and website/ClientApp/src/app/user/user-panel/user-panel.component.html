@@ -6,6 +6,7 @@
       <th scope="col">Aantal</th>
       <th scope="col">Datum</th>
       <th scope="col">Uur</th>
+      <th scope="col">Opmerking</th>
       <th scope="col">Status</th>
     </tr>
   </thead>
@@ -15,6 +16,7 @@
       <td>{{reservation.aantal}}</td>
       <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
       <td>{{reservation.datum | date : 'HH:mm'}}</td>
+      <td>{{reservation.opmerking}}</td>
       <td>{{reservation.status}}</td>
   </tbody>
 </table>
