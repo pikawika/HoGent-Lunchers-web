@@ -11,6 +11,7 @@ export class Reservatie {
     private _klant: Klant;
     private _handelaar: Handelaar;
     private _status: Status;
+    private _opmerking:String;
 
     static fromJSON(json: any): Reservatie {
         if (json != null) {
@@ -22,6 +23,7 @@ export class Reservatie {
             reservatie.datum = json.datum;
             reservatie.klant = Klant.fromJSON(json.klant);
             reservatie.handelaar = Handelaar.fromJSON(json.lunch.handelaar);      
+            reservatie.opmerking = json.opmerking;
 
             switch (Number.parseInt(json.status)) {
                 case 0: {
@@ -45,6 +47,10 @@ export class Reservatie {
             return reservatie;
         }
     }
+
+    public get opmerking():String{
+        return this._opmerking;
+    }  
 
     /**
      * Getter reservatieId
@@ -92,6 +98,11 @@ export class Reservatie {
      */
     public get status(): Status {
         return this._status;
+    }
+
+
+    public set opmerking(opmerking:String){
+        this._opmerking = opmerking;
     }
 
     /**
@@ -151,6 +162,8 @@ export class Reservatie {
     }
 
 }
+
+
 
 enum Status {
     InAfwachting = "In afwachting",

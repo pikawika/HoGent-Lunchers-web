@@ -27,7 +27,7 @@ export class DetailDataService {
       "LunchId":lunchId,
       "Datum": `${datum}T${uur}:00`,
       "Aantal":aantal,
-      "Opmerkingen":opmerkingen
+      "Opmerking":opmerkingen
     }
 
     return this.http.post(this._baseUrl+"api/reservatie",reservatie,{observe: 'response'});
