@@ -16,7 +16,7 @@
             <a class="nav-link text-dark">Welkom {{currentUser|async}}</a>
           </li>
 
-          <li *ngIf='(currentUser | async) else loginlink' class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+          <li *ngIf='(currentUser | async)' class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a class="nav-link text-dark" [routerLink]='[redirect]'>Mijn Reservaties</a>
           </li>
 
