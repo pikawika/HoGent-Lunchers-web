@@ -54,6 +54,7 @@ namespace Lunchers.Controllers
                 if (handelaar != null)
                 {
                     handelaar.Login.Geactiveerd = false;
+                    _handelaarRepository.Delete(handelaar.GebruikerId);
                     _handelaarRepository.SaveChanges();
 
                     return Ok(new { bericht = "De handelaar werd succesvol afgekeurd." });

@@ -14,69 +14,80 @@
 
 <h1 class="title">Reservatie overzicht</h1>
 
-<h2 class="subtitle pd-25">Nog goed te keuren reservaties</h2>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Lunch</th>
-      <th scope="col">Aantal</th>
-      <th scope="col">Datum</th>
-      <th scope="col">Goedkeuren/Afkeuren</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor='let reservation of waitingReservations'>
-      <td>{{reservation.lunch.naam}}</td>
-      <td>{{reservation.aantal}}</td>
-      <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
-      <td><button type="button" data-toggle="modal" data-target="#myModalSucces" class="btn btn-success" ><i class="fa fa-check "></i></button>
-        <button type="button" data-toggle="modal" data-target="#myModalDecline" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
-
-      <!-- popup succes-->
-
-      <div id="myModalSucces" class="modal fade">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Reservatie </h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Bent u zeker dat u deze reservatie wilt goedkeuren?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-              <button type="button" class="btn btn-primary" (click)='approved(reservation)' data-dismiss="modal">Ja</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- popup decline-->
-      <div id="myModalDecline" class="modal fade">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Reservatie</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              Bent u zeker dat u deze reservatie wilt afkeuren?
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
-              <button type="button" class="btn btn-primary" (click)='declined(reservation)' data-dismiss="modal">Ja</button>
+<div *ngIf='(requests) else elseBlock'>
+  <h2 class="subtitle pd-25">Nog goed te keuren reservaties</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Lunch</th>
+        <th scope="col">Aantal</th>
+        <th scope="col">Datum</th>
+        <th scope="col">Uur</th>
+        <th scope="col">Goedkeuren/Afkeuren</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let reservation of waitingReservations'>
+        <td>{{reservation.lunch.naam}}</td>
+        <td>{{reservation.aantal}}</td>
+        <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
+        <td>{{reservation.datum | date : 'HH:mm'}}</td>
+        <td><button type="button" data-toggle="modal" data-target="#myModalSucces" class="btn btn-success" ><i class="fa fa-check "></i></button>
+          <button type="button" data-toggle="modal" data-target="#myModalDecline" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
+        
+  
+        <!-- popup succes-->
+  
+        <div id="myModalSucces" class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reservatie </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Bent u zeker dat u deze reservatie wilt goedkeuren?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+                <button type="button" class="btn btn-primary" (click)='approved(reservation)' data-dismiss="modal">Ja</button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+  
+        <!-- popup decline-->
+        <div id="myModalDecline" class="modal fade">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reservatie</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Bent u zeker dat u deze reservatie wilt afkeuren?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuleer</button>
+                <button type="button" class="btn btn-primary" (click)='declined(reservation)' data-dismiss="modal">Ja</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+    </tbody>
+  </table>
+</div>
 
-  </tbody>
-</table>
+<ng-template #elseBlock>
+  <div class="content">
+    <h3 class="title">Geen reservaties goed te keuren</h3>
+  </div>
+</ng-template>
 
 <h2 class="subtitle pd-50">Goedgekeurde Reservaties</h2>
 <table class="table">
@@ -85,6 +96,7 @@
       <th scope="col">Lunch</th>
       <th scope="col">Aantal</th>
       <th scope="col">Datum</th>
+      <th scope="col">Uur</th>
     </tr>
   </thead>
   <tbody>
@@ -92,5 +104,6 @@
       <td>{{reservation.lunch.naam}}</td>
       <td>{{reservation.aantal}}</td>
       <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
+      <td>{{reservation.datum | date : 'HH:mm'}}</td>
   </tbody>
 </table>
