@@ -1,8 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, AbstractControl, FormControl } from '@angular/forms';
 import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+
+function comparePasswords(control: AbstractControl): { [key: string]: any } {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirmPassword');
+ 
+  return password.value === confirmPassword.value
+    ? null
+    : { passwordsDiffer: true };
+}
 
 @Component({
   selector: 'app-register-merchant',
@@ -13,6 +22,10 @@ export class RegisterMerchantComponent implements OnInit {
 
   public merchant: FormGroup;
   public errorMsg: string;
+
+  get passwordControl(): FormControl {
+    return <FormControl>this.merchant.get('passwordGroup').get('password');
+  }
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -65,11 +78,19 @@ export class RegisterMerchantComponent implements OnInit {
       city: [
         '',
         [Validators.required]
-      ]
+      ],
+      passwordGroup: this.fb.group(
+        {
+          password: ['', [Validators.required, Validators.minLength(4)]],
+          confirmPassword: ['', Validators.required]
+        },
+        { validator: comparePasswords }
+      )
     });
   }
 
   onSubmit() {
+    console.log(this.merchant.value.password);
     this.authenticationService.registerMerchant
     (this.merchant.value.username, 
       this.merchant.value.tel, 
@@ -81,7 +102,8 @@ export class RegisterMerchantComponent implements OnInit {
       this.merchant.value.street,
       this.merchant.value.number,
       this.merchant.value.code,
-      this.merchant.value.city)
+      this.merchant.value.city,
+      this.passwordControl.value)
       .subscribe(
         val => {
           if (val) {
