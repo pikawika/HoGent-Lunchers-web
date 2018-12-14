@@ -1,10 +1,10 @@
 <div class="jumbotron">
     <h1 class="display-4">Lunchers</h1>
     <p>Snel lunchen in Aalst</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Bekijk de lunches!</a>
+    <a class="btn btn-primary btn-lg" (click)="scroll(lunchesTarget)">Bekijk de lunches!</a>
   </div>
 
-<div class="text-center home-lunches">
+<div #lunchesTarget class="text-center home-lunches">
   <h1 class="title">Populair</h1>
   <hr class="seperator">
   <h3 class="subtitle">Populaire lunches in jou buurt</h3>
