@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Lunchers.Models;
 using Lunchers.Models.Repositories;
 using Lunchers.Models.Domain;
+using System.Diagnostics;
 
 namespace Lunchers.Data.Repositories
 {
@@ -61,6 +62,18 @@ namespace Lunchers.Data.Repositories
         public void SaveChanges()
         {
             _context.SaveChanges();
+        }
+
+        public void RemoveLunch(int handelaarId, int lunchId)
+        {
+            Handelaar handelaar = GetByIdInternal(handelaarId);
+            handelaar.Lunches.SingleOrDefault(l => l.LunchId == lunchId).Deleted = true;
+            SaveChanges();
+        }
+
+        public Handelaar GetByIdInternal(int id)
+        {
+            return _handelaars.SingleOrDefault(h => h.Login.Rol.Naam == "handelaar" && h.GebruikerId == id);
         }
     }
 }
