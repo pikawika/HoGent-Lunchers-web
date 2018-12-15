@@ -5,9 +5,9 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" [routerLink]='["/merchant/lunch"]'>Jouw lunches</a>
+      <a class="nav-item nav-link" [routerLink]='["/merchant/reservations"]'>Mijn reservaties</a>
+      <a class="nav-item nav-link" [routerLink]='["/merchant/lunch"]'>Mijn lunches</a>
       <a class="nav-item nav-link active" [routerLink]='["/merchant/addlunch"]'>Voeg een lunch toe</a>
-      <a class="nav-item nav-link" [routerLink]='["/merchant/reservations"]'>Bekijk jouw reservaties</a>
     </div>
   </div>
 </nav>
@@ -46,20 +46,23 @@
     </div>
 
     <div class="form-group">
+        <label for="inputfile">Kies een afbeelding (optioneel):</label>
       <input type="file" class="inputfile" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg"
         multiple>
     </div>
 
     <div class="form-group">
       <label for="ingredienten">Ingredienten:</label>
-      <input #ing (keyup.enter)="addIngredient(ing.value)" type="text" id="ingredienten" formControlName='ingredient'
-        class="form-control" />
+      <div class="container row">
+        <input #ing type="text" (keyup.enter)="addIngredient(ing.value)" id="ingredienten" formControlName='ingredient' class="form-control col" />
+        <a (click)="addIngredient(ing.value)" class="btn btn-light col-md-auto pd-r-5">Toevoegen</a>
+      </div>
       <div>
         <table>
           <tbody>
             <tr *ngFor='let ingredient of _ingredienten'>
+              <td><a class="btn" (click)="removeIng(ingredient)"><i class="fa fa-times"></i></a></td>
               <td>{{ingredient.Naam}} </td>
-              <td><a class="btn" (click)="removeIng(ingredient)">Verwijder</a></td>
             </tr>
           </tbody>
         </table>
@@ -69,7 +72,7 @@
     <div class="form-group">
       <label for="tags">Tags:</label>
       <div class="selected-tags">
-        <div class="selected-tag" *ngFor='let selTag of _selectedTags'>{{selTag.Naam}} <a class="remove-button" (click)="removeSelectedTag(selTag)">x</a></div>
+        <div class="selected-tag" *ngFor='let selTag of _selectedTags'>{{selTag.Naam}} <a class="remove-button" (click)="removeSelectedTag(selTag)"><i class="fa fa-times"></i></a></div>
       </div>
 
       <div class="all-tags">
