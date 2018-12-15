@@ -33,10 +33,10 @@
       <td>{{lunch.eindDatum | date : 'dd/MM/yyyy'}}</td>
       <td class="text-center"><a class="btn btn-sm btn-primary editLunchButton" (click)='editLunch(lunch)'><i class="fa fa-pencil fa-lg"></i></a></td>
       <td class="text-center">
-        <button type="button" data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button>
+        <button type="button" data-toggle="modal" [attr.data-target]="'#modal' + lunch.lunchId" class="btn btn-sm btn-primary"><i class="fa fa-trash fa-lg"></i></button>
 
         <!--pop up-->
-        <div id="myModal" class="modal fade">
+        <div [attr.id]="'modal'+lunch.lunchId" class="modal fade">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">

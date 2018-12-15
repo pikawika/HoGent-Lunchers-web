@@ -40,7 +40,6 @@ namespace Lunchers.Models.ViewModels.Lunch
 
         public IFormCollection RawData { get; set; }
 
-        [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.Upload)]
         public IFormCollection Afbeeldingen { set; get; }
 

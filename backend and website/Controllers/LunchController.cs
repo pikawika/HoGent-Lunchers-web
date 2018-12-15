@@ -30,10 +30,10 @@ namespace Lunchers.Controllers
         private IKlantRepository _klantRepository;
         private ITagRepository _tagRepository;
 
-        public LunchController(ILunchRespository lunchRespository, 
-                               IHandelaarRepository handelaarRepository, 
-                               IAfbeeldingRepository afbeeldingRepository, 
-                               IIngredientRepository ingredientRepository, 
+        public LunchController(ILunchRespository lunchRespository,
+                               IHandelaarRepository handelaarRepository,
+                               IAfbeeldingRepository afbeeldingRepository,
+                               IIngredientRepository ingredientRepository,
                                ITagRepository tagRepository,
                                IKlantRepository klantRepository)
         {
@@ -51,7 +51,8 @@ namespace Lunchers.Controllers
         public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
             // Als de locatie meegegeven wordt, wordt gezocht op locatie
-            if (latitude != 0 && longitude != 0){
+            if (latitude != 0 && longitude != 0)
+            {
                 if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
                 {
                     Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
@@ -67,42 +68,82 @@ namespace Lunchers.Controllers
 
                         }
                         return lunches.AsEnumerable();
-                    }else{
+                    }
+                    else
+                    {
                         return _lunchRespository.GetAllFromLocation(latitude, longitude);
                     }
                 }
             }
             // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
             else
-                if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant"){
-                    Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
-                    if(klant.Allergies.Count > 0){
-                        List<Lunch> lunches = new List<Lunch>();
-                        foreach(Lunch lunch in _lunchRespository.GetAll()){
-                            if(!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten, lunch.LunchTags)){
-                                lunches.Add(lunch);
-                            }
-
+                if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
+            {
+                Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                if (klant.Allergies.Count > 0)
+                {
+                    List<Lunch> lunches = new List<Lunch>();
+                    foreach (Lunch lunch in _lunchRespository.GetAll())
+                    {
+                        if (!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten, lunch.LunchTags))
+                        {
+                            lunches.Add(lunch);
                         }
-                        return lunches.AsEnumerable().Reverse();
+
                     }
+                    return lunches.AsEnumerable().Reverse();
                 }
-                return _lunchRespository.GetAll().Reverse();
+            }
+            return _lunchRespository.GetAll().Reverse();
         }
 
-        private bool ContainsAllergy(List<Allergy> allergies, List<LunchIngredient> ingredients, List<LunchTag> tags){
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
+            {
+                try
+                {
+                    Handelaar handelaar = _handelaarRepository.GetByIdInternal(int.Parse(User.FindFirst("gebruikersId")?.Value));
+
+                    Lunch lunch = _lunchRespository.GetById(id);
+
+                    if (handelaar == lunch.Handelaar)
+                    {
+                        _handelaarRepository.RemoveLunch(handelaar.GebruikerId, lunch.LunchId);
+                        return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
+                    }
+                    return BadRequest(new { error = "De lunch behoort niet toe aan de aangemelde handelaar." });
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(new { error = "Er is een onverwachte fout opgetreden tijdens het aanpassen van de lunch. " + e.Message.ToString().ToLower() });
+                }
+            }
+            return Unauthorized(new { error = "U bent niet aangemeld als handelaar." });
+
+        }
+
+
+        private bool ContainsAllergy(List<Allergy> allergies, List<LunchIngredient> ingredients, List<LunchTag> tags)
+        {
             bool has_allergy = false;
-            foreach(Allergy allergy in allergies){
-                foreach(LunchIngredient lunch_ingredient in ingredients){
-                    if(allergy.AllergyNaam.Equals(lunch_ingredient.Ingredient.Naam, StringComparison.InvariantCultureIgnoreCase)){
+            foreach (Allergy allergy in allergies)
+            {
+                foreach (LunchIngredient lunch_ingredient in ingredients)
+                {
+                    if (allergy.AllergyNaam.Equals(lunch_ingredient.Ingredient.Naam, StringComparison.InvariantCultureIgnoreCase))
+                    {
                         has_allergy = true;
                         break;
                     }
                 }
 
                 //nutteloos om nog verder te filteren indien er al een allergie gevonden is
-                if(!has_allergy){
-                    foreach(LunchTag lunch_tag in tags){
+                if (!has_allergy)
+                {
+                    foreach (LunchTag lunch_tag in tags)
+                    {
                         if (allergy.AllergyNaam.Equals(lunch_tag.Tag.Naam, StringComparison.InvariantCultureIgnoreCase))
                         {
                             has_allergy = true;
@@ -132,39 +173,47 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
+
+
+                        Debug.WriteLine(nieuweLunch.ToString());
+                        Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+
+                        string stringIngredients = nieuweLunch.RawData["Ingredienten"];
+                        string stringTags = nieuweLunch.RawData["Tags"];
+
+                        List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
+                        List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
+
+                        Lunch lunch = new Lunch()
+                        {
+                            Naam = nieuweLunch.Naam,
+                            Prijs = double.Parse(nieuweLunch.Prijs),
+                            Beschrijving = nieuweLunch.Beschrijving,
+                            BeginDatum = nieuweLunch.BeginDatum,
+                            EindDatum = nieuweLunch.EindDatum,
+                            LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten),
+                            LunchTags = ConvertTagViewModelsToTags(tags),
+                            Deleted = false,
+                        };
+
+                        handelaar.Lunches.Add(lunch);
+                        _handelaarRepository.SaveChanges();
+
                         if (nieuweLunch.Afbeeldingen.Files.Count != 0)
                         {
-                            
-                            Debug.WriteLine(nieuweLunch.ToString());
-                            Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
-
-                            string stringIngredients = nieuweLunch.RawData["Ingredienten"];
-                            string stringTags = nieuweLunch.RawData["Tags"];
-
-                            List<IngredientViewModel> ingredienten = JsonConvert.DeserializeObject<List<IngredientViewModel>>(stringIngredients);
-                            List<TagViewModel> tags = JsonConvert.DeserializeObject<List<TagViewModel>>(stringTags);
-
-                            Lunch lunch = new Lunch()
-                            {
-                                Naam = nieuweLunch.Naam,
-                                Prijs = double.Parse(nieuweLunch.Prijs),
-                                Beschrijving = nieuweLunch.Beschrijving,
-                                BeginDatum = nieuweLunch.BeginDatum,
-                                EindDatum = nieuweLunch.EindDatum,
-                                LunchIngredienten = ConvertIngredientViewModelsToIngredienten(ingredienten),
-                                LunchTags = ConvertTagViewModelsToTags(tags),
-                                Deleted = false,
-                            };
-
-                            handelaar.Lunches.Add(lunch);
-                            _handelaarRepository.SaveChanges();
-
                             lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
-                            _lunchRespository.SaveChanges();
-
-                            return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
                         }
-                        return BadRequest(new { error = "Gelieve minstens ��n afbeelding meesturen." });
+                        else
+                        {
+                            List<Afbeelding> afbeeldingen = new List<Afbeelding>();
+                            string afbeeldingRelativePath = "lunches/tagfoto/" + lunch.LunchTags[0].Tag.Naam + ".jpg";
+                            afbeeldingen.Add(new Afbeelding { Pad = afbeeldingRelativePath });
+                            string filePath = @"wwwroot" + afbeeldingRelativePath;
+                            lunch.Afbeeldingen = afbeeldingen;
+                        }
+                        _lunchRespository.SaveChanges();
+                        return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
+
                     }
                     catch (Exception e)
                     {
@@ -178,7 +227,7 @@ namespace Lunchers.Controllers
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch, [FromQuery]bool delete = false)
+        public async Task<IActionResult> Put(int id, [FromForm]LunchEditViewModel aangepasteLunch)
         {
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
             {
@@ -186,20 +235,14 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
-                        Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                        Handelaar handelaar = _handelaarRepository.GetByIdInternal(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                         Lunch lunch = _lunchRespository.GetById(id);
 
-                        if (handelaar == lunch.Handelaar) {
-
-                            if (delete)
+                        if (handelaar == lunch.Handelaar)
+                        {
+                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date)
                             {
-                                _lunchRespository.Delete(lunch.LunchId);
-                                _lunchRespository.SaveChanges();
-                                return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
-                            }
-
-                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
                                 string stringIngredients = aangepasteLunch.RawData["Ingredienten"];
                                 string stringTags = aangepasteLunch.RawData["Tags"];
 
@@ -220,7 +263,8 @@ namespace Lunchers.Controllers
 
                                 return Ok(new { bericht = "De lunch werd succesvol bijgewerkt." });
                             }
-                            else {
+                            else
+                            {
                                 return BadRequest(new { error = "Er is iets mis met de begin- en/of einddatum." });
                             }
 
@@ -251,7 +295,7 @@ namespace Lunchers.Controllers
                 string filePath = @"wwwroot" + afbeeldingRelativePath;
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 FileStream fileStream = new FileStream(filePath, FileMode.Create);
-                await afbeeldingFiles[(i-1)].CopyToAsync(fileStream);
+                await afbeeldingFiles[(i - 1)].CopyToAsync(fileStream);
                 fileStream.Close();
             }
 
@@ -260,17 +304,17 @@ namespace Lunchers.Controllers
 
         private List<LunchIngredient> ConvertIngredientViewModelsToIngredienten(List<IngredientViewModel> ingredientvms)
         {
-            
+
             List<LunchIngredient> ingredienten = new List<LunchIngredient>();
             Debug.WriteLine(ingredientvms.Count);
             foreach (IngredientViewModel ivm in ingredientvms)
             {
                 Ingredient ingredient = _ingredientRepository.GetByName(ivm.Naam);
 
-                
+
                 if (ingredient == null)
                 {
-                    
+
                     ingredient = new Ingredient { Naam = ivm.Naam };
                     _ingredientRepository.Add(ingredient);
                     _ingredientRepository.SaveChanges();
@@ -289,7 +333,7 @@ namespace Lunchers.Controllers
                 Tag tag = _tagRepository.GetByName(tvm.Naam);
                 if (tag == null)
                 {
-                    if (tvm.Kleur == null) tag = new Tag { Naam = tvm.Naam, Kleur = "#000000"  };
+                    if (tvm.Kleur == null) tag = new Tag { Naam = tvm.Naam, Kleur = "#000000" };
                     else tag = new Tag { Naam = tvm.Naam, Kleur = tvm.Kleur };
                     _tagRepository.Add(tag);
                     _tagRepository.SaveChanges();

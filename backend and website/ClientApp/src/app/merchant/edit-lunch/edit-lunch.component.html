@@ -55,16 +55,12 @@
 
     <div class="form-group">
       <label for="tags">Tags:</label>
-      <input #tag (keyup.enter)="addTag(tag.value)" type="text" id="tags" formControlName='tag' class="form-control" />
-      <div>
-          <table>
-              <tbody>
-                  <tr *ngFor='let tag of _tags'>
-                      <td>{{tag.Naam}}</td>
-                      <td><a class="btn" (click)="removeTag(tag)">Verwijder</a></td> 
-                  </tr>
-              </tbody>
-            </table>
+      <div class="selected-tags">
+        <div class="selected-tag" *ngFor='let selTag of _selectedTags'>{{selTag.Naam}} <a class="remove-button" (click)="removeSelectedTag(selTag)">x</a></div>
+      </div>
+
+      <div class="all-tags">
+        <a *ngFor='let tag of _tags' class="selectable-tag btn btn-default" (click)="selectTag(tag)">{{tag.Naam}}</a>
       </div>
     </div>
 

@@ -43,16 +43,7 @@ export class LunchMerchantComponent implements OnInit {
   }
 
   removeLunch(lunch: Lunch) {
-    const data: any = new FormData();
-    data.append("naam", lunch.naam);
-    data.append("beschrijving", lunch.beschrijving);
-    data.append("beginDatum", lunch.beginDatum);
-    data.append("eindDatum", lunch.eindDatum);
-    data.append("prijs", lunch.prijs);
-    data.append("ingredienten",lunch.ingredienten);
-    data.append("tags",lunch.tags);
-    
-    this.dataService.removeLunch(lunch.lunchId, data).subscribe(receivedData => {
+    this.dataService.removeLunch(lunch.lunchId).subscribe(receivedData => {
       if (receivedData["status"] == 200) {
         for (var i = this._lunches.length - 1; i >= 0; i--) {
           if (this._lunches[i].lunchId === lunch.lunchId) {

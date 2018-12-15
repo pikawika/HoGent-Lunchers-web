@@ -116,10 +116,11 @@ namespace Lunchers.Data
                  */
 
                 Tag tagVegan = new Tag { Naam = "Vegan", Kleur = RodeKleur };
-                Tag tagVlees = new Tag { Naam = "Varkensvlees", Kleur = RodeKleur };
-                Tag tagPasta = new Tag { Naam = "Sla", Kleur = GroeneKleur };
-                Tag tagGlutten = new Tag { Naam = "Gezond", Kleur = GroeneKleur };
-                Tag tagLactose = new Tag { Naam = "Vegetarisch", Kleur = GroeneKleur };
+                Tag tagVlees = new Tag { Naam = "Vlees", Kleur = RodeKleur };
+                Tag tagPasta = new Tag { Naam = "Pasta", Kleur = GroeneKleur };
+                Tag tagGlutten = new Tag { Naam = "Gluten", Kleur = GroeneKleur };
+                Tag tagSalade = new Tag { Naam = "Sla", Kleur = GroeneKleur };
+                Tag tagLactose = new Tag { Naam = "Lactose", Kleur = GroeneKleur };
                 Tag tagVis = new Tag { Naam = "Vis", Kleur = RodeKleur };
                 Tag tagFastfood = new Tag { Naam = "Fastfood", Kleur = RodeKleur };
                 Tag tagRoomsaus = new Tag { Naam = "Room", Kleur = Gelekleur };
@@ -180,6 +181,7 @@ namespace Lunchers.Data
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/2.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/3.jpg" });
                 lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagVegan });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagSalade });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientBrocoli });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientTomaat });
@@ -213,14 +215,14 @@ namespace Lunchers.Data
 
                 //RESERVATIES -> user lennert
                 ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger, Status = Status.Goedgekeurd, Opmerking="kan ik extra bacon krijgen :-)" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd, Opmerking = "-"  });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting, Opmerking = "-" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting, Opmerking = "-" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd, Opmerking = "-" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd, Opmerking = ""  });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting, Opmerking = "" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting, Opmerking = "" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd, Opmerking = "" });
 
                 // --> user niet lennert
                 ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.Goedgekeurd, Opmerking = "" });
-                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting, Opmerking="" });
+                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting, Opmerking= "" });
                 //RESERVATIES EINDE
 
                 //FAVORIETEN -> user lennert
