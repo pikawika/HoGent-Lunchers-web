@@ -36,20 +36,22 @@
     </div>
 
     <div class="form-group">
-      <label for="ingredienten">Ingredienten:</label>
-      <input #ing (keyup.enter)="addIngredient(ing.value)" type="text" id="ingredienten" formControlName='ingredient'
-        class="form-control" />
-      <div>
+        <label for="ingredienten">Ingredienten:</label>
+        <div class="container row">
+          <input #ing type="text" (keyup.enter)="addIngredient(ing.value)" id="ingredienten" formControlName='ingredient' class="form-control col" />
+          <a (click)="addIngredient(ing.value)" class="btn btn-light col-md-auto pd-r-5">Toevoegen</a>
+        </div>
+        <div>
           <table>
             <tbody>
-                <tr *ngFor='let ingredient of _ingredienten'>
-                    <td>{{ingredient.Naam}} </td>
-                    <td><a class="btn" (click)="removeIng(ingredient)">Verwijder</a></td> 
-                </tr>
+              <tr *ngFor='let ingredient of _ingredienten'>
+                <td><a class="btn" (click)="removeIng(ingredient)"><i class="fa fa-times"></i></a></td>
+                <td>{{ingredient.Naam}} </td>
+              </tr>
             </tbody>
           </table>
+        </div>
       </div>
-    </div>
 
     <div class="form-group">
       <label for="tags">Tags:</label>
