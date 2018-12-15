@@ -50,8 +50,8 @@ export class MerchantDataService {
     return this.http.put(this._baseUrl+'api/lunch/'+id, data).pipe(map((res: any) => {return res}));
   }
 
-  removeLunch(id, data: FormData): Observable<string> {
-    return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
+  removeLunch(id): Observable<string> {
+    return this.http.delete(this._baseUrl+'api/lunch/'+id, {observe:'response'}).pipe(map((res: any) => {return res}));
   }
 
   approveReservation(reservatieId) {
