@@ -13,3 +13,42 @@
     border-bottom: 1px solid lightgray;
     margin-bottom: 20px;
 }
+
+.selected-tags{
+    min-height: 40px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+
+.selected-tag{
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin: 5px;
+    min-width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+}
+
+.all-tags{
+    width: 100%;
+    overflow-y:scroll; 
+    height:100px;
+    margin-top: 15px;
+    border: 1px solid rgb(215, 215, 215);
+}
+
+.selectable-tag{
+    border: 1px solid rgb(235, 235, 235);
+    width: 100%;
+    border-radius: 0px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.remove-button{
+    color: #B22222!important;
+    cursor: pointer;
+}

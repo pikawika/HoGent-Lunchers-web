@@ -24,6 +24,7 @@ export class EditLunchComponent implements OnInit {
   public _tagObjects = [];
   public _ingredienten = [];
   public _tags = [];
+  public _selectedTags = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,24 +36,75 @@ export class EditLunchComponent implements OnInit {
 
   }
 
+  ngOnInit() {
 
+    this.merchantService.getTag().subscribe(data => {
+      this._tags = data;
+    });
+
+    this.lunch = this.fb.group({
+      name: [
+        '',
+      ],
+      price: [
+        ''
+      ],
+      description: [
+        '',
+      ],
+      startdate: [
+        '',
+      ],
+      enddate: [
+        '',
+      ],
+      ingredient: [
+        ''
+      ]
+    });
+  }
+
+  selectTag(tag: Tag) {
+    if (this._selectedTags.some(e => e.tagId == -2)) {
+      this._selectedTags = [];
+    }
+
+    if (!this._selectedTags.some(e => e.Naam === tag.Naam)) {
+      this._selectedTags.push(tag);
+    }
+  }
+
+  removeSelectedTag(tag) {
+    for (let i = 0; i < this._selectedTags.length; i++) {
+      if (this._selectedTags[i].Naam == tag.Naam) {
+        this._selectedTags.splice(i, 1);
+        if (this._selectedTags.length == 0) {
+          let instructionTag = new Tag();
+          instructionTag.Naam = "Gelieve een tag te kiezen uit de lijst";
+          instructionTag.tagId = -2;
+          this._selectedTags.push(instructionTag);
+        }
+        break;
+      }
+    }
+  }
 
   addIngredient(ingredient: string) {
     let ing = new Ingredient();
-    if(ingredient.length <= 20 && ingredient.length > 0){
+    if (ingredient.length <= 20 && ingredient.length > 0) {
       ing.Naam = ingredient;
       this._ingredienten.push(ing);
-    }else{
+    } else {
       this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een ingredient(max 20 tekens)"
     }
   }
 
   addTag(tag: string) {
     let t = new Tag();
-    if(tag.length <= 20 && tag.length > 0){
+    if (tag.length <= 20 && tag.length > 0) {
       t.Naam = tag;
-    this._tags.push(t);
-    }else{
+      this._tags.push(t);
+    } else {
       this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een tag(max 20 tekens)";
     }
   }
@@ -73,35 +125,6 @@ export class EditLunchComponent implements OnInit {
         break;
       }
     }
-  }
-
-  ngOnInit() {
-
-
-    this.lunch = this.fb.group({
-      name: [
-        '',
-      ],
-      price: [
-        ''
-      ],
-      description: [
-        '',
-      ],
-      startdate: [
-        '',
-      ],
-      enddate: [
-        '',
-      ],
-      ingredient: [
-        ''
-      ],
-      tag: [
-        ''
-      ]
-
-    });
   }
 
   formatDate(date) {
@@ -137,9 +160,9 @@ export class EditLunchComponent implements OnInit {
     data.append("eindDatum", (<HTMLInputElement>document.getElementById('enddate')).value);
     data.append("prijs", Number((<HTMLInputElement>document.getElementById('price')).value));
     data.append("ingredienten", JSON.stringify(this._ingredienten));
-    data.append("tags", JSON.stringify(this._tags));
+    data.append("tags", JSON.stringify(this._selectedTags));
 
-    if(this._ingredienten.length != 0 && this._tags.length != 0){
+    if (this._ingredienten.length != 0 && this._tags.length != 0) {
       this.merchantService.editLunch(this._lunch.lunchId,
         data)
         .subscribe(
@@ -152,10 +175,10 @@ export class EditLunchComponent implements OnInit {
             this.errorMsg = error.error.error;
           }
         );
-    }else{
+    } else {
       this.errorMsg = "Gelieve ingredienten of tags in te voeren"
     }
-    
+
   }
 
   ngAfterViewInit() {
@@ -181,7 +204,7 @@ export class EditLunchComponent implements OnInit {
       this._tagObjects.forEach(t => {
         let tag = new Tag();
         tag.Naam = t.tag.naam;
-        this._tags.push(tag);
+        this._selectedTags.push(tag);
       });
     });
 
