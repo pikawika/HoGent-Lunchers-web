@@ -51,6 +51,7 @@ export class MerchantDataService {
   }
 
   removeLunch(id, data: FormData): Observable<string> {
+    console.log("In de data service: "+id);
     return this.http.put(this._baseUrl+'api/lunch/'+id+'?delete=true', data, {observe:'response'}).pipe(map((res: any) => {return res}));
   }
 

@@ -52,7 +52,8 @@ export class LunchMerchantComponent implements OnInit {
     data.append("ingredienten",lunch.ingredienten);
     data.append("tags",lunch.tags);
     
-    this.dataService.removeLunch(lunch.lunchId, data).subscribe(receivedData => {
+    console.log(lunch.lunchId);
+    this.dataService.removeLunch(lunch.lunchId, data).subscribe(receivedData => {      
       if (receivedData["status"] == 200) {
         for (var i = this._lunches.length - 1; i >= 0; i--) {
           if (this._lunches[i].lunchId === lunch.lunchId) {
