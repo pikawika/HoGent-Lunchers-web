@@ -30,7 +30,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
-                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar).ThenInclude(li => li.Locatie)
                 .Include(r => r.Klant)
                 .OrderByDescending(r => r.Datum)
                 .ToList();
@@ -42,7 +42,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
-                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar).ThenInclude(li => li.Locatie)
                 .ToList();
         }
 
@@ -52,7 +52,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
-                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar).ThenInclude(li => li.Locatie)
                 .ToList();
         }
 
@@ -62,7 +62,7 @@ namespace Lunchers.Data.Repositories
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchIngredienten).ThenInclude(li => li.Ingredient)
                 .Include(r => r.Lunch).ThenInclude(l => l.LunchTags).ThenInclude(li => li.Tag)
                 .Include(r => r.Lunch).ThenInclude(l => l.Afbeeldingen)
-                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar)
+                .Include(r => r.Lunch).ThenInclude(l => l.Handelaar).ThenInclude(li => li.Locatie)
                 .SingleOrDefault(r => r.ReservatieId == id);
         }
 
