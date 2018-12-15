@@ -42,8 +42,7 @@ namespace Lunchers.Controllers
                     //mail service
                     var message = new MailMessage();
                     message.From = new MailAddress("lunchersteam@gmail.com");
-                    //message.To.Add(handelaar.Email);
-                    message.To.Add("brent_schets@hotmail.be");
+                    message.To.Add(handelaar.Email);
                     message.ReplyToList.Add("lunchersteam@gmail.com");
                     message.Subject = "Uw aanvraag om handelaar te worden werd goedgekeurd";
                     message.Body = string.Format("Beste {0} \n\nUw aanvraag om handelaar te worden, werd zonet goedgekeurd.\nU kan nu aanmelden met de door u gekozen gebruikersnaam en wachtwoord.\nEn u kan onmiddelijk een lunch toevoegen als u dat wilt.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
@@ -80,8 +79,7 @@ namespace Lunchers.Controllers
                     //mail service
                     var message = new MailMessage();
                     message.From = new MailAddress("lunchersteam@gmail.com");
-                    //message.To.Add(handelaar.Email);
-                    message.To.Add("brent_schets@hotmail.be");
+                    message.To.Add(handelaar.Email);
                     message.ReplyToList.Add("lunchersteam@gmail.com");
                     message.Subject = "Uw aanvraag om handelaar te worden werd afgekeurd";
                     message.Body = string.Format("Beste {0} \n\nUw aanvraag om handelaar te worden, werd zonet afgekeurd.\nAls u toch nog handelaar wenst te worden zal u contact moeten opnemen met de administrator van lunchers.ml\n\nMet vriedelijke groeten,\nHet Lunchers team ",
@@ -117,8 +115,7 @@ namespace Lunchers.Controllers
                     //mail service
                     var message = new MailMessage();
                     message.From = new MailAddress("lunchersteam@gmail.com");
-                    //message.To.Add(handelaar.Email);
-                    message.To.Add("brent_schets@hotmail.be");
+                    message.To.Add(handelaar.Email);
                     message.ReplyToList.Add("lunchersteam@gmail.com");
                     message.Subject = "U werd zonet verwijderd van Lunchers";
                     message.Body = string.Format("Beste {0} \n\nU werd zonet verwijder van de website lunchers.ml.\nU kan nog altijd contact opnemen met de administrator van lunchers.ml.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
