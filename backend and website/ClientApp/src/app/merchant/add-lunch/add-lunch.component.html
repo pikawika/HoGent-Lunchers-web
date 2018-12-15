@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-      aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" [routerLink]='["/merchant/lunch"]'>Jouw lunches</a>
-        <a class="nav-item nav-link active" [routerLink]='["/merchant/addlunch"]'>Voeg een lunch toe</a>
-        <a class="nav-item nav-link" [routerLink]='["/merchant/reservations"]'>Bekijk jouw reservaties</a>
-      </div>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" [routerLink]='["/merchant/lunch"]'>Jouw lunches</a>
+      <a class="nav-item nav-link active" [routerLink]='["/merchant/addlunch"]'>Voeg een lunch toe</a>
+      <a class="nav-item nav-link" [routerLink]='["/merchant/reservations"]'>Bekijk jouw reservaties</a>
     </div>
-  </nav>
+  </div>
+</nav>
 
 <div class="col-md-6 offset-md-3">
 
@@ -46,36 +46,34 @@
     </div>
 
     <div class="form-group">
-      <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg" multiple>
+      <input type="file" class="inputfile" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg"
+        multiple>
     </div>
 
     <div class="form-group">
       <label for="ingredienten">Ingredienten:</label>
-      <input #ing (keyup.enter)="addIngredient(ing.value)" type="text" id="ingredienten" formControlName='ingredient' class="form-control" />
+      <input #ing (keyup.enter)="addIngredient(ing.value)" type="text" id="ingredienten" formControlName='ingredient'
+        class="form-control" />
       <div>
-          <table>
-              <tbody>
-                  <tr *ngFor='let ingredient of _ingredienten'>
-                      <td>{{ingredient.Naam}} </td>
-                      <td><a class="btn" (click)="removeIng(ingredient)">Verwijder</a></td> 
-                  </tr>
-              </tbody>
-            </table>
+        <table>
+          <tbody>
+            <tr *ngFor='let ingredient of _ingredienten'>
+              <td>{{ingredient.Naam}} </td>
+              <td><a class="btn" (click)="removeIng(ingredient)">Verwijder</a></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
     <div class="form-group">
       <label for="tags">Tags:</label>
-      <input #tag (keyup.enter)="addTag(tag.value)" type="text" id="tags" formControlName='tag' class="form-control" />
-      <div>
-          <table>
-              <tbody>
-                  <tr *ngFor='let tag of _tags'>
-                      <td>{{tag.Naam}}</td>
-                      <td><a class="btn" (click)="removeTag(tag)">Verwijder</a></td> 
-                  </tr>
-              </tbody>
-            </table>
+      <div class="selected-tags">
+        <div class="selected-tag" *ngFor='let selTag of _selectedTags'>{{selTag.Naam}} <a class="remove-button" (click)="removeSelectedTag(selTag)">x</a></div>
+      </div>
+
+      <div class="all-tags">
+        <a *ngFor='let tag of _tags' class="selectable-tag btn btn-default" (click)="selectTag(tag)">{{tag.Naam}}</a>
       </div>
     </div>
 

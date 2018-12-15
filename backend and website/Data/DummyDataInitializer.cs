@@ -105,22 +105,24 @@ namespace Lunchers.Data
                 string GroeneKleur = "82CA9D ";
                 string Gelekleur = "FFF79A ";
 
+                /*
+                    vegan
+                    vlees
+                    vis
+                    pasta
+                    fastfood
+                    gluttenvrij
+                    lactosevrij
+                 */
 
-                Tag tagHambuger = new Tag { Naam = "Hambuger", Kleur = RodeKleur };
-                Tag tagVarkensvlees = new Tag { Naam = "Varkensvlees", Kleur = RodeKleur };
-                Tag tagFrietjes = new Tag { Naam = "Frietjes", Kleur = Gelekleur };
-                Tag tagSla = new Tag { Naam = "Sla", Kleur = GroeneKleur };
-                Tag tagGezond = new Tag { Naam = "Gezond", Kleur = GroeneKleur };
-                Tag tagVegetarisch = new Tag { Naam = "Vegetarisch", Kleur = GroeneKleur };
+                Tag tagVegan = new Tag { Naam = "Vegan", Kleur = RodeKleur };
+                Tag tagVlees = new Tag { Naam = "Varkensvlees", Kleur = RodeKleur };
+                Tag tagPasta = new Tag { Naam = "Sla", Kleur = GroeneKleur };
+                Tag tagGlutten = new Tag { Naam = "Gezond", Kleur = GroeneKleur };
+                Tag tagLactose = new Tag { Naam = "Vegetarisch", Kleur = GroeneKleur };
                 Tag tagVis = new Tag { Naam = "Vis", Kleur = RodeKleur };
-                Tag tagZalm = new Tag { Naam = "Zalm", Kleur = RodeKleur };
-                Tag tagItaliaans = new Tag { Naam = "Italiaans", Kleur = RodeKleur };
-                Tag tagDieet = new Tag { Naam = "Dieet", Kleur = GroeneKleur };
-                Tag tagKip = new Tag { Naam = "Kip", Kleur = RodeKleur };
-                Tag tagKaas = new Tag { Naam = "Kaas", Kleur = Gelekleur };
-                Tag tagAugurk = new Tag { Naam = "Augurk", Kleur = RodeKleur };
-                Tag tagChampignonsaus = new Tag { Naam = "Champignonsaus", Kleur = Gelekleur };
-                Tag tagRoomsaus = new Tag { Naam = "Roomsaus", Kleur = Gelekleur };
+                Tag tagFastfood = new Tag { Naam = "Fastfood", Kleur = RodeKleur };
+                Tag tagRoomsaus = new Tag { Naam = "Room", Kleur = Gelekleur };
                 //TAGS EINDE -> nog in lijst van lunch steken
 
 
@@ -148,10 +150,8 @@ namespace Lunchers.Data
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/1.jpg" });
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/2.jpg" });
                 lunchStandaardHamburger.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch1/3.jpg" });
-                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagHambuger });
-                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
-                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagAugurk });
-                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagKaas });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagFastfood });
+                lunchStandaardHamburger.LunchTags.Add(new LunchTag { Tag = tagVlees });
                 lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVarkensvlees });
                 lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
                 lunchStandaardHamburger.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKaas });
@@ -160,10 +160,10 @@ namespace Lunchers.Data
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/1.jpg" });
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/2.jpg" });
                 lunchStandaardPasta.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch2/3.jpg" });
-                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagKaas });
-                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagDieet });
-                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagKip });
-                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagItaliaans });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagLactose });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagGlutten });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagVlees });
+                lunchStandaardPasta.LunchTags.Add(new LunchTag { Tag = tagPasta });
                 lunchStandaardPasta.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPasta });
                 lunchStandaardPasta.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKip });
 
@@ -171,8 +171,7 @@ namespace Lunchers.Data
                 lunchStandaardVis.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch3/2.jpg" });
                 lunchStandaardVis.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch3/3.jpg" });
                 lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagVis });
-                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagGezond });
-                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagSla });
+                lunchStandaardVis.LunchTags.Add(new LunchTag { Tag = tagLactose });
                 lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
                 lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVis });
                 lunchStandaardVis.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
@@ -180,9 +179,7 @@ namespace Lunchers.Data
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/1.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/2.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/3.jpg" });
-                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagGezond });
-                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagDieet });
-                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagVegetarisch });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagVegan });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientBrocoli });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientTomaat });
@@ -190,18 +187,16 @@ namespace Lunchers.Data
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/1.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/2.jpg" });
                 lunchStandaardZalm.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch5/3.jpg" });
-                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagZalm });
+                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagVis });
                 lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagRoomsaus });
-                lunchStandaardZalm.LunchTags.Add(new LunchTag { Tag = tagGezond });
                 lunchStandaardZalm.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVis });
                 lunchStandaardZalm.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientMelk });
 
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/1.jpg" });
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/2.jpg" });
                 lunchStandaardBiefstuk.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch6/3.jpg" });
-                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
-                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagFrietjes });
-                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagChampignonsaus });
+                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagVlees });
+                lunchStandaardBiefstuk.LunchTags.Add(new LunchTag { Tag = tagRoomsaus });
                 lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientRundsvlees });
                 lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientFriet });
                 lunchStandaardBiefstuk.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientMelk });
@@ -209,24 +204,23 @@ namespace Lunchers.Data
                 LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/1.jpg" });
                 LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/2.jpg" });
                 LunchUitzonderingVervallen.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch7/3.jpg" });
-                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagHambuger });
-                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagVarkensvlees });
-                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagAugurk });
+                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagFastfood });
+                LunchUitzonderingVervallen.LunchTags.Add(new LunchTag { Tag = tagVlees });
                 LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientVarkensvlees });
                 LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientKaas });
                 LunchUitzonderingVervallen.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientPaprika });
                 //AFBEELDINGEN EINDE
 
                 //RESERVATIES -> user lennert
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 5, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger, Status = Status.Goedgekeurd });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger, Status = Status.Goedgekeurd, Opmerking="kan ik extra bacon krijgen :-)" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd, Opmerking = "-"  });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting, Opmerking = "-" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting, Opmerking = "-" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd, Opmerking = "-" });
 
                 // --> user niet lennert
-                ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.Goedgekeurd });
-                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting });
+                ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.Goedgekeurd, Opmerking = "" });
+                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting, Opmerking="" });
                 //RESERVATIES EINDE
 
                 //FAVORIETEN -> user lennert

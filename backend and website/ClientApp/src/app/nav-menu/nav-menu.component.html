@@ -8,16 +8,17 @@
       </button>
       <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
         <ul class="navbar-nav flex-grow">
+
+          <li *ngIf='(currentUser | async) else loginlink' class="nav-item">
+            <a style="color: grey!important;" class="nav-link text-dark">Welkom {{currentUser|async}}</a>
+          </li>
+
           <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a class="nav-link text-dark" [routerLink]='["/"]'>Home</a>
           </li>
 
-          <li *ngIf='(currentUser | async) else loginlink' class="nav-item">
-            <a class="nav-link text-dark">Welkom {{currentUser|async}}</a>
-          </li>
-
-          <li *ngIf='(currentUser | async) else loginlink' class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a class="nav-link text-dark" [routerLink]='[redirect]'>Mijn Reservaties</a>
+          <li *ngIf='(currentUser | async)' class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <a class="nav-link text-dark" [routerLink]='[redirect]'>Account</a>
           </li>
 
           <li *ngIf='(currentUser | async)' class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>

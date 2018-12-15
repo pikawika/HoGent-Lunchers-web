@@ -51,8 +51,27 @@ namespace Lunchers.Controllers
         public IEnumerable<Lunch> Get([FromQuery]double latitude, [FromQuery]double longitude)
         {
             // Als de locatie meegegeven wordt, wordt gezocht op locatie
-            if (latitude != 0 && longitude != 0)
-                return _lunchRespository.GetAllFromLocation(latitude, longitude);
+            if (latitude != 0 && longitude != 0){
+                if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
+                {
+                    Klant klant = _klantRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                    if (klant.Allergies.Count > 0)
+                    {
+                        List<Lunch> lunches = new List<Lunch>();
+                        foreach (Lunch lunch in _lunchRespository.GetAllFromLocation(latitude, longitude))
+                        {
+                            if (!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten, lunch.LunchTags))
+                            {
+                                lunches.Add(lunch);
+                            }
+
+                        }
+                        return lunches.AsEnumerable();
+                    }else{
+                        return _lunchRespository.GetAllFromLocation(latitude, longitude);
+                    }
+                }
+            }
             // Zonder locatie worden alle geldige lunches meegegeven in omgekeerde volgorde(van nieuw naar oud)
             else
                 if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant"){
@@ -60,7 +79,7 @@ namespace Lunchers.Controllers
                     if(klant.Allergies.Count > 0){
                         List<Lunch> lunches = new List<Lunch>();
                         foreach(Lunch lunch in _lunchRespository.GetAll()){
-                            if(!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten)){
+                            if(!ContainsAllergy(klant.Allergies, lunch.LunchIngredienten, lunch.LunchTags)){
                                 lunches.Add(lunch);
                             }
 
@@ -71,12 +90,24 @@ namespace Lunchers.Controllers
                 return _lunchRespository.GetAll().Reverse();
         }
 
-        private bool ContainsAllergy(List<Allergy> allergies, List<LunchIngredient> ingredients){
+        private bool ContainsAllergy(List<Allergy> allergies, List<LunchIngredient> ingredients, List<LunchTag> tags){
             bool has_allergy = false;
             foreach(Allergy allergy in allergies){
                 foreach(LunchIngredient lunch_ingredient in ingredients){
                     if(allergy.AllergyNaam.Equals(lunch_ingredient.Ingredient.Naam, StringComparison.InvariantCultureIgnoreCase)){
                         has_allergy = true;
+                        break;
+                    }
+                }
+
+                //nutteloos om nog verder te filteren indien er al een allergie gevonden is
+                if(!has_allergy){
+                    foreach(LunchTag lunch_tag in tags){
+                        if (allergy.AllergyNaam.Equals(lunch_tag.Tag.Naam, StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            has_allergy = true;
+                            break;
+                        }
                     }
                 }
             }

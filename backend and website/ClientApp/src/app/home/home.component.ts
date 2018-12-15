@@ -63,4 +63,8 @@ export class HomeComponent {
       }
     });
   }
+
+  scroll(el) {
+    el.scrollIntoView({behavior:"smooth", block: 'start'});
+  }
 }

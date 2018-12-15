@@ -24,6 +24,7 @@
         <th scope="col">Datum</th>
         <th scope="col">Uur</th>
         <th scope="col">Goedkeuren/Afkeuren</th>
+        <th scope="col">Opmerking</th>
       </tr>
     </thead>
     <tbody>
@@ -32,12 +33,12 @@
         <td>{{reservation.aantal}}</td>
         <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
         <td>{{reservation.datum | date : 'HH:mm'}}</td>
+        <td>{{reservation.opmerking}}</td>
         <td><button type="button" data-toggle="modal" data-target="#myModalSucces" class="btn btn-success" ><i class="fa fa-check "></i></button>
           <button type="button" data-toggle="modal" data-target="#myModalDecline" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
         
   
         <!-- popup succes-->
-  
         <div id="myModalSucces" class="modal fade">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -97,6 +98,7 @@
       <th scope="col">Aantal</th>
       <th scope="col">Datum</th>
       <th scope="col">Uur</th>
+      <th scope="col">Opmerking</th>
     </tr>
   </thead>
   <tbody>
@@ -105,5 +107,6 @@
       <td>{{reservation.aantal}}</td>
       <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
       <td>{{reservation.datum | date : 'HH:mm'}}</td>
+      <td>{{reservation.opmerking}}</td>
   </tbody>
 </table>

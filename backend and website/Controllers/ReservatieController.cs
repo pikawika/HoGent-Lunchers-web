@@ -113,6 +113,7 @@ namespace Lunchers.Controllers
                                     Lunch = lunch,
                                     Aantal = nieuweReservatie.Aantal,
                                     Datum = nieuweReservatie.Datum,
+                                    Opmerking = nieuweReservatie.Opmerking,
                                     Status = Status.InAfwachting
                                 };
 
