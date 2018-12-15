@@ -181,8 +181,7 @@ namespace Lunchers.Controllers
                         //mail service
                         var message = new MailMessage();
                         message.From = new MailAddress(handelaar.Email);
-                        //message.To.Add(reservatie.Klant.Email);
-                        message.To.Add("brent_schets@hotmail.be");
+                        message.To.Add(reservatie.Klant.Email);
                         message.ReplyToList.Add(handelaar.Email);
                         message.Subject = string.Format("Uw reservatie werd {0}", reservatie.Status.ToString().ToLower());
                         message.Body = string.Format("Beste {0} \n\nUw reservatie voor {1} op {2} om {3} werd {4}.\n\nU kan de handelaar altijd contacteren via mail {5} of via het nummer {6}.\n\nU kan al uw reservaties altijd controleren op de website van Lunchers.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
