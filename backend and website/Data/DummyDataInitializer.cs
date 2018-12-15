@@ -219,14 +219,14 @@ namespace Lunchers.Data
 
                 //RESERVATIES -> user lennert
                 ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 26), Lunch = lunchStandaardHamburger, Status = Status.Goedgekeurd, Opmerking="kan ik extra bacon krijgen :-)" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd, Opmerking = "-"  });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting, Opmerking = "-" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting, Opmerking = "-" });
-                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd, Opmerking = "-" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 3, Datum = new DateTime(2018, 10, 25), Lunch = lunchStandaardPasta, Status = Status.Afgekeurd, Opmerking = ""  });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 2, Datum = new DateTime(2018, 10, 28), Lunch = lunchStandaardVis, Status = Status.InAfwachting, Opmerking = "" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.InAfwachting, Opmerking = "" });
+                ((Klant)gebruikerStandaardLennert).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.Goedgekeurd, Opmerking = "" });
 
                 // --> user niet lennert
                 ((Klant)gebruikerStandaard1).Reservaties.Add(new Reservatie { Aantal = 1, Datum = new DateTime(2018, 10, 31), Lunch = lunchStandaardVegan, Status = Status.Goedgekeurd, Opmerking = "" });
-                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting, Opmerking="" });
+                ((Klant)gebruikerStandaard2).Reservaties.Add(new Reservatie { Aantal = 9, Datum = new DateTime(2018, 10, 30), Lunch = lunchStandaardZalm, Status = Status.InAfwachting, Opmerking= "" });
                 //RESERVATIES EINDE
 
                 //FAVORIETEN -> user lennert
