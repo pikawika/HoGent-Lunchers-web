@@ -27,6 +27,7 @@ using Lunchers.Models.IRepositories;
 using Lunchers.Models.GebruikerViewModels.GebruikerTaken;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Net.Mail;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -227,6 +228,54 @@ namespace Lunchers.Controllers
                 nieuweHandelaar.Login.gebruiker = nieuweHandelaar;
 
                 _gebruikerRepository.Registreer(nieuweHandelaar);
+
+                //mail service handelaar
+                var message = new MailMessage();
+                message.From = new MailAddress("lunchersteam@gmail.com");
+                message.To.Add(nieuweHandelaar.Email);
+                message.ReplyToList.Add("lunchersteam@gmail.com");
+                message.Subject = "Uw aanvraag om handelaar te worden werd goed ontvangen";
+                message.Body = string.Format("Beste {0} \n\nUw aanvraag om handelaar te worden, werd goed ontvangen.\nVan zodra de aanvraag goedgekeurd is, zal u een bevestigingsmail ontvangen. \n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                nieuweHandelaar.HandelsNaam);
+
+                //smpt server
+                var SmtpServer = new SmtpClient("smtp.gmail.com");
+                SmtpServer.Port = 587;
+                SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                SmtpServer.EnableSsl = true;
+
+                //message sent
+                SmtpServer.Send(message);
+
+
+                //mail service admin
+                var messageadmin = new MailMessage();
+                messageadmin.From = new MailAddress("lunchersteam@gmail.com");
+                messageadmin.To.Add("lunchersteam@gmail.com");
+                messageadmin.ReplyToList.Add(nieuweHandelaar.Email);
+                messageadmin.Subject = "Er werd zonet een aanvraag ingediend om handelaar te worden";
+                messageadmin.Body = string.Format("Beste websitebeheerder \n\nEr werd zonet een aanvraag ingediend om handelaar te worden.\n\nVolgende gegevens werden ingevuld: \nGebruikersnaam: {0}\nVoornaam: {1}\nAchternaam: {2}\nTelefoon: {3}\nEmail: {4}\nHandelsnaam: {5}\nWebsite: {6}\nAdres: {7} {8}, {9} {10}\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                nieuweHandelaar.Login.Gebruikersnaam,
+                nieuweHandelaar.Voornaam,
+                nieuweHandelaar.Achternaam,
+                nieuweHandelaar.Telefoonnummer,
+                nieuweHandelaar.Email,
+                nieuweHandelaar.HandelsNaam,
+                nieuweHandelaar.Website,
+                nieuweHandelaar.Locatie.Straat,
+                nieuweHandelaar.Locatie.Huisnummer,
+                nieuweHandelaar.Locatie.Postcode,
+                nieuweHandelaar.Locatie.Gemeente);
+
+                //smpt server
+                var SmtpServerAdmin = new SmtpClient("smtp.gmail.com");
+                SmtpServerAdmin.Port = 587;
+                SmtpServerAdmin.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                SmtpServerAdmin.EnableSsl = true;
+
+                //message sent
+                SmtpServerAdmin.Send(messageadmin);
+
 
                 return Ok(new { bericht = "Uw aanvraag om handelaar te worden is succesvol ingediend!" });
             }
