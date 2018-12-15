@@ -132,8 +132,7 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
-                        if (nieuweLunch.Afbeeldingen.Files.Count != 0)
-                        {
+                        
                             
                             Debug.WriteLine(nieuweLunch.ToString());
                             Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
@@ -159,12 +158,19 @@ namespace Lunchers.Controllers
                             handelaar.Lunches.Add(lunch);
                             _handelaarRepository.SaveChanges();
 
-                            lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
+                            if (nieuweLunch.Afbeeldingen.Files.Count != 0)
+                            {
+                                lunch.Afbeeldingen = await ConvertFormFilesToAfbeeldingenAsync(nieuweLunch.Afbeeldingen.Files.ToList(), lunch);
+                            }else{
+                                List<Afbeelding> afbeeldingen = new List<Afbeelding>();
+                                string afbeeldingRelativePath = "lunches/tagfoto/" + lunch.LunchTags[0].Tag.Naam + ".jpg";
+                                afbeeldingen.Add(new Afbeelding { Pad = afbeeldingRelativePath });
+                                string filePath = @"wwwroot" + afbeeldingRelativePath;
+                                lunch.Afbeeldingen = afbeeldingen;
+                            }
                             _lunchRespository.SaveChanges();
-
                             return Ok(new { bericht = "De lunch werd succesvol aangemaakt." });
-                        }
-                        return BadRequest(new { error = "Gelieve minstens ��n afbeelding meesturen." });
+                        
                     }
                     catch (Exception e)
                     {

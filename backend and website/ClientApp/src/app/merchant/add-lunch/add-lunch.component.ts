@@ -30,9 +30,13 @@ export class AddLunchComponent implements OnInit {
   ngOnInit() {
 
     this.merchantService.getTag().subscribe(data => {
-      data.forEach(tag => {
-        this._tags.push(tag);
-      });
+      this._tags = data;
+
+
+      let instructionTag = new Tag();
+      instructionTag.Naam = "Gelieve een tag te kiezen uit de lijst";
+      instructionTag.tagId = -2;
+      this._selectedTags.push(instructionTag);
 
     });
 
@@ -62,9 +66,28 @@ export class AddLunchComponent implements OnInit {
     });
   }
 
-  selectTag(tag:Tag){
-    if(!this._selectedTags.some(e => e.Naam === tag.Naam)){
+  selectTag(tag: Tag) {
+    if (this._selectedTags.some(e => e.tagId == -2)) {
+      this._selectedTags = [];
+    }
+
+    if (!this._selectedTags.some(e => e.Naam === tag.Naam)) {
       this._selectedTags.push(tag);
+    }
+  }
+
+  removeSelectedTag(tag) {
+    for (let i = 0; i < this._selectedTags.length; i++) {
+      if (this._selectedTags[i].Naam == tag.Naam) {
+        this._selectedTags.splice(i, 1);
+        if (this._selectedTags.length == 0) {
+          let instructionTag = new Tag();
+          instructionTag.Naam = "Gelieve een tag te kiezen uit de lijst";
+          instructionTag.tagId = -2;
+          this._selectedTags.push(instructionTag);
+        }
+        break;
+      }
     }
   }
 
@@ -78,29 +101,12 @@ export class AddLunchComponent implements OnInit {
     }
   }
 
-  addTag(tag: string) {
-    let t = new Tag();
-    if (tag.length <= 20 && tag.length > 0) {
-      t.Naam = tag;
-      this._tags.push(t);
-    } else {
-      this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een tag(max 20 tekens)";
-    }
-  }
+
 
   removeIng(ingredient) {
     for (let i = 0; i < this._ingredienten.length; i++) {
       if (this._ingredienten[i].Naam == ingredient.Naam) {
         this._ingredienten.splice(i, 1);
-        break;
-      }
-    }
-  }
-
-  removeSelectedTag(tag) {
-    for (let i = 0; i < this._selectedTags.length; i++) {
-      if (this._selectedTags[i].Naam == tag.Naam) {
-        this._selectedTags.splice(i, 1);
         break;
       }
     }

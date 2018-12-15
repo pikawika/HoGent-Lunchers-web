@@ -20,7 +20,6 @@ namespace Lunchers.Models.ViewModels.Reservatie
         [DataType(DataType.Date)]
         public DateTime Datum { get; set; }
 
-        [Required(ErrorMessage = "{0} is verplicht.")]
         public String Opmerking { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

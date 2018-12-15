@@ -116,10 +116,11 @@ namespace Lunchers.Data
                  */
 
                 Tag tagVegan = new Tag { Naam = "Vegan", Kleur = RodeKleur };
-                Tag tagVlees = new Tag { Naam = "Varkensvlees", Kleur = RodeKleur };
-                Tag tagPasta = new Tag { Naam = "Sla", Kleur = GroeneKleur };
-                Tag tagGlutten = new Tag { Naam = "Gezond", Kleur = GroeneKleur };
-                Tag tagLactose = new Tag { Naam = "Vegetarisch", Kleur = GroeneKleur };
+                Tag tagVlees = new Tag { Naam = "Vlees", Kleur = RodeKleur };
+                Tag tagPasta = new Tag { Naam = "Pasta", Kleur = GroeneKleur };
+                Tag tagGlutten = new Tag { Naam = "Gluten", Kleur = GroeneKleur };
+                Tag tagSalade = new Tag { Naam = "Sla", Kleur = GroeneKleur };
+                Tag tagLactose = new Tag { Naam = "Lactose", Kleur = GroeneKleur };
                 Tag tagVis = new Tag { Naam = "Vis", Kleur = RodeKleur };
                 Tag tagFastfood = new Tag { Naam = "Fastfood", Kleur = RodeKleur };
                 Tag tagRoomsaus = new Tag { Naam = "Room", Kleur = Gelekleur };
@@ -180,6 +181,7 @@ namespace Lunchers.Data
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/2.jpg" });
                 lunchStandaardVegan.Afbeeldingen.Add(new Afbeelding { Pad = "lunches/lunch4/3.jpg" });
                 lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagVegan });
+                lunchStandaardVegan.LunchTags.Add(new LunchTag { Tag = tagSalade });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientSla });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientBrocoli });
                 lunchStandaardVegan.LunchIngredienten.Add(new LunchIngredient { Ingredient = ingredientTomaat });
