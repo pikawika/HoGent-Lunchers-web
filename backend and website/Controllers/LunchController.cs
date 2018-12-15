@@ -192,7 +192,7 @@ namespace Lunchers.Controllers
                 {
                     try
                     {
-                        Handelaar handelaar = _handelaarRepository.GetById(int.Parse(User.FindFirst("gebruikersId")?.Value));
+                        Handelaar handelaar = _handelaarRepository.GetByIdInternal(int.Parse(User.FindFirst("gebruikersId")?.Value));
 
                         Lunch lunch = _lunchRespository.GetById(id);
 
@@ -200,12 +200,10 @@ namespace Lunchers.Controllers
 
                             if (delete)
                             {
-                                _lunchRespository.Delete(lunch.LunchId);
-                                _lunchRespository.SaveChanges();
+                                _handelaarRepository.RemoveLunch(handelaar.GebruikerId, lunch.LunchId);
                                 return Ok(new { bericht = "De lunch werd succesvol verwijderd." });
                             }
-
-                            if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
+                            else if (aangepasteLunch.BeginDatum.Date >= DateTime.Now.Date && aangepasteLunch.EindDatum.Date >= DateTime.Now.Date && aangepasteLunch.BeginDatum.Date <= aangepasteLunch.EindDatum.Date) {
                                 string stringIngredients = aangepasteLunch.RawData["Ingredienten"];
                                 string stringTags = aangepasteLunch.RawData["Tags"];
 

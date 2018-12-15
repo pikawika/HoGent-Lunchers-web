@@ -8,8 +8,10 @@ namespace Lunchers.Models.Repositories
     {
         IEnumerable<Handelaar> GetAll();
         Handelaar GetById(int id);
+        Handelaar GetByIdInternal(int id);
         void Add(Handelaar handelaar);
         void Delete(int handelaarId);
+        void RemoveLunch(int handelaarId, int lunchId);
         void SaveChanges();
     }
 }
