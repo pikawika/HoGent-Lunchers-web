@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
               this.authenticationService.redirectUrl = undefined;
             } else {
               if (this.authenticationService.rol$.value == "handelaar") {
-                this.router.navigate(['/merchant/lunch']);
+                this.router.navigate(['/merchant/reservations']);
               } else if (this.authenticationService.rol$.value == "admin") {
                 this.router.navigate(['/admin']);
               } else {

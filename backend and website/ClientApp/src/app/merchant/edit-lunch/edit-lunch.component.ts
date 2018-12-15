@@ -94,7 +94,8 @@ export class EditLunchComponent implements OnInit {
     if (ingredient.length <= 20 && ingredient.length > 0) {
       ing.Naam = ingredient;
       this._ingredienten.push(ing);
-    } else {
+      (<HTMLInputElement>document.getElementById('ingredienten')).value = "";
+    }else{
       this.errorMsg = "Er is een fout opgetreden bij het toevoegen van een ingredient(max 20 tekens)"
     }
   }

@@ -8,6 +8,10 @@ h3{
 }
 
 
+.pd-r-5{
+    margin-left: 15px !important;
+}
+
 .selected-tags{
     min-height: 40px;
     border: 1px solid #ced4da;
@@ -45,4 +49,5 @@ h3{
 .remove-button{
     color: #B22222!important;
     cursor: pointer;
+
 }
