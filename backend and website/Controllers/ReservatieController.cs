@@ -123,17 +123,19 @@ namespace Lunchers.Controllers
                                 //mail service
                                 var message = new MailMessage();
                                 message.From = new MailAddress(klant.Email);
-                                //moet het zijn
-                                //message.To.Add(lunch.Handelaar.Email);
-                                //om te testen
-                                message.To.Add("brent_schets@hotmail.be");
+                                message.To.Add(lunch.Handelaar.Email);
                                 message.ReplyToList.Add(klant.Email);
                                 message.Subject = "Er werd een reservatie geplaatst.";
-                                message.Body = string.Format("Hallo , {3} \n\n Er werd een nieuwe reservatie geplaatst voor {0} op {1} om {2}.\n\n Met vriedelijke groeten,\n Het Lunchers team ",
-                                lunch.Naam, 
-                                reservatie.Datum.ToString("d", CultureInfo.CreateSpecificCulture("pt-BR")), 
-                                reservatie.Datum.ToString("t",CultureInfo.CreateSpecificCulture("es-ES")), 
-                                lunch.Handelaar.HandelsNaam);
+                                message.Body = string.Format("Beste {3} \n\nEr werd een nieuwe reservatie geplaatst voor {0} op {1} om {2}.\n\nMet volgende opmerking: \n\n{4}\n\nGegevens van de klant: \nNaam: {5} {6} \nTelefoonnummer: {8}\nEmail: {7}\n\nU kan de reservatie goedkeuren op de website van Lunchers.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                                lunch.Naam,
+                                reservatie.Datum.ToString("d", CultureInfo.CreateSpecificCulture("pt-BR")),
+                                reservatie.Datum.ToString("t", CultureInfo.CreateSpecificCulture("es-ES")),
+                                lunch.Handelaar.HandelsNaam,
+                                reservatie.Opmerking,
+                                klant.Voornaam,
+                                klant.Achternaam,
+                                klant.Email,
+                                klant.Telefoonnummer);
 
                                 //smpt server
                                 var SmtpServer = new SmtpClient("smtp.gmail.com");
@@ -175,6 +177,31 @@ namespace Lunchers.Controllers
                     {
                         reservatie.Status = aangepasteReservatie.Status;
                         _reservatieRepository.SaveChanges();
+
+                        //mail service
+                        var message = new MailMessage();
+                        message.From = new MailAddress(handelaar.Email);
+                        //message.To.Add(reservatie.Klant.Email);
+                        message.To.Add("brent_schets@hotmail.be");
+                        message.ReplyToList.Add(handelaar.Email);
+                        message.Subject = string.Format("Uw reservatie werd {0}", reservatie.Status.ToString().ToLower());
+                        message.Body = string.Format("Beste {0} \n\nUw reservatie voor {1} op {2} om {3} werd {4}.\n\nU kan de handelaar altijd contacteren via mail {5} of via het nummer {6}.\n\nU kan al uw reservaties altijd controleren op de website van Lunchers.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                        reservatie.Klant.Voornaam,
+                        reservatie.Lunch.Naam,
+                        reservatie.Datum.ToString("d", CultureInfo.CreateSpecificCulture("pt-BR")),
+                        reservatie.Datum.ToString("t", CultureInfo.CreateSpecificCulture("es-ES")),
+                        reservatie.Status.ToString().ToLower(),
+                        handelaar.Email,
+                        handelaar.Telefoonnummer);
+
+                        //smpt server
+                        var SmtpServer = new SmtpClient("smtp.gmail.com");
+                        SmtpServer.Port = 587;
+                        SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                        SmtpServer.EnableSsl = true;
+
+                        //message sent
+                        SmtpServer.Send(message);
 
                         return Ok(new { bericht = "De reservatie werd succesvol bijgewerkt." });
                     }
