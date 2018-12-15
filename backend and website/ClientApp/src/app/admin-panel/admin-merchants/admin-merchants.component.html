@@ -39,11 +39,11 @@
             <td>{{merchant.telefoonnummer}}</td>
             <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i
                   class="fa fa-eye fa-lg"></i></button></td>
-            <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i
+            <td class="text-center"><button data-toggle="modal" [attr.data-target]="'#modal' + merchant.merchantId" class="btn btn-sm btn-primary"><i
                   class="fa fa-trash fa-lg"></i></button></td>
 
             <!--pop up-->
-            <div id="myModal" class="modal fade">
+            <div [attr.id]="'modal'+merchant.merchantId" class="modal fade">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -97,11 +97,11 @@
           <td>{{merchant.telefoonnummer}}</td>
           <td class="text-center"><button (click)='goToMerchantDetail(merchant)' class="btn btn-sm btn-primary"><i
                 class="fa fa-eye fa-lg"></i></button></td>
-          <td class="text-center"><button data-toggle="modal" data-target="#myModal" class="btn btn-sm btn-primary"><i
+          <td class="text-center"><button data-toggle="modal" [attr.data-target]="'#modal' + merchant.handelaarId"class="btn btn-sm btn-primary"><i
                 class="fa fa-trash fa-lg"></i></button></td>
 
           <!--pop up-->
-          <div id="myModal" class="modal fade">
+          <div [attr.id]="'modal'+merchant.handelaarId" class="modal fade">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
