@@ -28,3 +28,9 @@
     -ms-transform: scale(1.05);
     transform: scale(1.05);
 }
+
+.card-img-top{
+    height: 200px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
