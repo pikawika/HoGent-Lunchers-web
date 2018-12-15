@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Lunchers.Models;
 using Lunchers.Models.Domain;
@@ -116,6 +118,30 @@ namespace Lunchers.Controllers
 
                                 klant.Reservaties.Add(reservatie);
                                 _reservatieRepository.SaveChanges();
+
+                                //mail service
+                                var message = new MailMessage();
+                                message.From = new MailAddress(klant.Email);
+                                //moet het zijn
+                                //message.To.Add(lunch.Handelaar.Email);
+                                //om te testen
+                                message.To.Add("brent_schets@hotmail.be");
+                                message.ReplyToList.Add(klant.Email);
+                                message.Subject = "Er werd een reservatie geplaatst.";
+                                message.Body = string.Format("Hallo , {3} \n\n Er werd een nieuwe reservatie geplaatst voor {0} op {1} om {2}.\n\n Met vriedelijke groeten,\n Het Lunchers team ",
+                                lunch.Naam, 
+                                reservatie.Datum.ToString("d", CultureInfo.CreateSpecificCulture("pt-BR")), 
+                                reservatie.Datum.ToString("t",CultureInfo.CreateSpecificCulture("es-ES")), 
+                                lunch.Handelaar.HandelsNaam);
+
+                                //smpt server
+                                var SmtpServer = new SmtpClient("smtp.gmail.com");
+                                SmtpServer.Port = 587;
+                                SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                                SmtpServer.EnableSsl = true;
+
+                                //message sent
+                                SmtpServer.Send(message);
 
                                 return Ok(new { bericht = "De reservatie werd succesvol aangemaakt." });
                             }
