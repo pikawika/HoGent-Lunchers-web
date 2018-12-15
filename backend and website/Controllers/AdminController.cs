@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Lunchers.Models;
 using Lunchers.Models.IRepositories;
@@ -38,6 +39,24 @@ namespace Lunchers.Controllers
                     handelaar.Login.Geactiveerd = true;
                     _handelaarRepository.SaveChanges();
 
+                    //mail service
+                    var message = new MailMessage();
+                    message.From = new MailAddress("lunchersteam@gmail.com");
+                    message.To.Add(handelaar.Email);
+                    message.ReplyToList.Add("lunchersteam@gmail.com");
+                    message.Subject = "Uw aanvraag om handelaar te worden werd goedgekeurd";
+                    message.Body = string.Format("Beste {0} \n\nUw aanvraag om handelaar te worden, werd zonet goedgekeurd.\nU kan nu aanmelden met de door u gekozen gebruikersnaam en wachtwoord.\nEn u kan onmiddelijk een lunch toevoegen als u dat wilt.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                    handelaar.HandelsNaam);
+
+                    //smpt server
+                    var SmtpServer = new SmtpClient("smtp.gmail.com");
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                    SmtpServer.EnableSsl = true;
+
+                    //message sent
+                    SmtpServer.Send(message);
+
                     return Ok(new { bericht = "De handelaar werd succesvol goedgekeurd." });
                 }
                 return BadRequest(new { error = "De opgegeven handelaar werd niet teruggevonden." });
@@ -57,6 +76,24 @@ namespace Lunchers.Controllers
                     _handelaarRepository.Delete(handelaar.GebruikerId);
                     _handelaarRepository.SaveChanges();
 
+                    //mail service
+                    var message = new MailMessage();
+                    message.From = new MailAddress("lunchersteam@gmail.com");
+                    message.To.Add(handelaar.Email);
+                    message.ReplyToList.Add("lunchersteam@gmail.com");
+                    message.Subject = "Uw aanvraag om handelaar te worden werd afgekeurd";
+                    message.Body = string.Format("Beste {0} \n\nUw aanvraag om handelaar te worden, werd zonet afgekeurd.\nAls u toch nog handelaar wenst te worden zal u contact moeten opnemen met de administrator van lunchers.ml\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                    handelaar.HandelsNaam);
+
+                    //smpt server
+                    var SmtpServer = new SmtpClient("smtp.gmail.com");
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                    SmtpServer.EnableSsl = true;
+
+                    //message sent
+                    SmtpServer.Send(message);
+
                     return Ok(new { bericht = "De handelaar werd succesvol afgekeurd." });
                 }
                 return BadRequest(new { error = "De opgegeven handelaar werd niet teruggevonden." });
@@ -74,6 +111,24 @@ namespace Lunchers.Controllers
                 {
                     _handelaarRepository.Delete(handelaar.GebruikerId);
                     _handelaarRepository.SaveChanges();
+
+                    //mail service
+                    var message = new MailMessage();
+                    message.From = new MailAddress("lunchersteam@gmail.com");
+                    message.To.Add(handelaar.Email);
+                    message.ReplyToList.Add("lunchersteam@gmail.com");
+                    message.Subject = "U werd zonet verwijderd van Lunchers";
+                    message.Body = string.Format("Beste {0} \n\nU werd zonet verwijder van de website lunchers.ml.\nU kan nog altijd contact opnemen met de administrator van lunchers.ml.\n\nMet vriedelijke groeten,\nHet Lunchers team ",
+                    handelaar.HandelsNaam);
+
+                    //smpt server
+                    var SmtpServer = new SmtpClient("smtp.gmail.com");
+                    SmtpServer.Port = 587;
+                    SmtpServer.Credentials = new System.Net.NetworkCredential("lunchersteam@gmail.com", "reallyStrongPwd123");
+                    SmtpServer.EnableSsl = true;
+
+                    //message sent
+                    SmtpServer.Send(message);
 
                     return Ok(new { bericht = "De handelaar werd succesvol verwijderd." });
                 }

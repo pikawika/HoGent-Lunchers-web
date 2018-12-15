@@ -12,7 +12,6 @@ namespace Lunchers.Models.GebruikerViewModels
     {
         [Required(ErrorMessage = "{0} is verplicht.")]
         [DataType(DataType.PhoneNumber, ErrorMessage = "Geen geldig {0} ingevoerd")]
-        [RegularExpression(@"(\+32)[0-9]{8,9}", ErrorMessage = "Gelieve een Belgisch telefoonnummer in te geven, bijvoorbeeld: +32491234514 of +3293664198")]
         public string Telefoonnummer { get; set; }
 
         [Required(ErrorMessage = "{0} is verplicht.")]
