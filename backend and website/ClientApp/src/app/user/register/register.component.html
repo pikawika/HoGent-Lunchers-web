@@ -9,26 +9,41 @@
     <div class="form-group">
       <label for="username">Gebruikersnaam:</label>
       <input type="text" id="username" formControlName='username' class="form-control">
+      <div class="alert alert-danger" *ngIf='user.get("username").errors?.required && user.get("username").touched'>
+        Gebruikersnaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="voornaam">Voornaam:</label>
       <input type="text" id="voornaam" formControlName='voornaam' class="form-control">
+      <div class="alert alert-danger" *ngIf='user.get("voornaam").errors?.required && user.get("voornaam").touched'>
+        Voornaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="achternaam">Achternaam:</label>
       <input type="text" id="achternaam" formControlName='achternaam' class="form-control">
+      <div class="alert alert-danger" *ngIf='user.get("achternaam").errors?.required && user.get("achternaam").touched'>
+        Achternaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="tel">Telefoon:</label>
-      <input type="text" id="tel" formControlName='tel' class="form-control">
+      <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="tel" formControlName='tel' class="form-control">
+      <div class="alert alert-danger" *ngIf='user.get("tel").errors?.required && user.get("tel").touched'>
+        Telefoon nummer is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName='email' class="form-control">
+      <div class="alert alert-danger" *ngIf='user.get("email").errors?.required && user.get("email").touched'>
+        Email is verplicht
+      </div>
     </div>
 
     <div formGroupName='passwordGroup'>
@@ -36,9 +51,15 @@
         <label for="password">Wachtwoord:</label>
         <input type="password" id="password" formControlName='password' class="form-control">
       </div>
+      <div class="alert alert-danger" *ngIf=' user.get("passwordGroup").get("password").errors?.required && user.get("passwordGroup").get("password").touched'>
+          Wachtwoord is verplicht
+      </div>
       <div class="form-group">
         <label for="confirmpassword">Bevestig wachtwoord:</label>
         <input type="password" id="confirmpassword" formControlName='confirmPassword' class="form-control">
+      </div>
+      <div class="alert alert-danger" *ngIf=' user.get("passwordGroup").errors?.passwordsDiffer && user.get("passwordGroup").get("confirmPassword").touched  && user.get("passwordGroup").get("password").touched'>
+        De 2 wachtwoorden moeten hetzelfde zijn
       </div>
     </div>
 

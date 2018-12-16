@@ -13,67 +13,106 @@
     <div class="form-group">
       <label for="username">Gebruikersnaam:</label>
       <input type="text" id="username" formControlName='username' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("username").errors?.required && merchant.get("username").touched'>
+        Gebruikersnaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="voornaam">Voornaam:</label>
       <input type="text" id="voornaam" formControlName='voornaam' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("voornaam").errors?.required && merchant.get("voornaam").touched'>
+        Voornaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="achternaam">Achternaam:</label>
       <input type="text" id="achternaam" formControlName='achternaam' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("achternaam").errors?.required && merchant.get("achternaam").touched'>
+        Achternaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="tel">Telefoon:</label>
       <input type="tel" id="tel" formControlName='tel' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("tel").errors?.required && merchant.get("tel").touched'>
+        Telefoon nummer is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="email">Email:</label>
       <input type="email" id="email" formControlName='email' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("email").errors?.required && merchant.get("email").touched'>
+        Email adres is verplicht
+      </div>
     </div>
 
     <div formGroupName='passwordGroup'>
       <div class="form-group">
         <label for="password">Wachtwoord:</label>
         <input type="password" id="password" formControlName='password' class="form-control">
+        <div class="alert alert-danger" *ngIf='merchant.get("passwordGroup").get("password").errors?.required && merchant.get("passwordGroup").get("password").touched'>
+          Wachtwoord is verplicht
+        </div>
       </div>
       <div class="form-group">
         <label for="confirmpassword">Bevestig wachtwoord:</label>
         <input type="password" id="confirmpassword" formControlName='confirmPassword' class="form-control">
+        <div class="alert alert-danger" *ngIf='merchant.get("passwordGroup").errors?.passwordsDiffer && merchant.get("passwordGroup").get("confirmPassword").touched  && merchant.get("passwordGroup").get("password").touched'>
+          De 2 wachtwoorden moeten hetzelfde zijn
+        </div>
       </div>
     </div>
 
     <div class="form-group">
       <label for="merchant">Handelsnaam:</label>
       <input type="text" id="merchant" formControlName='merchant' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("merchant").errors?.required && merchant.get("merchant").touched'>
+        Handelsnaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="website">Website:</label>
       <input type="url" id="website" formControlName='website' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("website").errors?.required && merchant.get("website").touched'>
+        Website is verplicht
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="street">Street:</label>
+      <label for="street">Straatnaam:</label>
       <input type="text" id="street" formControlName='street' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("street").errors?.required && merchant.get("street").touched'>
+        Straatnaam is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="number">Huisnummer:</label>
       <input type="text" id="number" formControlName='number' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("number").errors?.required && merchant.get("number").touched'>
+        Huisnummer is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="code">Postcode:</label>
       <input type="text" id="code" formControlName='code' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("code").errors?.required && merchant.get("code").touched'>
+        Postcode is verplicht
+      </div>
     </div>
 
     <div class="form-group">
       <label for="city">Gemeente:</label>
       <input type="text" id="city" formControlName='city' class="form-control">
+      <div class="alert alert-danger" *ngIf='merchant.get("city").errors?.required && merchant.get("city").touched'>
+        Gemeente is verplicht
+      </div>
     </div>
 
     <div class="form-group">

@@ -113,6 +113,8 @@ export class RegisterMerchantComponent implements OnInit {
         },
         (error: HttpErrorResponse) => {
           this.errorMsg = error.error.error;
+          console.log(this.errorMsg);
+          
         }
       );
   }
