@@ -56,6 +56,7 @@ namespace Lunchers.Data.Repositories
         public void Delete(int handelaarId)
         {
             Handelaar handelaar = GetById(handelaarId);
+            handelaar.Lunches.ForEach(l => l.Deleted = true);
             handelaar.Deleted = true;
         }
 

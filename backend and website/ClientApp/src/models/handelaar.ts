@@ -4,6 +4,7 @@ import { Login } from './login';
 
 export class Handelaar {
     private _handelaarId: Number;
+    private _handelsnaam:string;
     private _voornaam : string;
     private _achternaam : string;
     private _email : string; 
@@ -20,6 +21,7 @@ export class Handelaar {
         if (json != null) {
            let handelaar = new Handelaar();
             handelaar.handelaarId = json.gebruikerId;
+            handelaar.handelsnaam = json.handelsNaam;
             handelaar.naam = json.handelsNaam;
             handelaar.voornaam = json.voornaam;
             handelaar.achternaam = json.achternaam;
@@ -41,7 +43,15 @@ export class Handelaar {
      */
 	public get handelaarId(): Number {
 		return this._handelaarId;
-	}
+    }
+    
+    public get handelsnaam():string{
+        return this._handelsnaam;
+    }
+
+    public set handelsnaam(handelsnaam:string){
+        this._handelsnaam = handelsnaam;
+    }
 
     /**
      * Getter voornaam
