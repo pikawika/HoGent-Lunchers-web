@@ -20,7 +20,7 @@
         <br/>
 
         <a class="btn btn-secondary" href="https://www.google.com/maps/place/{{_lunch.handelaar.locatie.straat}}+{{_lunch.handelaar.locatie.huisnummer}},+{{_lunch.handelaar.locatie.postcode}}+{{_lunch.handelaar.locatie.gemeente}}/" target="_blank">Route beschrijving</a>
-        <a class="btn btn-primary" data-toggle="modal" data-target="#reserveer-modal">Reserveer deze lunch</a>
+        <a *ngIf='user' class="btn btn-primary" data-toggle="modal" data-target="#reserveer-modal">Reserveer deze lunch</a>
       </div>
     </div>
   </div>

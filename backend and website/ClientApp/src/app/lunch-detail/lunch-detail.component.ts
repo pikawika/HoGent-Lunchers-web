@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DetailDataService } from './detail-data.service';
 import { Lunch } from '../../models/lunch';
 import { FormGroup, FormControl,ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthenticationService } from '../user/authentication.service';
 
 @Component({
   selector: 'app-lunch-detail',
@@ -17,14 +18,23 @@ export class LunchDetailComponent implements OnInit {
   public reservatie_message = "";
   public reserveerForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private dataService:DetailDataService,@Inject('BASE_URL') baseUrl: string) { 
+  constructor(
+    private route: ActivatedRoute, 
+    private dataService:DetailDataService,
+    @Inject('BASE_URL') baseUrl: string,
+    private authService: AuthenticationService) { 
+  }
+
+  get user(){
+    if(this.authService.user$.value && this.authService.rol$.value == "klant"){
+      return true;
+    }else{
+      return false;
+    }
+      
   }
 
   ngOnInit() {
-
-    
-    
-
     this.dataService.getLunchById(this.route.snapshot.paramMap.get('id')).subscribe(lunch => {
       this._lunch = lunch;
       console.log(this._lunch.handelaar.handelsnaam);
