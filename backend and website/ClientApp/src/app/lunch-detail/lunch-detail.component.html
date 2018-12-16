@@ -9,13 +9,17 @@
       <img class="card-img-top description-image" src="{{_lunch.afbeeldingen[0].pad}}" alt="{{_lunch.naam}}">
       <div class="card-body">
         <h5 class="card-title">{{_lunch.naam}} - € {{_lunch.prijs}}</h5>
+        <p>{{_lunch.handelaar.handelsnaam}}</p>
+        <br/>
         <p class="card-text">{{_lunch.beschrijving}}</p>
         <p class="card-text">Tel: {{_lunch.handelaar.telefoonnummer}}</p>
         <p class="card-text">
           {{_lunch.handelaar.locatie.straat}} {{_lunch.handelaar.locatie.huisnummer}},
           {{_lunch.handelaar.locatie.postcode}} {{_lunch.handelaar.locatie.gemeente}}
         </p>
+        <br/>
 
+        <a class="btn btn-secondary" href="https://www.google.com/maps/place/{{_lunch.handelaar.locatie.straat}}+{{_lunch.handelaar.locatie.huisnummer}},+{{_lunch.handelaar.locatie.postcode}}+{{_lunch.handelaar.locatie.gemeente}}/">Route beschrijving</a>
         <a class="btn btn-primary" data-toggle="modal" data-target="#reserveer-modal">Reserveer deze lunch</a>
       </div>
     </div>
@@ -57,7 +61,6 @@
           </div>
 
           <button type="button" [disabled]="!reserveerForm.valid" (click)="onSubmit()" data-dismiss="modal" class="btn btn-primary reserveer-btn">Reserveren</button>
-
         </form>
       </div>
       
