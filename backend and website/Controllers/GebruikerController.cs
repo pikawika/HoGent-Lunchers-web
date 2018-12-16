@@ -67,7 +67,15 @@ namespace Lunchers.Controllers
 
                         //body converten naar handelaar registratie
                         RegistreerHandelaarViewModel handelaarAanvraag = JObject.Parse(json).ToObject<RegistreerHandelaarViewModel>();
-                        return await RegistreerHandelaarAsync(handelaarAanvraag);
+
+                        try
+                        {
+                            return await RegistreerHandelaarAsync(handelaarAanvraag);
+                        }catch{
+                            return BadRequest(new { error = "Gelieve een geldig adres op te geven." });
+                        }
+
+                         
                     }
                     catch (Exception e)
                     {

@@ -9,10 +9,23 @@
     text-align: center;
 }
 
+.card-title{
+    font-size: 2em;
+}
+
 .btn-primary{
     background-color: #B22222;
     color: white!important;
-    border: none!important;
+    border: solid 1px #B22222!important;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.btn-secondary{
+    background-color: transparent;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    color: black;
 }
 
 .reserveer-btn{
