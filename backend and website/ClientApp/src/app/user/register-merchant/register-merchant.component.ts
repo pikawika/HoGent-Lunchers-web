@@ -22,6 +22,7 @@ export class RegisterMerchantComponent implements OnInit {
 
   public merchant: FormGroup;
   public errorMsg: string;
+  public succesMsg: string = "";
 
   get passwordControl(): FormControl {
     return <FormControl>this.merchant.get('passwordGroup').get('password');
@@ -107,7 +108,7 @@ export class RegisterMerchantComponent implements OnInit {
       .subscribe(
         val => {
           if (val) {
-            this.router.navigate(['/']);
+            this.succesMsg = "Uw registratie was succesvol";
           }
         },
         (error: HttpErrorResponse) => {
