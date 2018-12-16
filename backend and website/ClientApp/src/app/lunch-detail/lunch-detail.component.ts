@@ -21,8 +21,13 @@ export class LunchDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    
+    
+
     this.dataService.getLunchById(this.route.snapshot.paramMap.get('id')).subscribe(lunch => {
       this._lunch = lunch;
+      console.log(this._lunch.handelaar.handelsnaam);
     });
 
     this.reserveerForm = new FormGroup({
