@@ -32,7 +32,7 @@
 
     <div class="form-group">
       <label for="tel">Telefoon:</label>
-      <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" id="tel" formControlName='tel' class="form-control">
+      <input type="tel" id="tel" formControlName='tel' class="form-control">
       <div class="alert alert-danger" *ngIf='user.get("tel").errors?.required && user.get("tel").touched'>
         Telefoon nummer is verplicht
       </div>

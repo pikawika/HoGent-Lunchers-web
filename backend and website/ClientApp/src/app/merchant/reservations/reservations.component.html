@@ -34,12 +34,12 @@
         <td>{{reservation.datum | date : 'dd/MM/yyyy'}}</td>
         <td>{{reservation.datum | date : 'HH:mm'}}</td>
         <td>{{reservation.opmerking}}</td>
-        <td><button type="button" data-toggle="modal" data-target="#myModalSucces" class="btn btn-success" ><i class="fa fa-check "></i></button>
-          <button type="button" data-toggle="modal" data-target="#myModalDecline" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
+        <td><button type="button" data-toggle="modal" [attr.data-target]="'#modalsucces'+reservation.reservatieId"  class="btn btn-success" ><i class="fa fa-check "></i></button>
+          <button type="button" data-toggle="modal" [attr.data-target]="'#mdalDecline'+reservation.reservatieId" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
         
   
         <!-- popup succes-->
-        <div id="myModalSucces" class="modal fade">
+        <div [attr.id]="'modalsucces'+reservation.reservatieId" class="modal fade">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -60,7 +60,7 @@
         </div>
   
         <!-- popup decline-->
-        <div id="myModalDecline" class="modal fade">
+        <div [attr.id]="'#mdalDecline'+reservation.reservatieId" class="modal fade">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
