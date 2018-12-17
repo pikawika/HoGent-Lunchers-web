@@ -35,7 +35,7 @@
         <td>{{reservation.datum | date : 'HH:mm'}}</td>
         <td>{{reservation.opmerking}}</td>
         <td><button type="button" data-toggle="modal" [attr.data-target]="'#modalsucces'+reservation.reservatieId"  class="btn btn-success" ><i class="fa fa-check "></i></button>
-          <button type="button" data-toggle="modal" [attr.data-target]="'#mdalDecline'+reservation.reservatieId" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
+          <button type="button" data-toggle="modal" [attr.data-target]="'#modalDecline'+reservation.reservatieId" class="btn btn-danger mg-l-10"><i class="fa fa-times"></i></button></td>
         
   
         <!-- popup succes-->
@@ -60,7 +60,7 @@
         </div>
   
         <!-- popup decline-->
-        <div [attr.id]="'#mdalDecline'+reservation.reservatieId" class="modal fade">
+        <div [attr.id]="'modalDecline'+reservation.reservatieId" class="modal fade">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
