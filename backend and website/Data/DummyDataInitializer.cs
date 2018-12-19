@@ -37,7 +37,7 @@ namespace Lunchers.Data
                 // ROLLEN EINDE
 
                 // GEBRUIKERS BEGIN
-                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Email = "info@lennertbontinck.com", Telefoonnummer = "+32491234514" };
+                Gebruiker gebruikerStandaardLennert = new Klant { Voornaam = "Lennert", Achternaam = "Bontinck", Email = "lennertbontinck@live.be", Telefoonnummer = "+32491234514" };
                 gebruikerStandaardLennert.Login = new Login { Gebruikersnaam = "lennert", Rol = rolStandaard, Geactiveerd = true };
                 Gebruiker gebruikerStandaard1 = new Klant { Voornaam = "Kathi", Achternaam = "Bramblett", Email = "bramblett@me.com", Telefoonnummer = "+32491234515" };
                 gebruikerStandaard1.Login = new Login { Gebruikersnaam = "kathi", Rol = rolStandaard, Geactiveerd = true };
@@ -55,7 +55,7 @@ namespace Lunchers.Data
                 Gebruiker gebruikerAdmin2QarfaRenate = new Administrator { Voornaam = "Renate", Achternaam = "Coen", Email = "admin@lunchers.com", Telefoonnummer = "+32494157077" };
                 gebruikerAdmin2QarfaRenate.Login = new Login { Gebruikersnaam = "Renate", Rol = rolAdmin, Geactiveerd = true };
 
-                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { HandelsNaam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "example1@teamgdpr.com", Telefoonnummer = "+32494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.941878, Longitude = 4.0372882 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
+                Gebruiker gebruikerHandelaar1Qarfa = new Handelaar { HandelsNaam = "Qarfa", Voornaam = "Renate", Achternaam = "Coen", Email = "info@lennertbontinck.com", Telefoonnummer = "+32494157077", Locatie = new Locatie { Straat = "Stationsstraat", Huisnummer = "13", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.941878, Longitude = 4.0372882 }, Website = "http://www.qarfa.be/", PromotieRange = 10 };
                 gebruikerHandelaar1Qarfa.Login = new Login { Gebruikersnaam = "qarfa", Rol = rolHandelaar, Geactiveerd = true };
                 Gebruiker gebruikerHandelaar2BrasserieBlomme = new Handelaar { HandelsNaam = "Brasserie Blomme", Voornaam = "Ann", Achternaam = "Blomme", Email = "example2@teamgdpr.com", Telefoonnummer = "+32475529592", Locatie = new Locatie { Straat = "Gentsesteenweg", Huisnummer = "100", Postcode = "9300 ", Gemeente = "Aalst", Latitude = 50.938074, Longitude = 4.024402 }, Website = "http://www.brasserieblomme.be/", PromotieRange = 2 };
                 gebruikerHandelaar2BrasserieBlomme.Login = new Login { Gebruikersnaam = "blomme", Rol = rolHandelaar, Geactiveerd = true };
