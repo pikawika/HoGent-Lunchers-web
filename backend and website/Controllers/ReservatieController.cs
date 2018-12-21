@@ -41,7 +41,6 @@ namespace Lunchers.Controllers
             if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "klant")
             {
                 List<Reservatie> reservaties = _reservatieRepository.GetAllFromCustomer(int.Parse(User.FindFirst("gebruikersId")?.Value)).OrderByDescending(r => r.Datum).ToList();
-                reservaties.Reverse();
                 return Ok(reservaties);
             }
             else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "handelaar")
@@ -53,7 +52,6 @@ namespace Lunchers.Controllers
             else if (User.FindFirst("gebruikersId")?.Value != null && User.FindFirst("rol")?.Value == "admin")
             {
                 List<Reservatie> reservaties = _reservatieRepository.GetAll().ToList();
-                reservaties.Reverse();
                 return Ok(reservaties);
             }
             return Unauthorized(new { error = "U bent niet aangemeld." });
