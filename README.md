@@ -14,10 +14,7 @@ Lunchers maakt het mogelijk snel en eenvoudig lunches te vinden die bij jou in d
 ## Inhoudsopgave
 
 > - [Wie is Team GDPR](#wie-is-team-gdpr)
-> - [Groepsleden](#groepsleden)
-> - [Trello](#trello)
-> - [Releases](#releases)
-> - [Handleidingen](#handleidingen)
+> - [Ontwikkelaars](#ontwikkelaars)
 > - [GitHub Repository van de Lunchers App](#github-repository-van-de-lunchers-app)
 
 ## Wie is Team GDPR
